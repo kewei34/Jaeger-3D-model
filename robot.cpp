@@ -61,10 +61,16 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			break;
 		}
 		break;	
+	case WM_LBUTTONDOWN:
+		lastX = GET_X_LPARAM(lParam);
+		lastY = GET_Y_LPARAM(lParam);
+		break;
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE) PostQuitMessage(0);
 		break;
-
+	case WM_MOUSEWHEEL:
+		zoomLevel += GET_WHEEL_DELTA_WPARAM(wParam) / 120.0f;
+		break;
 	default:
 		break;
 	}
@@ -146,18 +152,73 @@ GLuint LoadBMPForReactor(char* fileName) {
 void display()
 {
 	glMatrixMode(GL_MODELVIEW);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.902, 0.902, 0.980, 1);
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, zoomLevel);
+	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
-	glRotatef(0.01, 0, 1, 1);
-	//cuboid(1, 1, 1, 0.4, 0.2, 0.1);
-	GLUquadricObj* sphere = NULL;
-	sphere = gluNewQuadric();
+	glRotatef(xRotated, 1.0, 0.0, 0.0);
+
+	glRotatef(yRotated, 0.0, 1.0, 0.0);
+
+	glRotatef(zRotated, 0.0, 0.0, 1.0);
+	glShadeModel(GL_SMOOTH);
+
+	//front
+	glBegin(GL_LINE_LOOP);
+	glColor3f(1, 1, 1);
+	glVertex3f(-0.25, -0.25, 0.25);
+	glColor3f(1, 0, 1);
+	glVertex3f(0.25, -0.25, 0.25);
 	glColor3f(1, 1, 0);
-	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
-	gluSphere(sphere, 0.5, 30, 10);
-	gluDeleteQuadric(sphere);
+	glVertex3f(0, 0.25, 0);
+	glEnd();
+
+	//back
+	glBegin(GL_LINE_LOOP);
+	glColor3f(1, 1, 1);
+	glVertex3f(-0.25, -0.25, -0.25);
+	glColor3f(1, 1, 0);
+	glVertex3f(0.25, -0.25, -0.25);
+	glVertex3f(0, 0.25, 0);
+	glEnd();
+
+	//left
+	glBegin(GL_LINE_LOOP);
+	glColor3f(1, 1, 1);
+	glVertex3f(-0.25, -0.25, 0.25);
+	glColor3f(1, 1, 0);
+	glVertex3f(-0.25, -0.25, -0.25);
+	glVertex3f(0, 0.25, 0);
+	glEnd();
+
+	//right
+	glBegin(GL_LINE_LOOP);
+	glColor3f(1, 1, 1);
+	glVertex3f(0.25, -0.25, 0.25);
+	glColor3f(1, 1, 0);
+	glVertex3f(0.25, -0.25, -0.25);
+	glVertex3f(0, 0.25, 0);
+	glEnd();
+
+	//down
+	glBegin(GL_LINE_LOOP);
+	glColor3f(1, 1, 1);
+	glVertex3f(-0.25, -0.25, 0.25);
+	glColor3f(1, 1, 0);
+	glVertex3f(0.25, -0.25, 0.25);
+	glVertex3f(0.25, -0.25, -0.25);
+	glVertex3f(-0.25, -0.25, -0.25);
+	glEnd();
+	//GLUquadricObj* sphere = NULL;
+	//sphere = gluNewQuadric();
+	//glColor3f(0.400, 0.271, 0.10);
+	//gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
+	//gluSphere(sphere, 0.7, 50, 50);
+	//gluDeleteQuadric(sphere);
+	glPopMatrix();
+	glFlush();
 }
 //--------------------------------------------------------------------
 
