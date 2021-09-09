@@ -142,7 +142,13 @@ GLuint LoadBMPForReactor(char* fileName) {
 
 void display()
 {
-	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.902, 0.902, 0.980, 1);
+	GLUquadricObj* sphere = NULL;
+	sphere = gluNewQuadric();
+	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
+	gluSphere(sphere, 1, 30, 10);
+	gluDeleteQuadric(sphere);
 }
 //--------------------------------------------------------------------
 
