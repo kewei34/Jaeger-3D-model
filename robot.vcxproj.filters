@@ -27,5 +27,8 @@
     <ClCompile Include="bodyPart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\Jeriel\TARUC\Y2S1\BACS2173 Graphic Programming\Assignment\Sample\openGLGipsyDanger-master\OpenGLGipsyDanger\OpenGLGipsyDanger\example.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

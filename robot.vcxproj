@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -118,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="base.cpp" />
     <ClCompile Include="bodyPart.cpp" />
+    <ClCompile Include="D:\Jeriel\TARUC\Y2S1\BACS2173 Graphic Programming\Assignment\Sample\openGLGipsyDanger-master\OpenGLGipsyDanger\OpenGLGipsyDanger\example.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="robot.cpp" />
     <ClCompile Include="scene.cpp" />
   </ItemGroup>
