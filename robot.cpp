@@ -148,7 +148,6 @@ GLuint LoadBMPForReactor(char* fileName) {
 	return texture;
 }
 
-
 void display()
 {
 	glMatrixMode(GL_MODELVIEW);
@@ -211,12 +210,6 @@ void display()
 	glVertex3f(0.25, -0.25, -0.25);
 	glVertex3f(-0.25, -0.25, -0.25);
 	glEnd();
-	//GLUquadricObj* sphere = NULL;
-	//sphere = gluNewQuadric();
-	//glColor3f(0.400, 0.271, 0.10);
-	//gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
-	//gluSphere(sphere, 0.7, 50, 50);
-	//gluDeleteQuadric(sphere);
 	glPopMatrix();
 	glFlush();
 }
