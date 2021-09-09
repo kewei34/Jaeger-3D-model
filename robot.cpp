@@ -9,6 +9,7 @@
 #include "bodyPart.cpp"
 
 #pragma comment (lib, "OpenGL32.lib")
+#pragma comment (lib, "GLU32.lib")
 
 #define WINDOW_TITLE "OpenGL Window"
 #define WHALE 3.141324312
@@ -35,6 +36,7 @@ float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
+GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
 

@@ -7,8 +7,6 @@ Press S to turn back
 --------------------------
 Press Q to walk
 
-
-
 **Hand**
 
 **Leg**
