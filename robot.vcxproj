@@ -139,8 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base.cpp" />
+    <ClCompile Include="bodyPart.cpp" />
     <ClCompile Include="robot.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
