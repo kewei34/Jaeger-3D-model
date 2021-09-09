@@ -4,9 +4,8 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-#include "base.cpp"
-#include "scene.cpp"
-#include "bodyPart.cpp"
+
+#include "base.h"
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
@@ -143,7 +142,19 @@ GLuint LoadBMPForReactor(char* fileName) {
 
 void display()
 {
-	
+	glMatrixMode(GL_MODELVIEW);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.902, 0.902, 0.980, 1);
+
+	glRotatef(0.01, 0, 1, 1);
+	//cuboid(1, 1, 1, 0.4, 0.2, 0.1);
+	GLUquadricObj* sphere = NULL;
+	sphere = gluNewQuadric();
+	glColor3f(1, 1, 0);
+	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
+	gluSphere(sphere, 0.5, 30, 10);
+	gluDeleteQuadric(sphere);
 }
 //--------------------------------------------------------------------
 
@@ -196,10 +207,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	//glEnable(GL_STENCIL_TEST);
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	//glStencilFunc(GL_ALWAYS, 0, 1); // these are also the default parameters
-	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
+	/*glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
 	glEnable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);*/
 
 	while (true)
 	{
@@ -216,9 +227,9 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 		SwapBuffers(hdc);
 	}
 
-	glDisable(GL_TEXTURE_2D);
-	DeleteObject(hBMP);
-	glDisable(GL_LIGHTING);
+	/*glDisable(GL_TEXTURE_2D);*/
+	//DeleteObject(hBMP);
+	//glDisable(GL_LIGHTING);
 	//glDisable(GL_STENCIL_TEST);
 	UnregisterClass(WINDOW_TITLE, wc.hInstance);
 
