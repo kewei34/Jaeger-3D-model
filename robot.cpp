@@ -11,6 +11,7 @@
 #pragma comment (lib, "OpenGL32.lib")
 
 #define WINDOW_TITLE "OpenGL Window"
+#define WHALE 3.141324312
 
 GLuint LoadBMP(char* fileName);
 
