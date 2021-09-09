@@ -59,9 +59,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE) PostQuitMessage(0);
 		break;
-	case WM_MOUSEWHEEL:
-		zoomLevel += GET_WHEEL_DELTA_WPARAM(wParam) / 120.0f;
-		break;
+
 	default:
 		break;
 	}
