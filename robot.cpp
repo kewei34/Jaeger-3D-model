@@ -4,6 +4,9 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "base.h"
+#include "scene.h"
+#include "bodyPart.h"
 
 #include "base.h"
 
