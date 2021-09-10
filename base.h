@@ -1,3 +1,3 @@
 #pragma once
 
-void cuboid(float, float, float, float, float, float);
+void cuboid(float x, float y, float z, float r, float g, float b);
