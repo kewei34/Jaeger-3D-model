@@ -164,53 +164,53 @@ void display()
 	glShadeModel(GL_SMOOTH);
 
 	cuboid(1,1,1,0.0f, 1.0f, 1.0f);
-	/*front
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-0.25, -0.25, 0.25);
-	glColor3f(1, 0, 1);
-	glVertex3f(0.25, -0.25, 0.25);
-	glColor3f(1, 1, 0);
-	glVertex3f(0, 0.25, 0);
-	glEnd();
+	////front
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, 0.25);
+	//glColor3f(1, 0, 1);
+	//glVertex3f(0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	back
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-0.25, -0.25, -0.25);
-	glColor3f(1, 1, 0);
-	glVertex3f(0.25, -0.25, -0.25);
-	glVertex3f(0, 0.25, 0);
-	glEnd();
+	////back
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, -0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0.25, -0.25, -0.25);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	left
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-0.25, -0.25, 0.25);
-	glColor3f(1, 1, 0);
-	glVertex3f(-0.25, -0.25, -0.25);
-	glVertex3f(0, 0.25, 0);
-	glEnd();
+	////left
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(-0.25, -0.25, -0.25);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	right
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(0.25, -0.25, 0.25);
-	glColor3f(1, 1, 0);
-	glVertex3f(0.25, -0.25, -0.25);
-	glVertex3f(0, 0.25, 0);
-	glEnd();
+	////right
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0.25, -0.25, -0.25);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	down
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-0.25, -0.25, 0.25);
-	glColor3f(1, 1, 0);
-	glVertex3f(0.25, -0.25, 0.25);
-	glVertex3f(0.25, -0.25, -0.25);
-	glVertex3f(-0.25, -0.25, -0.25);
-	glEnd();
-	glPopMatrix();*/
+	////down
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0.25, -0.25, 0.25);
+	//glVertex3f(0.25, -0.25, -0.25);
+	//glVertex3f(-0.25, -0.25, -0.25);
+	//glEnd();
+	glPopMatrix();
 	glFlush();
 }
 //--------------------------------------------------------------------
