@@ -3,7 +3,6 @@
 #include <math.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "base.h"
 
 void cuboid(float x, float y, float z, float r, float g, float b) {
 
