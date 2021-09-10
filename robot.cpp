@@ -202,7 +202,6 @@ void display()
 	glShadeModel(GL_SMOOTH);
 
 	allFingers();
-	
 
 	glPopMatrix();
 	glFlush();

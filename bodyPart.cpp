@@ -104,4 +104,3 @@ void allFingers() {
 void hand() {
 
 }
-
