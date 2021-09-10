@@ -37,6 +37,12 @@ float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
+bool lightOn = 0;
+
+bool ambientOn = 1;
+bool diffuseOn = 1;
+bool specularOn = 1;
+
 GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
@@ -60,7 +66,6 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			break;
 		}
 		break;
-
 	case WM_LBUTTONDOWN:
 		lastX = GET_X_LPARAM(lParam);
 		lastY = GET_Y_LPARAM(lParam);
@@ -151,8 +156,40 @@ GLuint LoadBMPForReactor(char* fileName) {
 
 void display()
 {
+	glEnable(GL_LIGHTING);
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	
+	GLfloat light_ambient[] = { 1.0, 1.0 ,1.0, 1.0 };
+	GLfloat light_close[] = { 0.0, 0.0 ,0.0, 1.0 };
+	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+
+	GLfloat light_position[] = { x,y,z, 0.0 };
+
+	if (ambientOn) {
+		glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	}
+	else {
+		glLightfv(GL_LIGHT0, GL_AMBIENT, light_close);
+	}
+
+	if (diffuseOn) {
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	}
+	else {
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_close);
+	}
+
+	if (specularOn) {
+		glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	}
+	else {
+		glLightfv(GL_LIGHT0, GL_SPECULAR, light_close);
+	}
+
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glClearColor(0.902, 0.902, 0.980, 1);
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, zoomLevel);
@@ -244,7 +281,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	DeleteObject(hBMP);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_STENCIL_TEST);
-
 	UnregisterClass(WINDOW_TITLE, wc.hInstance);
 
 	return true;
