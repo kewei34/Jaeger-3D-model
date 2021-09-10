@@ -8,7 +8,6 @@
 #include "scene.h"
 #include "bodyPart.h"
 
-#include "base.h"
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
@@ -110,6 +109,7 @@ bool initPixelFormat(HDC hdc)
 	}
 }
 //--------------------------------------------------------------------
+
 GLuint LoadBMP(char* fileName) {
 	//glColor3f(1.0f, 1.0f, 1.0f);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
@@ -158,13 +158,12 @@ void display()
 	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
-
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
-
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 	glShadeModel(GL_SMOOTH);
 
-	//front
+	cuboid(1,1,1,0.0f, 1.0f, 1.0f);
+	/*front
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1, 1, 1);
 	glVertex3f(-0.25, -0.25, 0.25);
@@ -174,7 +173,7 @@ void display()
 	glVertex3f(0, 0.25, 0);
 	glEnd();
 
-	//back
+	back
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1, 1, 1);
 	glVertex3f(-0.25, -0.25, -0.25);
@@ -183,7 +182,7 @@ void display()
 	glVertex3f(0, 0.25, 0);
 	glEnd();
 
-	//left
+	left
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1, 1, 1);
 	glVertex3f(-0.25, -0.25, 0.25);
@@ -192,7 +191,7 @@ void display()
 	glVertex3f(0, 0.25, 0);
 	glEnd();
 
-	//right
+	right
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1, 1, 1);
 	glVertex3f(0.25, -0.25, 0.25);
@@ -201,7 +200,7 @@ void display()
 	glVertex3f(0, 0.25, 0);
 	glEnd();
 
-	//down
+	down
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1, 1, 1);
 	glVertex3f(-0.25, -0.25, 0.25);
@@ -210,7 +209,7 @@ void display()
 	glVertex3f(0.25, -0.25, -0.25);
 	glVertex3f(-0.25, -0.25, -0.25);
 	glEnd();
-	glPopMatrix();
+	glPopMatrix();*/
 	glFlush();
 }
 //--------------------------------------------------------------------

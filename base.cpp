@@ -6,9 +6,6 @@
 
 void cuboid(float x, float y, float z, float r, float g, float b) {
 
-	x = x / 2.0;
-	y = y / 2.0;
-	z = z / 2.0;
 
 	glShadeModel(GL_FLAT);
 	glColor3f(r, g, b);
@@ -69,3 +66,4 @@ void cuboid(float x, float y, float z, float r, float g, float b) {
 	glVertex3f(x, y, z);
 	glEnd();
 }
+
