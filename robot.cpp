@@ -141,7 +141,72 @@ GLuint LoadBMPForReactor(char* fileName) {
 
 void display()
 {
+<<<<<<< Updated upstream
 	
+=======
+	glMatrixMode(GL_MODELVIEW);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClearColor(0.902, 0.902, 0.980, 1);
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, zoomLevel);
+	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+
+	glRotatef(xRotated, 1.0, 0.0, 0.0);
+
+	glRotatef(yRotated, 0.0, 1.0, 0.0);
+
+	glRotatef(zRotated, 0.0, 0.0, 1.0);
+	glShadeModel(GL_SMOOTH);
+	//glScalef(1,1,1);
+	//front
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1, 1, 1);
+	glVertex3f(-1, -1, 1);
+	glColor3f(1, 0, 1);
+	glVertex3f(1, -1, 1);
+	glColor3f(1, 1, 0);
+	glVertex3f(0, 1, 0);
+	glEnd();
+
+	//back
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1, 1, 1);
+	glVertex3f(-1, -1, -1);
+	glColor3f(1, 1, 0);
+	glVertex3f(1, -1, -1);
+	glVertex3f(0, 1, 0);
+	glEnd();
+
+	//left
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1, 1, 1);
+	glVertex3f(-1, -1, 1);
+	glColor3f(1, 1, 0);
+	glVertex3f(-1, -1, -1);
+	glVertex3f(0, 1, 0);
+	glEnd();
+
+	//right
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1, 1, 1);
+	glVertex3f(1, -1, 1);
+	glColor3f(1, 1, 0);
+	glVertex3f(1, -1, -1);
+	glVertex3f(0, 1, 0);
+	glEnd();
+
+	//down
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1, 1, 1);
+	glVertex3f(-1, -1, 1);
+	glColor3f(1, 1, 0);
+	glVertex3f(1, -1, 1);
+	glVertex3f(1, -1, -1);
+	glVertex3f(-1, -1, -1);
+	glEnd();
+	glPopMatrix();
+	glFlush();
+>>>>>>> Stashed changes
 }
 //--------------------------------------------------------------------
 
