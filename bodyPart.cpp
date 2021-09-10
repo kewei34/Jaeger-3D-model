@@ -22,13 +22,13 @@ void upperFingers() {
 	finger(0.35);
 
 	glPushMatrix();
-	glTranslatef(0.4, -0.025, 0);
-	finger(0.45);
+	glTranslatef(0.4, 0, 0);
+	finger(0.35);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.4, 0, 0);
-	finger(0.5);
+	finger(0.35);
 	glPopMatrix();
 }
 
