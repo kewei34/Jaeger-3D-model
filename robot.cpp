@@ -29,16 +29,14 @@ GLfloat ctrlpoints2[3][3] = {
 // mouse movement
 float lastX = 0.0f, lastY = 0.0f;
 
-float xRotated = 1.0f, yRotated = 1.0f, zRotated = -30.0f;
-
+float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
 
 float x = 0.0f, y = 0.0f, z = 7.0f;
 float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
-bool lightOn = 0;
-
+bool lightOn = 1;
 bool ambientOn = 1;
 bool diffuseOn = 1;
 bool specularOn = 1;
@@ -70,12 +68,16 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		lastX = GET_X_LPARAM(lParam);
 		lastY = GET_Y_LPARAM(lParam);
 		break;
-	case WM_KEYDOWN:
-		if (wParam == VK_ESCAPE) PostQuitMessage(0);
-		break;
 	case WM_MOUSEWHEEL:
 		zoomLevel += GET_WHEEL_DELTA_WPARAM(wParam) / 120.0f;
 		break;
+	case WM_KEYDOWN:
+		if (wParam == VK_ESCAPE) PostQuitMessage(0);
+
+		else if(wParam == VK_SPACE) {
+			xRotated = 0.0f; yRotated = 0.0f; zRotated = 0.0f;
+			zoomLevel = -7.0f;
+		}
 	default:
 		break;
 	}
@@ -156,7 +158,6 @@ GLuint LoadBMPForReactor(char* fileName) {
 
 void display()
 {
-	glEnable(GL_LIGHTING);
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
@@ -190,18 +191,17 @@ void display()
 
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glClearColor(0.902, 0.902, 0.980, 1);
+	glClearColor(0.902, 0.902, 0.980, 1.0);
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, zoomLevel);
-	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+	//glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 	glShadeModel(GL_SMOOTH);
 
-	bone(1.0);
-	
+	allFingers();
 
 	glPopMatrix();
 	glFlush();
@@ -259,7 +259,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	//glStencilFunc(GL_ALWAYS, 0, 1); // these are also the default parameters
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
-	glEnable(GL_LIGHTING);
+	/*glEnable(GL_LIGHTING);*/
 	glEnable(GL_TEXTURE_2D);
 
 	while (true)
