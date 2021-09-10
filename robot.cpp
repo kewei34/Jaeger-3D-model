@@ -4,11 +4,13 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-#include "base.cpp"
-#include "scene.cpp"
-#include "bodyPart.cpp"
+#include "base.h"
+#include "scene.h"
+#include "bodyPart.h"
+
 
 #pragma comment (lib, "OpenGL32.lib")
+#pragma comment (lib, "GLU32.lib")
 
 #define WINDOW_TITLE "OpenGL Window"
 #define WHALE 3.141324312
@@ -35,6 +37,7 @@ float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
+GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
 
@@ -56,11 +59,17 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			lastY = yPos;
 			break;
 		}
-		break;	
+		break;
+	case WM_LBUTTONDOWN:
+		lastX = GET_X_LPARAM(lParam);
+		lastY = GET_Y_LPARAM(lParam);
+		break;
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE) PostQuitMessage(0);
 		break;
-
+	case WM_MOUSEWHEEL:
+		zoomLevel += GET_WHEEL_DELTA_WPARAM(wParam) / 120.0f;
+		break;
 	default:
 		break;
 	}
@@ -100,6 +109,7 @@ bool initPixelFormat(HDC hdc)
 	}
 }
 //--------------------------------------------------------------------
+
 GLuint LoadBMP(char* fileName) {
 	//glColor3f(1.0f, 1.0f, 1.0f);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
@@ -138,12 +148,8 @@ GLuint LoadBMPForReactor(char* fileName) {
 	return texture;
 }
 
-
 void display()
 {
-<<<<<<< Updated upstream
-	
-=======
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearColor(0.902, 0.902, 0.980, 1);
@@ -152,61 +158,59 @@ void display()
 	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
-
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
-
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 	glShadeModel(GL_SMOOTH);
-	//glScalef(1,1,1);
-	//front
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1, -1, 1);
-	glColor3f(1, 0, 1);
-	glVertex3f(1, -1, 1);
-	glColor3f(1, 1, 0);
-	glVertex3f(0, 1, 0);
-	glEnd();
 
-	//back
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1, -1, -1);
-	glColor3f(1, 1, 0);
-	glVertex3f(1, -1, -1);
-	glVertex3f(0, 1, 0);
-	glEnd();
+	cuboid(1,1,1,0.0f, 1.0f, 1.0f);
+	////front
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, 0.25);
+	//glColor3f(1, 0, 1);
+	//glVertex3f(0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	//left
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1, -1, 1);
-	glColor3f(1, 1, 0);
-	glVertex3f(-1, -1, -1);
-	glVertex3f(0, 1, 0);
-	glEnd();
+	////back
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, -0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0.25, -0.25, -0.25);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	//right
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3f(1, 1, 1);
-	glVertex3f(1, -1, 1);
-	glColor3f(1, 1, 0);
-	glVertex3f(1, -1, -1);
-	glVertex3f(0, 1, 0);
-	glEnd();
+	////left
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(-0.25, -0.25, -0.25);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
 
-	//down
-	glBegin(GL_TRIANGLE_FAN);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1, -1, 1);
-	glColor3f(1, 1, 0);
-	glVertex3f(1, -1, 1);
-	glVertex3f(1, -1, -1);
-	glVertex3f(-1, -1, -1);
-	glEnd();
+	////right
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0.25, -0.25, -0.25);
+	//glVertex3f(0, 0.25, 0);
+	//glEnd();
+
+	////down
+	//glBegin(GL_LINE_LOOP);
+	//glColor3f(1, 1, 1);
+	//glVertex3f(-0.25, -0.25, 0.25);
+	//glColor3f(1, 1, 0);
+	//glVertex3f(0.25, -0.25, 0.25);
+	//glVertex3f(0.25, -0.25, -0.25);
+	//glVertex3f(-0.25, -0.25, -0.25);
+	//glEnd();
 	glPopMatrix();
 	glFlush();
->>>>>>> Stashed changes
 }
 //--------------------------------------------------------------------
 
@@ -256,7 +260,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glLoadIdentity();
 	gluPerspective(70.0, 1.0, 0.6, 21.0);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_STENCIL_TEST);
+	/*glEnable(GL_STENCIL_TEST);*/
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	//glStencilFunc(GL_ALWAYS, 0, 1); // these are also the default parameters
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
@@ -282,7 +286,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glDisable(GL_TEXTURE_2D);
 	DeleteObject(hBMP);
 	glDisable(GL_LIGHTING);
-	//glDisable(GL_STENCIL_TEST);
+	glDisable(GL_STENCIL_TEST);
 	UnregisterClass(WINDOW_TITLE, wc.hInstance);
 
 	return true;

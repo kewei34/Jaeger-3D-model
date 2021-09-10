@@ -1,0 +1,14 @@
+**Movement**
+
+Press A to turn left
+Press D to turn right
+Press W to turn front
+Press S to turn back
+--------------------------
+Press Q to walk
+
+**Hand**
+
+**Leg**
+
+**Scene**
