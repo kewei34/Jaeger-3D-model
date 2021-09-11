@@ -3,6 +3,7 @@
 #include <math.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include <gl/GLUT.h>
 
 #include "base.h"
 #include "scene.h"
@@ -15,7 +16,8 @@
 #define WINDOW_TITLE "OpenGL Window"
 #define WHALE 3.141324312
 
-GLuint LoadBMP(char* fileName);
+//GLuint LoadBMP(char* fileName);
+GLuint test;
 
 //draw curve line
 GLfloat ctrlpoints[3][3] = {
@@ -118,7 +120,7 @@ bool initPixelFormat(HDC hdc)
 }
 //--------------------------------------------------------------------
 
-GLuint LoadBMP(char* fileName) {
+GLuint LoadBMP(const char* fileName) {
 	//glColor3f(1.0f, 1.0f, 1.0f);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
@@ -201,9 +203,21 @@ void display()
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 	glShadeModel(GL_SMOOTH);
 
-	allFingers();
-	
 
+
+
+
+
+
+
+
+
+	//allFingers();
+	glEnable(GL_TEXTURE_GEN_S); 
+	glEnable(GL_TEXTURE_GEN_T);
+	test = LoadBMP("texture/stone.bmp");
+	glBindTexture(GL_TEXTURE_2D, test);
+	glutSolidIcosahedron();
 	glPopMatrix();
 	glFlush();
 }
