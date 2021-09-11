@@ -101,6 +101,16 @@ void allFingers() {
 	lowerFingers();
 }
 
-void hand() {
-
+void palm() {
+	allFingers();
+	glPushMatrix();	
+	glScalef(0.35, 0.3, 0.1);	
+	glTranslatef(0.85,3,0);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+	glPushMatrix();
+	glScalef(0.3, 0.3, 0.15);
+	glTranslatef(0.95, 4, 1.5);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
 }

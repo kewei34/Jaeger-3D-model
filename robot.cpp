@@ -204,6 +204,9 @@ void display()
 	glShadeModel(GL_SMOOTH);
 
 
+	palm();
+
+
 
 
 
@@ -271,10 +274,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glEnable(GL_DEPTH_TEST);
 	/*glEnable(GL_STENCIL_TEST);*/
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	//glStencilFunc(GL_ALWAYS, 0, 1); // these are also the default parameters
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
 	/*glEnable(GL_LIGHTING);*/
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_TEXTURE_2D);
 
 	while (true)
@@ -292,10 +295,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 		SwapBuffers(hdc);
 	}
 
-	glDisable(GL_TEXTURE_2D);
+	/*lDisable(GL_TEXTURE_2D);*/
 	DeleteObject(hBMP);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_STENCIL_TEST);
+	//glDisable(GL_LIGHTING);
+	//glDisable(GL_STENCIL_TEST);
 	UnregisterClass(WINDOW_TITLE, wc.hInstance);
 
 	return true;
