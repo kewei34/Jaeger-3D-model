@@ -201,7 +201,7 @@ void display()
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 	glShadeModel(GL_SMOOTH);
 
-	allFingers();
+	palm();
 
 
 	glPopMatrix();
