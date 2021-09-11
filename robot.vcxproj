@@ -145,6 +145,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="interactive.cpp" />
     <ClCompile Include="robot.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -154,10 +155,14 @@
   <ItemGroup>
     <ClInclude Include="base.h" />
     <ClInclude Include="bodyPart.h" />
+    <ClInclude Include="interactive.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="interactive.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="texture\stone.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
