@@ -21,10 +21,10 @@ Press L to move the legs
 press 1 or 2 to change to day or night
 
 **Body Color**
-press 3 to change the steel texture of jaeger
-press 4 to change the stone texture of jaeger
-press 5 to change the platinum texture of jaeger
-press 6 to change the spiky texture of jaeger
+press 3 to change to steel texture of jaeger
+press 4 to change to stone texture of jaeger
+press 5 to change to platinum texture of jaeger
+press 6 to change to spiky texture of jaeger
 
 **Weapon**
 press z to equip a sword on right hand 
