@@ -191,10 +191,6 @@ void display()
 
 	palm();
 
-
-
-
-	//allFingers();
 	
 	/**/
 	glPopMatrix();
