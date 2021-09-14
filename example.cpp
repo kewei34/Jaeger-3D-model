@@ -9,6 +9,7 @@
 #define WINDOW_TITLE "OpenGL Window"
 
 // action key functions declaration
+// action key functions declaration
 void leftKeyAction();
 void rightKeyAction();
 void upKeyAction();
