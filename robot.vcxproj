@@ -162,6 +162,9 @@
     <Text Include="interactive.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="texture\metal.bmp" />
+    <Image Include="texture\pinkMetal.bmp" />
+    <Image Include="texture\redMetal.bmp" />
     <Image Include="texture\stone.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -57,5 +57,14 @@
     <Image Include="texture\stone.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="texture\metal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\pinkMetal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\redMetal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
