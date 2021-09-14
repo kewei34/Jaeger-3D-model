@@ -189,7 +189,15 @@ void display()
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 
-	hand();
+	glPushMatrix();
+	glTranslatef(-2.5,0,0);
+	leftHand();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(2.5, 0, 0);
+	rightHand();
+	glPopMatrix();
+	
 
 	
 	/**/

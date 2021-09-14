@@ -22,7 +22,9 @@ void upForeArm();
 
 void palm();
 
-void hand();
+void leftHand();
+
+void rightHand();
 
 void loadTex();
 

@@ -49,7 +49,7 @@ void joint(float boneLength,float boneWidth) {
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
 	glRotatef(90, 1, 0, 0);
-	cylinder(boneLength, boneWidth, boneWidth, 1.000, 0.871, 0.678);
+	cylinder(boneLength, boneWidth, boneWidth, 0.804, 0.522, 0.247);
 	glPopMatrix();
 }
 
@@ -121,7 +121,7 @@ void thumb(float length) {
 
 	glPushMatrix();
 	//rotate to put thumb outside
-		glTranslatef(-0.1, 0.7, -0.1);
+		glTranslatef(-0.1, 0.7, 0);
 		glRotatef(-60, 0, 1, 1);
 		glTranslatef(-0.12, -0.35, 0);
 				glPushMatrix();
@@ -150,9 +150,38 @@ void thumb(float length) {
 
 }
 
+void lThumb() {
+	glPushMatrix();
+	//rotate to put thumb outside
+	glTranslatef(-0.1, 0.7, 0);
+	glRotatef(60, 0, 1, 1);
+	glTranslatef(-0.12, -0.35, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+	//upper thumb
+	glPushMatrix();
+	glTranslatef(0, 0.16, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.16, 0);
+	finger(0.16);
+	glPopMatrix();
+	//lower thumb
+	glPushMatrix();
+	glTranslatef(0, 0.38, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+
+	finger(0.16);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
 void allFingers() {
-	
-	thumb(0.2);
 
 	glPushMatrix();
 	glTranslatef(0, 0.2, 0);
@@ -245,19 +274,19 @@ void shoulder() {
 	
 	//up
 	glPushMatrix();
-	glTranslatef(-0.3,4.0, 0);
+	glTranslatef(0,4.0, 0);
 	glScalef(1.0, 0.05, 0.55);
 	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 	//left
 	glPushMatrix();
-	glTranslatef(-0.3, 3.7, 0.5);
+	glTranslatef(0, 3.7, 0.5);
 	glScalef(1.0, 0.3, 0.05);
 	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 	//right
 	glPushMatrix();
-	glTranslatef(-0.3, 3.7, -0.5);
+	glTranslatef(0, 3.7, -0.5);
 	glScalef(1.0, 0.3, 0.05);
 	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
@@ -270,17 +299,44 @@ void shoulder() {
 	glPopMatrix();
 }
 
-void hand() {
+void rightHand() {
 	shoulder();
+	upperArm();
+	glTranslatef(0.28, 0, 0);
+	glPushMatrix();
+	glRotatef(30, 0, 1, 0);
+	glTranslatef(-0.28, 0, 0);
+	upForeArm();
+	foreArm();
+	palm();
+	thumb(0.2);
+	allFingers();
+	glPopMatrix();
+}
+
+void leftHand() {
+	glPushMatrix();
+	glTranslatef(0.5, 0, 0);
+	glRotatef(180, 0, 1, 0);
+	shoulder();
+	glPopMatrix();
+	glPushMatrix();
+	glRotatef(-30, 0, 1, 0);
+	glTranslatef(-0.28, 0, 0);
 	upperArm();
 	upForeArm();
 	foreArm();
 	palm();
 	allFingers();
+		glPushMatrix();
+		glTranslatef(1.0, 0.1, -0.2);
+		lThumb();
+		glPopMatrix();
+	glPopMatrix();
 
 }
 
-void loadTex(){
+void loadTex() {
 	robotTex = LoadBMP("texture/metal.bmp");
 	jointTex = LoadBMP("texture/joint.bmp");
 
