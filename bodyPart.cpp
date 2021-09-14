@@ -239,6 +239,10 @@ void upperArm() {
 	glPopMatrix();
 }
 
+void shoulder() {
+
+}
+
 void hand() {
 
 	upperArm();
