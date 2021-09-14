@@ -200,18 +200,57 @@ void leg() {
 	glBindTexture(GL_TEXTURE_2D, shoeTex);
 
 	glPushMatrix();
-	glTranslatef(0, 0.5, 0);
+	glTranslatef(0, 2.4, -0.3);
 	glScalef(0.4, 0.5, 0.4);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 
 	glPushMatrix();
-	glScalef(0.5, 0.4, 0.5);
+	glTranslatef(0, 2.2, -0.3);
+	glScalef(0.45, 0.5, 0.45);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 
 	glPushMatrix();
-	glScalef(0.7, 0.5, 0.7);
+	glTranslatef(0, 2.0, -0.3);
+	glScalef(0.5, 0.5, 0.5);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 1.8, -0.3);
+	glScalef(0.45, 0.5, 0.45);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 1.6, -0.3);
+	glScalef(0.4, 0.5, 0.4);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	//glScalef(0.7, 0.5, 0.7);
+	glTranslatef(0, 1.3, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.3,0.35,0.35,1,1,1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 0.58, -0.3);
+	glScalef(0.42, 0.3, 0.42);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 0.5, -0.3);
+	glScalef(0.35, 0.5, 0.35);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glScalef(0.40, 0.5, 0.80);
 	shoe();
 	glPopMatrix();
 
