@@ -194,3 +194,27 @@ void palm() {
 	
 }
 
+void leg() {
+	GLuint shoeTex = LoadBMP("texture/metal.bmp");
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, shoeTex);
+
+	glPushMatrix();
+	glTranslatef(0, 0.5, 0);
+	glScalef(0.4, 0.5, 0.4);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(0.5, 0.4, 0.5);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(0.7, 0.5, 0.7);
+	shoe();
+	glPopMatrix();
+
+	DeleteObject(hBMP);
+	glDeleteTextures(1, &shoeTex);
+}

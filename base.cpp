@@ -220,3 +220,80 @@ void disk() {
 	gluDisk(disk, 1, 2, 100, 50);
 	gluDeleteQuadric(disk);
 }
+
+void shoe() {	
+	glBegin(GL_POLYGON);
+	//front
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, 0.0f, 1.0f);  //t1
+	glVertex3f(-1.1f, -0.5f, 1.0f);   //t2
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);  //t3
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);    //t4
+	glVertex3f(1.1f, -0.5f, 1.0f);    //5
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.0f, 0.0f, 1.0f);     //t6
+	glEnd();
+	glBegin(GL_POLYGON);
+	//back
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.2f, 0.5f, -1.0f);  //b1
+	glVertex3f(-1.28f, 0.2f, -1.0f);  //b2
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.4f, -1.0f, -1.0f); //b3
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.4f, -1.0f, -1.0f);   //b4
+	glVertex3f(1.28f, 0.2f, -1.0f);   //b5
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.2f, 0.5f, -1.0f);  //b6
+	glEnd();
+	glBegin(GL_POLYGON);
+	////up
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(1.0f, 0.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.2f, 0.5f, -1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(-1.2f, 0.5f, -1.0f);
+	glEnd();
+	glBegin(GL_POLYGON);
+	//down
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.4f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(-1.4f, -1.0f, -1.0f);
+	glEnd();
+	glBegin(GL_POLYGON);
+	//left
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, 0.0f, 1.0f);  //t1
+	glVertex3f(-1.1f, -0.5f, 1.0f);   //t2
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);  //t3
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-1.4f, -1.0f, -1.0f); //b3	
+	glVertex3f(-1.28f, 0.2f, -1.0f);  //b2
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(-1.1f, 0.5f, -1.0f);  //b1	
+	glEnd();
+	glBegin(GL_POLYGON);
+	//right
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);    //t4
+	glVertex3f(1.1f, -0.5f, 1.0f);    //5
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(1.0f, 0.0f, 1.0f);     //t6
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.1f, 0.5f, -1.0f);  //b6
+	glVertex3f(1.28f, 0.2f, -1.0f);   //b5
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.4f, -1.0f, -1.0f);   //b4
+	glEnd();
+}

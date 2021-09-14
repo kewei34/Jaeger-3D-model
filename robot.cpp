@@ -189,8 +189,8 @@ void display()
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 
-	palm();
-
+	
+	leg();
 	
 	/**/
 	glPopMatrix();

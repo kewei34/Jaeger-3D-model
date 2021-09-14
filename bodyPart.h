@@ -17,3 +17,5 @@ void fingerJoint();
 void allFingers();
 
 void palm();
+
+void leg();
