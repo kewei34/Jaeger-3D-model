@@ -222,6 +222,8 @@ void upForeArm() {
 
 void upperArm() {
 
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glPushMatrix();
 	glTranslatef(0.34, 3.15, 0);
 		glPushMatrix();
@@ -240,11 +242,36 @@ void upperArm() {
 }
 
 void shoulder() {
+	
+	//up
+	glPushMatrix();
+	glTranslatef(-0.3,4.0, 0);
+	glScalef(1.0, 0.05, 0.55);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+	//left
+	glPushMatrix();
+	glTranslatef(-0.3, 3.7, 0.5);
+	glScalef(1.0, 0.3, 0.05);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+	//right
+	glPushMatrix();
+	glTranslatef(-0.3, 3.7, -0.5);
+	glScalef(1.0, 0.3, 0.05);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
 
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex);
+	glPushMatrix();
+	glTranslatef(0.2, 3.7, 0);
+	sphere(0.25);
+	glPopMatrix();
 }
 
 void hand() {
-
+	shoulder();
 	upperArm();
 	upForeArm();
 	foreArm();

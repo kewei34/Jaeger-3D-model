@@ -50,7 +50,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		case MK_LBUTTON:
 			int xPos = GET_X_LPARAM(lParam);
 			int yPos = GET_Y_LPARAM(lParam);
-			zRotated += xPos - lastX;
+			yRotated += xPos - lastX;
 			xRotated += yPos - lastY;
 			lastX = xPos;
 			lastY = yPos;
