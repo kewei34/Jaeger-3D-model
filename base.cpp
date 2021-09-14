@@ -137,6 +137,7 @@ void sphere(float radius) {
 	GLUquadricObj* sphere = NULL;
 	sphere = gluNewQuadric();
 	gluQuadricTexture(sphere, true);
+	glColor3f(1, 1, 0);
 	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
 	gluSphere(sphere, radius, 30, 10);
 	gluDeleteQuadric(sphere);

@@ -189,19 +189,16 @@ void display()
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 
-	palm();
-
-
-
-
-
-
-
-
-
-
-	//allFingers();
+	glPushMatrix();
+	glTranslatef(-2.5,0,0);
+	leftHand();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(2.5, 0, 0);
+	rightHand();
+	glPopMatrix();
 	
+
 	
 	/**/
 	glPopMatrix();
@@ -262,6 +259,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	/*glEnable(GL_LIGHTING);*/
 	glEnable(GL_TEXTURE_2D);
 
+	loadTex();
+
 	while (true)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -276,7 +275,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 
 		SwapBuffers(hdc);
 	}
-
+	
+	delTex();
 	/*glDisable(GL_TEXTURE_2D);*/
 	//DeleteObject(hBMP);
 	//glDisable(GL_LIGHTING);
