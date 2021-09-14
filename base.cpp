@@ -132,7 +132,7 @@ void cylinder(float height, float topR, float bottomR, float r, float g, float b
 	gluDeleteQuadric(cylinder);
 }
 
-void shpere(float radius) {
+void sphere(float radius) {
 
 	GLUquadricObj* sphere = NULL;
 	sphere = gluNewQuadric();
