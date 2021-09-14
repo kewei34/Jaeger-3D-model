@@ -7,10 +7,8 @@
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
-#pragma comment (lib, "GLUT32.lib")
 
 #define PI 3.14159265359
-
 
 void cuboid(float r, float g, float b) {
 
