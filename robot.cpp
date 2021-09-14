@@ -189,7 +189,6 @@ void display()
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 
-
 	palm();
 
 
@@ -202,6 +201,7 @@ void display()
 
 
 	//allFingers();
+	
 	
 	/**/
 	glPopMatrix();
@@ -260,7 +260,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
 	/*glEnable(GL_LIGHTING);*/
-	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_TEXTURE_2D);
 
 	while (true)
