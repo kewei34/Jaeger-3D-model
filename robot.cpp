@@ -14,10 +14,6 @@
 #pragma comment (lib, "GLU32.lib")
 
 #define WINDOW_TITLE "OpenGL Window"
-#define WHALE 3.141324312
-
-//GLuint LoadBMP(char* fileName);
-GLuint test;
 
 //draw curve line
 GLfloat ctrlpoints[3][3] = {
@@ -33,19 +29,14 @@ float lastX = 0.0f, lastY = 0.0f;
 
 float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
 
-float x = 0.0f, y = 0.0f, z = 7.0f;
+float x = 0.0f, y = 10.0f, z = 0.0f;
 float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
-bool lightOn = 1;
-bool ambientOn = 1;
-bool diffuseOn = 1;
-bool specularOn = 1;
+bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
+bool textureOn = 1;
 
-GLuint texture = 0;
-BITMAP BMP;
-HBITMAP hBMP = NULL;
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -79,6 +70,17 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if(wParam == VK_SPACE) {
 			xRotated = 0.0f; yRotated = 0.0f; zRotated = 0.0f;
 			zoomLevel = -7.0f;
+		}
+		else if (wParam == 'T') {
+			if (textureOn) {
+				glDisable(GL_TEXTURE_2D);
+				textureOn = 0;
+			}
+			else{
+				glEnable(GL_TEXTURE_2D);
+				textureOn = 1;
+			}
+			
 		}
 	default:
 		break;
@@ -120,46 +122,31 @@ bool initPixelFormat(HDC hdc)
 }
 //--------------------------------------------------------------------
 
-GLuint LoadBMP(const char* fileName) {
-	//glColor3f(1.0f, 1.0f, 1.0f);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-	GetObject(hBMP, sizeof(BMP), &BMP);
 
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
-
-	DeleteObject(hBMP);
-	return texture;
-}
-
-GLuint LoadBMPForReactor(char* fileName) {
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-	GetObject(hBMP, sizeof(BMP), &BMP);
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
-
-	DeleteObject(hBMP);
-	return texture;
-}
+//GLuint LoadBMPForReactor(char* fileName) {
+//	glColor3f(1.0f, 1.0f, 1.0f);
+//	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+//	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
+//	GetObject(hBMP, sizeof(BMP), &BMP);
+//
+//	GLuint texture;
+//	glGenTextures(1, &texture);
+//	glBindTexture(GL_TEXTURE_2D, texture);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
+//
+//	DeleteObject(hBMP);
+//	return texture;
+//}
 
 void display()
 {
+	/*glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);*/
+
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
@@ -201,7 +188,6 @@ void display()
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
-	glShadeModel(GL_SMOOTH);
 
 
 	palm();
@@ -216,11 +202,8 @@ void display()
 
 
 	//allFingers();
-	glEnable(GL_TEXTURE_GEN_S); 
-	glEnable(GL_TEXTURE_GEN_T);
-	test = LoadBMP("texture/stone.bmp");
-	glBindTexture(GL_TEXTURE_2D, test);
-	glutSolidIcosahedron();
+	
+	/**/
 	glPopMatrix();
 	glFlush();
 }
@@ -295,8 +278,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 		SwapBuffers(hdc);
 	}
 
-	/*lDisable(GL_TEXTURE_2D);*/
-	DeleteObject(hBMP);
+	/*glDisable(GL_TEXTURE_2D);*/
+	//DeleteObject(hBMP);
 	//glDisable(GL_LIGHTING);
 	//glDisable(GL_STENCIL_TEST);
 	UnregisterClass(WINDOW_TITLE, wc.hInstance);
