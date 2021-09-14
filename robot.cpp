@@ -208,17 +208,10 @@ void display()
 
 
 
-
-
-
-
-
-
-
 	////allFingers();
 	//glEnable(GL_TEXTURE_GEN_S); 
 	//glEnable(GL_TEXTURE_GEN_T);
-	test = LoadBMP("texture/stone.bmp");
+	//test = LoadBMP("texture/stone.bmp");
 	//glBindTexture(GL_TEXTURE_2D, test);
 	glPopMatrix();
 	glFlush();
