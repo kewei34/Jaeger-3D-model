@@ -8,10 +8,12 @@
 #pragma comment (lib, "GLU32.lib")
 
 #include "base.h"
+#include "interactive.h"
 
 GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
+
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -66,8 +68,6 @@ void finger(float length) {
 
 void upperFingers(float length) {
 
-	finger(length);
-
 	glPushMatrix();
 	glTranslatef(0.15, 0, 0);
 	finger(length);
@@ -99,10 +99,10 @@ void lowerFingers() {
 
 void fingerJoint() {
 	
-	glPushMatrix();
+	/*glPushMatrix();
 	glTranslatef(-0.05, 0.22, 0);
 	joint(0.1, 0.06);
-	glPopMatrix();
+	glPopMatrix();*/
 
 	glPushMatrix();
 	glTranslatef(0.1, 0.22, 0);
@@ -126,8 +126,75 @@ void fingerJoint() {
 
 }
 
+void lowerThumb(float length) {
+
+	glPushMatrix();
+	glTranslatef(-0.05, 0.95, 0);
+	glRotatef(-50, 0, 0, 1);
+	joint(0.1, 0.06);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.15, 0.8, 0);
+	glRotatef(-50, 0, 0, 1);
+	finger(length - 0.05);
+	glPopMatrix();
+}
+
+void upperThumb(float length) {
+
+	glPushMatrix();
+	//rotate to put thumb outside
+		glTranslatef(-0.18, 0.8, 0);
+		glRotatef(-50, 0, 0, 1);
+		glTranslatef(0, -0.35, 0);
+				glPushMatrix();
+				glTranslatef(-0.05, 0.19, 0);
+				joint(0.1, 0.06);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(0, 0.16, 0);
+				glRotatef(30, 1, 0, 0);
+				glTranslatef(0, -0.16, 0);
+				finger(0.16);
+				glPopMatrix();
+		//lower thumb
+		glPushMatrix();
+		glTranslatef(0, 0.38, 0);
+			glPushMatrix();
+			glTranslatef(-0.05, 0.19, 0);
+			joint(0.1, 0.06);
+			glPopMatrix();
+
+			finger(0.16);
+		glPopMatrix();
+
+	glPopMatrix();
+
+	/*glPushMatrix();
+	glTranslatef(-0.05, 0.95, 0);
+	glRotatef(-50, 0, 0, 1);
+	glTranslatef(0, -0.35, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.2, 0.8, 0);
+	glRotatef(-50, 0, 0, 1);
+	glTranslatef(0, -0.35, 0);
+
+	glTranslatef(0, 0.2, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.15, 0);
+	finger(length - 0.05);
+	glPopMatrix();*/
+}
+
 void allFingers() {
 	
+	upperThumb(0.2);
+
 	glPushMatrix();
 	glTranslatef(0, 0.2, 0);
 	glRotatef(30, 1, 0, 0);
@@ -147,16 +214,15 @@ void allFingers() {
 	lowerFingers();
 }
 
-
 void palm() {
 	
 	allFingers();
 	glPushMatrix();	
-	glScalef(0.35, 0.3, 0.1);	
-	glTranslatef(0.85,3.3,0);
+	
+	glTranslatef(0.35,1.0,0);
+	glScalef(0.35, 0.3, 0.1);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 	
-
 }
 
