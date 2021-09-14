@@ -3,6 +3,14 @@
 #include <math.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include <gl/GLUT.h>
+
+#pragma comment (lib, "OpenGL32.lib")
+#pragma comment (lib, "GLU32.lib")
+#pragma comment (lib, "GLUT32.lib")
+
+#define PI 3.14159265359
+
 
 void cuboid(float r, float g, float b) {
 
@@ -180,3 +188,35 @@ void pyramid(float s,float h) {
 	glEnd();
 }
 
+void arc(float x, float y, float z, float radiusX, float radiusY, float startAngle, float endAngle, float width, float color1, float color2, float color3) {
+
+	glShadeModel(GL_FLAT);
+	glColor3f(color1, color2, color3);
+
+	float startR = startAngle * PI / 180.0f;
+	float endR = endAngle * PI / 180.0f;
+
+	glLineWidth(width);
+	glBegin(GL_LINE_STRIP);
+
+	for (float angle = startR; angle <= endR; angle += (PI / 1000)) {
+		float x2 = radiusX * cos(angle) + x;
+		float y2 = radiusY * sin(angle) + y;
+
+		glVertex3f(x2, y2, z);
+	}
+	glEnd();
+}
+
+void spikeHammer() {
+	glutSolidIcosahedron();
+}
+
+void disk() {
+	GLUquadricObj* disk = NULL;
+	disk = gluNewQuadric();
+	gluQuadricTexture(disk, true);
+	gluQuadricDrawStyle(disk, GL_TRIANGLE_FAN);
+	gluDisk(disk, 1, 2, 100, 50);
+	gluDeleteQuadric(disk);
+}

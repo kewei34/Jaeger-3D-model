@@ -1,5 +1,7 @@
 #pragma once
 
+GLuint LoadBMP(const char* fileName);
+
 void bone(float boneLength);
 
 void joint(float boneLength,float boneWidth);
