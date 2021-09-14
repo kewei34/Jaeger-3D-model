@@ -126,22 +126,7 @@ void fingerJoint() {
 
 }
 
-void lowerThumb(float length) {
-
-	glPushMatrix();
-	glTranslatef(-0.05, 0.95, 0);
-	glRotatef(-50, 0, 0, 1);
-	joint(0.1, 0.06);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-0.15, 0.8, 0);
-	glRotatef(-50, 0, 0, 1);
-	finger(length - 0.05);
-	glPopMatrix();
-}
-
-void upperThumb(float length) {
+void thumb(float length) {
 
 	glPushMatrix();
 	//rotate to put thumb outside
@@ -172,28 +157,11 @@ void upperThumb(float length) {
 
 	glPopMatrix();
 
-	/*glPushMatrix();
-	glTranslatef(-0.05, 0.95, 0);
-	glRotatef(-50, 0, 0, 1);
-	glTranslatef(0, -0.35, 0);
-	joint(0.1, 0.06);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-0.2, 0.8, 0);
-	glRotatef(-50, 0, 0, 1);
-	glTranslatef(0, -0.35, 0);
-
-	glTranslatef(0, 0.2, 0);
-	glRotatef(30, 1, 0, 0);
-	glTranslatef(0, -0.15, 0);
-	finger(length - 0.05);
-	glPopMatrix();*/
 }
 
 void allFingers() {
 	
-	upperThumb(0.2);
+	thumb(0.2);
 
 	glPushMatrix();
 	glTranslatef(0, 0.2, 0);
