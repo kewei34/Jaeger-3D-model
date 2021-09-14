@@ -16,4 +16,14 @@ void fingerJoint();
 
 void allFingers();
 
+void foreArm();
+
+void upForeArm();
+
 void palm();
+
+void hand();
+
+void loadTex();
+
+void delTex();
