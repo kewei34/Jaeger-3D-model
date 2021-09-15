@@ -307,6 +307,189 @@ void shoulder() {
 	glPopMatrix();
 }
 
+
+void leg() {
+	GLuint shoeTex = LoadBMP("texture/metal.bmp");
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, shoeTex);
+	
+	glPushMatrix();
+	glTranslatef(0.4, 1, -0.3);
+	glRotatef(270, 1, 0, 0);
+	cylinder(0.6, 0.25, 0.37, 1, 1, 1);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(0.4, 2.2, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.6, 0.25, 0.37, 1, 1, 1);
+	glPopMatrix();
+	
+	//side leg
+	glPushMatrix();
+	glTranslatef(-0.4, 1, -0.3);
+	glRotatef(270, 1, 0, 0);
+
+	cylinder(0.6, 0.25, 0.37, 1, 1, 1);
+	glPopMatrix();
+	//side leg
+	glPushMatrix();
+	glTranslatef(-0.4, 2.2, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.6, 0.25, 0.37, 1, 1, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 1.6, -0.3);
+	glScalef(0.4, 0.6, 0.4);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	//glScalef(0.7, 0.5, 0.7);
+	glTranslatef(0, 1.1, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.3,0.35,0.35,1,1,1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 0.5, -0.3);
+	glScalef(0.40, 0.4, 0.40);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	/*glPushMatrix();
+	glTranslatef(0, 0.5, -0.3);
+	glScalef(0.35, 0.5, 0.4);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();*/
+
+
+	glPushMatrix();
+	glScalef(0.450, 0.5, 0.80);
+	shoe();
+	glPopMatrix();
+
+	DeleteObject(hBMP);
+	glDeleteTextures(1, &shoeTex);
+}
+
+void rightHand() {
+	shoulder();
+	upperArm();
+	glTranslatef(0.28, 0, 0);
+	glPushMatrix();
+	glRotatef(30, 0, 1, 0);
+	glTranslatef(-0.28, 0, 0);
+	upForeArm();
+	foreArm();
+	palm();
+	thumb(0.2);
+	allFingers();
+	glPopMatrix();
+}
+
+void leftHand() {
+	glPushMatrix();
+	glTranslatef(0.5, 0, 0);
+	glRotatef(180, 0, 1, 0);
+	shoulder();
+	glPopMatrix();
+	glPushMatrix();
+	glRotatef(-30, 0, 1, 0);
+	glTranslatef(-0.28, 0, 0);
+	upperArm();
+	upForeArm();
+	foreArm();
+	palm();
+	allFingers();
+	glPushMatrix();
+	glTranslatef(1.0, 0.1, -0.2);
+	lThumb();
+	glPopMatrix();
+	glPopMatrix();
+
+}
+
+void body() {
+
+	glPushMatrix();
+	glTranslatef(0.28, 4.0, 0);
+	glRotatef(90, 1, 0, 0);
+	cylinder(3.0, 1.5, 1.0, 0.627, 0.322, 0.176);
+	glPopMatrix();
+}
+
+void upForeArm() {
+	glPushMatrix();
+	glTranslatef(0, 0.7, 0);
+	foreArm();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.32, 1.95, 0);
+	glScalef(0.35, 0.08, 0.2);
+	cuboid(0.627, 0.322, 0.176);
+	glPopMatrix();
+}
+
+void upperArm() {
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glPushMatrix();
+	glTranslatef(0.34, 3.15, 0);
+		glPushMatrix();
+		glTranslatef(0, -0.4, 0);
+		glRotatef(-90, 1, 0, 0);
+		cylinder(0.8, 0.4, 0.4, 0.545, 0.271, 0.075);
+		glPopMatrix();
+	glScalef(0.3, 0.4, 0.3);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.05, 2.7, 0);
+	joint(0.6, 0.2);
+	glPopMatrix();
+}
+
+void shoulder() {
+	
+	glPushMatrix();
+	glTranslatef(1.0, 0.05, 0.55);
+	glTranslatef(0, 4.2, 0);
+	glRotatef(15, 0, 0, 1);
+	glTranslatef(-1.0, -0.05, -0.55);
+	glTranslatef(0, -4.0, 0);
+	//up
+	glPushMatrix();
+	glTranslatef(0,4.0, 0);
+	glScalef(0.8, 0.05, 0.55);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+	//left
+	glPushMatrix();
+	glTranslatef(0, 3.7, 0.5);
+	glScalef(0.8, 0.3, 0.05);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+	//right
+	glPushMatrix();
+	glTranslatef(0, 3.7, -0.5);
+	glScalef(0.8, 0.3, 0.05);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex);
+	glPushMatrix();
+	glTranslatef(0.2, 3.7, 0);
+	sphere(0.25);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
 void rightHand() {
 	shoulder();
 	upperArm();

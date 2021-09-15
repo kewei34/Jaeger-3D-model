@@ -5,13 +5,13 @@
 #include <gl/GLU.h>
 #include <gl/GLUT.h>
 
-#include "base.h"
-#include "scene.h"
-#include "bodyPart.h"
-
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
+
+#include "base.h"
+#include "scene.h"
+#include "bodyPart.h"
 
 #define WINDOW_TITLE "OpenGL Window"
 
@@ -57,6 +57,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			break;
 		}
 		break;
+
 	case WM_LBUTTONDOWN:
 		lastX = GET_X_LPARAM(lParam);
 		lastY = GET_Y_LPARAM(lParam);
@@ -142,6 +143,19 @@ bool initPixelFormat(HDC hdc)
 //	return texture;
 //}
 
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
+
+	DeleteObject(hBMP);
+	return texture;
+}
+
 void display()
 {
 	/*glEnable(GL_TEXTURE_GEN_S);
@@ -188,6 +202,8 @@ void display()
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
+	
+
 
 	glPushMatrix();
 	glTranslatef(-2,0,0);
@@ -200,12 +216,12 @@ void display()
 	
 	body();
 
+  
 	glPushMatrix();
-	glTranslatef(0, 2.0, 0);
-	glScalef(0, 5.5, 0);
-	glRotatef(180, 1, 0, 0);
-	body();
-	glPopMatrix();
+	glTranslatef(-2,-4,0);
+	leg();
+  glPopMatrix();
+  
 	
 	/**/
 	glPopMatrix();
