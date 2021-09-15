@@ -188,6 +188,8 @@ void display()
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
+	
+
 
 	glPushMatrix();
 	glTranslatef(-2,0,0);
@@ -200,12 +202,12 @@ void display()
 	
 	body();
 
+  
 	glPushMatrix();
-	glTranslatef(0, 2.0, 0);
-	glScalef(0, 5.5, 0);
-	glRotatef(180, 1, 0, 0);
-	body();
-	glPopMatrix();
+	glTranslatef(-2,-4,0);
+	leg();
+  glPopMatrix();
+  
 	
 	/**/
 	glPopMatrix();

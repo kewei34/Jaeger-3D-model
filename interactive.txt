@@ -7,6 +7,10 @@ Press S to turn back
 --------------------------
 Press Q to walk front
 
+**Camera**
+Press I to zoom in 
+Press O to zoom out
+
 **Hand**
 Press H to move the hands
 
