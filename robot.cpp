@@ -29,7 +29,7 @@ float lastX = 0.0f, lastY = 0.0f;
 
 float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
 
-float x = 0.0f, y = 10.0f, z = 0.0f;
+float x = 5.0f, y = 10.0f, z = 10.0f;
 float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
@@ -128,7 +128,7 @@ void display()
 {
 	/*glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);*/
-
+	glEnable(GL_NORMALIZE);
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
@@ -252,7 +252,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
-	/*glEnable(GL_LIGHTING);*/
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glEnable(GL_TEXTURE_2D);
 
 	loadTex();
