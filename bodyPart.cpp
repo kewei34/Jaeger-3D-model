@@ -316,6 +316,7 @@ void leg() {
 	glPushMatrix();
 	glTranslatef(0, 2.4, -0.3);
 	glRotatef(90, 1, 0, 0);
+
 	cylinder(0.3, 0.35, 0.35, 0.502, 0.000, 0.0);
 	glPopMatrix();
 
@@ -329,26 +330,34 @@ void leg() {
 	glPushMatrix();
 	glTranslatef(0.4, 2.2, -0.3);
 	glRotatef(90, 1, 0, 0);
+
 	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.4, 1, -0.3);
 	glRotatef(270, 1, 0, 0);
+
 	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	//left side leg design
 	glPushMatrix();
 	glTranslatef(-0.4, 1, -0.3);
 	glRotatef(270, 1, 0, 0);
+
 	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-0.4, 2.2, -0.3);
 	glRotatef(90, 1, 0, 0);
+
 	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	//lower second part leg
