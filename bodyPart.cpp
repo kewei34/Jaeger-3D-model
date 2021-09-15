@@ -310,13 +310,14 @@ void shoulder() {
 void leg() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, shoeTex);
-	
+
 
 
 	glPushMatrix();
 	glTranslatef(0, 2.4, -0.3);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.3, 0.35, 0.35, 1, 1, 1);
+
+	cylinder(0.3, 0.35, 0.35, 0.502, 0.000, 0.0);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -329,26 +330,34 @@ void leg() {
 	glPushMatrix();
 	glTranslatef(0.4, 2.2, -0.3);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.6, 0.16, 0.37, 1, 1, 1);
+
+	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.4, 1, -0.3);
 	glRotatef(270, 1, 0, 0);
-	cylinder(0.6, 0.1, 0.37, 1, 1, 1);
+
+	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	//left side leg design
 	glPushMatrix();
 	glTranslatef(-0.4, 1, -0.3);
 	glRotatef(270, 1, 0, 0);
-	cylinder(0.6, 0.1, 0.37, 1, 1, 1);
+
+	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-0.4, 2.2, -0.3);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.6, 0.16, 0.37, 1, 1, 1);
+
+	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
+
 	glPopMatrix();
 
 	//lower second part leg
@@ -362,7 +371,7 @@ void leg() {
 	//glScalef(0.7, 0.5, 0.7);
 	glTranslatef(0, 1.1, -0.3);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.3,0.35,0.35,1,1,1);
+	cylinder(0.3, 0.35, 0.35, 0.804, 0.522, 0.247);
 	glPopMatrix();
 
 	//lower third part leg

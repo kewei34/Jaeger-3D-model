@@ -186,7 +186,12 @@ void display()
 
   
 	glPushMatrix();
-	glTranslatef(-1,-4,0);
+	glTranslatef(-0.72,-4,0);
+	leg();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1.28, -4, 0);
 	leg();
 	glPopMatrix();
   
