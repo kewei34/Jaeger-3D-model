@@ -15,6 +15,7 @@ GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
 
+
 GLuint LoadBMP(const char* fileName) {
 
 	glColor3f(1.0f, 1.0f, 1.0f);

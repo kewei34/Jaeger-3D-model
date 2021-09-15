@@ -29,7 +29,7 @@ float lastX = 0.0f, lastY = 0.0f;
 
 float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
 
-float x = 0.0f, y = 0.0f, z = 10.0f;
+float x = 5.0f, y = 10.0f, z = 10.0f;
 float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
@@ -160,6 +160,7 @@ void display()
 		glOrtho(-5.0 + zoomLevel, 5.0 - zoomLevel, -5.0 + zoomLevel, 5.0 - zoomLevel, -7.0 + zoomLevel, 3.0 - zoomLevel);
 	}
 
+	glEnable(GL_NORMALIZE);
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_COLOR_MATERIAL);

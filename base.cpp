@@ -10,12 +10,49 @@
 
 #define PI 3.14159265359
 
+float normalize(float *v) {
+	float length = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+
+	for (int i = 0; i < 3; i++) {
+		v[i] = v[i] / length;
+	}
+
+	return v[0];
+}
+
+float *cross_product(float *a, float *b) {
+	float result[] = { a[1] * b[2] - a[2] * b[1],
+		-(a[0] * b[2] - a[2] * b[0]),a[0] * b[1] - a[1] * b[0] };
+
+	normalize(result);
+	return result;
+}
+
+float *calculate_normal(float *a, float *b, float *c) {
+	float x[] = { b[0] - a[0],b[1] - a[1],b[2] - a[2] };
+	float y[] = { c[0] - a[0],c[1] - a[1],c[2] - a[2] };
+
+	float* result = cross_product(x, y);
+
+	return result;	
+}
+
 void cuboid(float r, float g, float b) {
+
+	float f1[] = { -1.0, 1.0, 1.0 };
+	float f2[] = { -1.0, -1.0, 1.0 };
+	float f3[] = { 1.0, -1.0, 1.0 };
+	float f4[] = { 1.0, 1.0, 1.0 };
+	float b1[] = { -1.0, 1.0, -1.0 };
+	float b2[] = { -1.0, -1.0, -1.0 };
+	float b3[] = { 1.0, -1.0, -1.0 };
+	float b4[] = { 1.0, 1.0, -1.0};
 
 	glShadeModel(GL_FLAT);
 	glColor3f(r, g, b);
 	glBegin(GL_QUADS);
 	//front
+	glNormal3fv(calculate_normal(f1,f2,f3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -25,6 +62,7 @@ void cuboid(float r, float g, float b) {
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(1.0f, 1.0f, 1.0f);
 	//back
+	glNormal3fv(calculate_normal(b1, b2, b3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -34,6 +72,7 @@ void cuboid(float r, float g, float b) {
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(1.0f, 1.0f, -1.0f);
 	//up
+	glNormal3fv(calculate_normal(b1, f1, f4));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -43,6 +82,7 @@ void cuboid(float r, float g, float b) {
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(1.0f, 1.0f, -1.0f);
 	//down
+	glNormal3fv(calculate_normal(b2, f2, f3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, -1.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -52,6 +92,7 @@ void cuboid(float r, float g, float b) {
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(1.0f, -1.0f, -1.0f);
 	//left
+	glNormal3fv(calculate_normal(b1, b2, f2));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -61,6 +102,7 @@ void cuboid(float r, float g, float b) {
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, 1.0f);
 	//right
+	glNormal3fv(calculate_normal(b4, b3, f3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(1.0f, 1.0f, -1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -73,6 +115,8 @@ void cuboid(float r, float g, float b) {
 }
 
 void unfilledPyramid() {
+
+
 	//front
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1, 1, 1);
@@ -140,6 +184,7 @@ void sphere(float radius) {
 	gluQuadricTexture(sphere, true);
 	gluQuadricNormals(sphere, GLU_SMOOTH);
 	glColor3f(1, 1, 0);
+	gluQuadricNormals(sphere,GL_TRUE);
 	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
 	gluSphere(sphere, radius, 30, 10);
 	gluDeleteQuadric(sphere);
@@ -223,8 +268,22 @@ void disk() {
 }
 
 void shoe() {	
+	float f1[] = { -1.0f, 0.0f, 1.0f };
+	float f2[] = { -1.1f, -0.5f, 1.0f };
+	float f3[] = { -1.0f, -1.0f, 1.0f };
+	float f4[] = { 1.0f, -1.0f, 1.0f };
+	float f5[] = { 1.1f, -0.5f, 1.0f };
+	float f6[] = { 1.0f, 0.0f, 1.0f };
+	float b1[] = { -1.2f, 0.5f, -1.0f };
+	float b2[] = { -1.28f, 0.2f, -1.0f };
+	float b3[] = { -1.4f, -1.0f, -1.0f };
+	float b4[] = { 1.4f, -1.0f, -1.0f };
+	float b5[] = { 1.28f, 0.2f, -1.0f };
+	float b6[] = { 1.2f, 0.5f, -1.0f };
+
 	glBegin(GL_POLYGON);
 	//front
+	glNormal3fv(calculate_normal(f1, f2, f3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 0.0f, 1.0f);  //t1
 	glVertex3f(-1.1f, -0.5f, 1.0f);   //t2
@@ -238,6 +297,7 @@ void shoe() {
 	glEnd();
 	glBegin(GL_POLYGON);
 	//back
+	glNormal3fv(calculate_normal(b1, b2, b3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.2f, 0.5f, -1.0f);  //b1
 	glVertex3f(-1.28f, 0.2f, -1.0f);  //b2
@@ -251,6 +311,7 @@ void shoe() {
 	glEnd();
 	glBegin(GL_POLYGON);
 	////up
+	glNormal3fv(calculate_normal(f1, f6, b6));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 0.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -262,6 +323,7 @@ void shoe() {
 	glEnd();
 	glBegin(GL_POLYGON);
 	//down
+	glNormal3fv(calculate_normal(f3, f4, b4));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, -1.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -273,6 +335,7 @@ void shoe() {
 	glEnd();
 	glBegin(GL_POLYGON);
 	//left
+	glNormal3fv(calculate_normal(f1, f2, f3));
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 0.0f, 1.0f);  //t1
 	glVertex3f(-1.1f, -0.5f, 1.0f);   //t2
@@ -286,6 +349,8 @@ void shoe() {
 	glEnd();
 	glBegin(GL_POLYGON);
 	//right
+	glNormal3fv(calculate_normal(f4, f5, f6));
+
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(1.0f, -1.0f, 1.0f);    //t4
 	glVertex3f(1.1f, -0.5f, 1.0f);    //5
