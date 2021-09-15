@@ -39,7 +39,6 @@ bool textureOn = 1,perspec = 1;
 bool LforeArmUp = 0,LforeArmDown = 1;
 
 
-
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
