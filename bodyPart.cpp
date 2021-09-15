@@ -272,22 +272,28 @@ void upperArm() {
 
 void shoulder() {
 	
+	glPushMatrix();
+	glTranslatef(1.0, 0.05, 0.55);
+	glTranslatef(0, 4.2, 0);
+	glRotatef(15, 0, 0, 1);
+	glTranslatef(-1.0, -0.05, -0.55);
+	glTranslatef(0, -4.0, 0);
 	//up
 	glPushMatrix();
 	glTranslatef(0,4.0, 0);
-	glScalef(1.0, 0.05, 0.55);
+	glScalef(0.8, 0.05, 0.55);
 	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 	//left
 	glPushMatrix();
 	glTranslatef(0, 3.7, 0.5);
-	glScalef(1.0, 0.3, 0.05);
+	glScalef(0.8, 0.3, 0.05);
 	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 	//right
 	glPushMatrix();
 	glTranslatef(0, 3.7, -0.5);
-	glScalef(1.0, 0.3, 0.05);
+	glScalef(0.8, 0.3, 0.05);
 	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 
@@ -296,6 +302,8 @@ void shoulder() {
 	glPushMatrix();
 	glTranslatef(0.2, 3.7, 0);
 	sphere(0.25);
+	glPopMatrix();
+
 	glPopMatrix();
 }
 
@@ -328,12 +336,21 @@ void leftHand() {
 	foreArm();
 	palm();
 	allFingers();
-		glPushMatrix();
-		glTranslatef(1.0, 0.1, -0.2);
-		lThumb();
-		glPopMatrix();
+	glPushMatrix();
+	glTranslatef(1.0, 0.1, -0.2);
+	lThumb();
+	glPopMatrix();
 	glPopMatrix();
 
+}
+
+void body() {
+
+	glPushMatrix();
+	glTranslatef(0.28, 4.0, 0);
+	glRotatef(90, 1, 0, 0);
+	cylinder(3.0, 1.5, 1.0, 0.627, 0.322, 0.176);
+	glPopMatrix();
 }
 
 void loadTex() {

@@ -128,7 +128,7 @@ void cylinder(float height, float topR, float bottomR, float r, float g, float b
 	glColor3f(r, g, b);
 	gluQuadricTexture(cylinder, true);
 	gluQuadricDrawStyle(cylinder, GL_TRIANGLE_FAN);
-	gluCylinder(cylinder, topR, bottomR, height, 10, 10);
+	gluCylinder(cylinder, topR, bottomR, height, 20, 20);
 	gluDeleteQuadric(cylinder);
 }
 
