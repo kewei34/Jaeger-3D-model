@@ -28,6 +28,10 @@ void rightHand();
 
 void body();
 
+void wholeBody();
+
+void robot();
+
 void leg();
 
 void loadTex();

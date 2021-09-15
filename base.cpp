@@ -127,6 +127,7 @@ void cylinder(float height, float topR, float bottomR, float r, float g, float b
 	cylinder = gluNewQuadric();
 	glColor3f(r, g, b);
 	gluQuadricTexture(cylinder, true);
+	gluQuadricNormals(cylinder, GLU_SMOOTH);
 	gluQuadricDrawStyle(cylinder, GL_TRIANGLE_FAN);
 	gluCylinder(cylinder, topR, bottomR, height, 20, 20);
 	gluDeleteQuadric(cylinder);
@@ -137,6 +138,7 @@ void sphere(float radius) {
 	GLUquadricObj* sphere = NULL;
 	sphere = gluNewQuadric();
 	gluQuadricTexture(sphere, true);
+	gluQuadricNormals(sphere, GLU_SMOOTH);
 	glColor3f(1, 1, 0);
 	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
 	gluSphere(sphere, radius, 30, 10);
@@ -295,4 +297,66 @@ void shoe() {
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(1.4f, -1.0f, -1.0f);   //b4
 	glEnd();
+}
+
+void irregularCuboid(float r,float g,float b) {
+	glShadeModel(GL_FLAT);
+	glColor3f(r, g, b);
+	glBegin(GL_QUADS);
+	//front
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-0.8f, 1.0f, 0.8f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(0.8f, 1.0f, 0.8f);
+	//back
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-0.8f, 1.0f, -0.8f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(0.8f, 1.0f, -0.8f);
+	//up
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-0.8f, 1.0f, -0.8f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-0.8f, 1.0f, 0.8f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(0.8f, 1.0f, 0.8f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(0.8f, 1.0f, -0.8f);
+	//down
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	//left
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-0.8f, 1.0f, -0.8f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(-0.8f, 1.0f, 0.8f);
+	//right
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(0.8f, 1.0f, -0.8f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(0.8f, 1.0f, 0.8f);
+	glEnd();
+
 }
