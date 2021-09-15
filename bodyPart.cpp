@@ -16,7 +16,11 @@ GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
 
-float lForeArmRtAngle = 0, lForeArmRt = 0;
+float lArmRtAngle = 0, lArmRt = 0;
+
+void restore() {
+	lArmRtAngle = 0, lArmRt = 0;
+}
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -468,6 +472,30 @@ void rightHand() {
 	glPopMatrix();
 }
 
+bool moveLArmUp() {
+
+	lArmRt = 1;
+	if (lArmRtAngle < 100) {
+		lArmRtAngle += 0.5;
+	}
+	else if (lArmRtAngle == 100) {
+		return false;
+	}
+	return true;
+}
+
+bool moveLArmDown() {
+	lArmRt = 1;
+	if (lArmRtAngle > 0) {
+		lArmRtAngle -= 0.5;
+	}
+	else if (lArmRtAngle == 0) {
+		lArmRt = 0;
+		return false;
+	}
+	return true;
+}
+
 void leftHand() {
 
 		glPushMatrix();
@@ -477,13 +505,15 @@ void leftHand() {
 		glPopMatrix();
 
 		glPushMatrix();
-		glRotatef(-30, 0, 1, 0);
+		glTranslatef(0.56, 3.4, 0);
+		glRotatef(-lArmRtAngle, lArmRt, 0, 0);
+		glTranslatef(-0.56, -3.4, 0);
+
+		glPushMatrix();
+		//glRotatef(-30, 0, 1, 0);
 		glTranslatef(-0.28, 0, 0);
 		upperArm();
-			glPushMatrix();
-			glTranslatef(0.56, 0, 0);
-			glRotatef(-lForeArmRtAngle, lForeArmRt, 0, 0);
-			glTranslatef(-0.56, 0, 0);
+			
 			upForeArm();
 			foreArm();
 			palm();
@@ -496,33 +526,10 @@ void leftHand() {
 			glPopMatrix();
 }
 
-bool moveLforeArmUp() {
-
-	lForeArmRt = 1;
-	while (lForeArmRtAngle < 30) {
-		lForeArmRtAngle += 0.1;
-	}
-	if (lForeArmRtAngle == 30) {
-		return false;
-	}
-	return true;
-}
-
-bool moveLforeArmDown() {
-	lForeArmRt = 1;
-	while (lForeArmRtAngle > 0) {
-		lForeArmRtAngle -= 0.1;
-	}
-	if (lForeArmRtAngle == 0) {
-		lForeArmRt = 0;
-		return false;
-	}
-	return true;
-}
-
 
 void body() {
-
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glPushMatrix();
 	glTranslatef(0.28, 4.0, 0);
 	glRotatef(90, 1, 0, 0);
