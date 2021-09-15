@@ -520,6 +520,41 @@ void head() {
 	glScalef(1,0.8,0.8);
 	sphere(1.2);
 	glPopMatrix();
+	//left anthenna
+	glPushMatrix();
+	glTranslatef(-0.65, 6.2, -0.4);
+	glRotatef(-30, 1, 0, 0);
+	glScalef(0.1, 0.8, 0.1);
+	shoe();
+	glPopMatrix();
+	//right anthenna
+	glPushMatrix();
+	glTranslatef(1.2, 6.2, -0.4);
+	glRotatef(-30, 1, 0, 0);
+	glScalef(0.1, 0.8, 0.1);
+	shoe();
+	glPopMatrix();
+
+	//ear
+	glPushMatrix();
+	{
+		glTranslatef(-0.72, 5.5, 0);
+		joint(2, 0.3);
+	}
+	glPopMatrix();
+	glPushMatrix();
+	{
+		glTranslatef(-0.72, 5.5, 0);
+		joint(2, 0.2);
+	}
+	glPopMatrix();
+	//eye
+	glPushMatrix();
+	glTranslatef(0.3, 5.5, 0.742);
+	glScalef(0.50, 0.3, 0.45);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
 }
 
 void robot() {

@@ -35,7 +35,7 @@ float zoomLevel = -7.0f;
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
-bool textureOn = 1,perspec = 0;
+bool textureOn = 1,perspec = 1;
 
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
