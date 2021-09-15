@@ -307,85 +307,129 @@ void shoulder() {
 	glPopMatrix();
 }
 
-void leg() {
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, shoeTex);
 
-
-
+void shoejointfront() {
 	glPushMatrix();
-	glTranslatef(0, 2.4, -0.3);
-	glRotatef(90, 1, 0, 0);
-
-	cylinder(0.3, 0.35, 0.35, 0.502, 0.000, 0.0);
+	glTranslatef(-0.5, 0, 0.1);
+	joint(1, 0.15);
 	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0, 2.7, -0.25);
-	glScalef(0.45, 0.4, 0.45);
-	cuboid(0.545, 0.271, 0.075);
-	glPopMatrix();
-
+}
+void rightsidelegpad() {
 	//right side leg design
 	glPushMatrix();
 	glTranslatef(0.4, 2.2, -0.3);
 	glRotatef(90, 1, 0, 0);
-
 	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
-
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.4, 1, -0.3);
 	glRotatef(270, 1, 0, 0);
-
 	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
-
 	glPopMatrix();
+}
 
+void leftsidelegpad() {
 	//left side leg design
 	glPushMatrix();
 	glTranslatef(-0.4, 1, -0.3);
 	glRotatef(270, 1, 0, 0);
-
 	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
-
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(-0.4, 2.2, -0.3);
 	glRotatef(90, 1, 0, 0);
-
 	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
-
 	glPopMatrix();
-
-	//lower second part leg
+}
+void lowerfirstpartleg() {
+	//lower first part leg
 	glPushMatrix();
 	glTranslatef(0, 1.6, -0.3);
 	glScalef(0.4, 0.6, 0.4);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
+}
 
-	glPushMatrix();
-	//glScalef(0.7, 0.5, 0.7);
-	glTranslatef(0, 1.1, -0.3);
-	glRotatef(90, 1, 0, 0);
-	cylinder(0.3, 0.35, 0.35, 0.804, 0.522, 0.247);
-	glPopMatrix();
-
-	//lower third part leg
+void lowersecondpartleg() {
+	//lower second part leg
 	glPushMatrix();
 	glTranslatef(0, 0.5, -0.3);
 	glScalef(0.40, 0.4, 0.40);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
+}
 
-	//shoe
+void lowerleg() {
+	rightsidelegpad();
+	lowerfirstpartleg();
+	leftsidelegpad();
+	//joint between lowerfirstpartleg and lowersecondpartleg
+	glPushMatrix();
+	glTranslatef(0, 1.1, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.3, 0.35, 0.35, 0.804, 0.522, 0.247);
+	glPopMatrix();
+	lowersecondpartleg();
+	//shoe part
+	shoejointfront();
 	glPushMatrix();
 	glScalef(0.450, 0.5, 0.80);
 	shoe();
 	glPopMatrix();
+}
+
+void legjointbehind() {
+	glPushMatrix();
+	glTranslatef(-0.5, 2.3, -0.7);
+	joint(1, 0.2);
+	glPopMatrix();
+}
+
+void legjointfront() {
+	glPushMatrix();
+	glTranslatef(-0.45, 2.3, -0.35);
+	joint(0.9, 0.2);
+	glPopMatrix();
+}
+
+void upperlegfirstpart() {
+	glPushMatrix();
+	glScalef(1.6,1.4,1.0);
+	glTranslatef(0, 2.7, -0.25);
+	glRotatef(90, 1, 0, 0);
+	cylinder(1, 0.45, 0.45, 0.502, 0.000, 0.0);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(0, 3.1, -0.25);
+	glScalef(0.45, 0.7, 0.45);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+}
+
+void upperleg() {
+	upperlegfirstpart();
+	//ankle
+  
+	//add ankle code here
+
+	//legjointbehind();
+	legjointfront();
+	//joint between lowerfirstpartleg and uppersecondpartleg
+	//glPushMatrix();
+	//glTranslatef(0, 2.4, -0.3);
+	//glRotatef(90, 1, 0, 0);
+	//cylinder(0.3, 0.35, 0.35, 0.502, 0.000, 0.0);
+	//glPopMatrix();
+}
+
+void leg() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, shoeTex);
+	
+	upperleg();
+	lowerleg();	
 }
 
 void rightHand() {
