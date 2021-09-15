@@ -35,7 +35,7 @@ GLuint LoadBMP(const char* fileName) {
 	return texture;
 }
 
-GLuint robotTex,jointTex;
+GLuint robotTex, jointTex, shoeTex;
 
 void bone(float boneLength) {
 
@@ -307,9 +307,7 @@ void shoulder() {
 	glPopMatrix();
 }
 
-
 void leg() {
-	GLuint shoeTex = LoadBMP("texture/metal.bmp");
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, shoeTex);
 	
@@ -368,9 +366,6 @@ void leg() {
 	glScalef(0.450, 0.5, 0.80);
 	shoe();
 	glPopMatrix();
-
-	DeleteObject(hBMP);
-	glDeleteTextures(1, &shoeTex);
 }
 
 void rightHand() {
@@ -410,6 +405,7 @@ void leftHand() {
 
 }
 
+
 void body() {
 
 	glPushMatrix();
@@ -422,6 +418,7 @@ void body() {
 void loadTex() {
 	robotTex = LoadBMP("texture/metal.bmp");
 	jointTex = LoadBMP("texture/joint.bmp");
+	shoeTex = LoadBMP("texture/metal.bmp");
 
 }
 
@@ -429,4 +426,5 @@ void delTex() {
 	DeleteObject(hBMP);
 	glDeleteTextures(1, &robotTex);
 	glDeleteTextures(1, &jointTex);
+	glDeleteTextures(1, &shoeTex);
 }

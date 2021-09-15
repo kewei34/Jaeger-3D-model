@@ -16,8 +16,6 @@ void fingerJoint();
 
 void allFingers();
 
-void leg();
-
 void foreArm();
 
 void upForeArm();
@@ -30,6 +28,8 @@ void rightHand();
 
 void body();
 
+void leg();
+
 void loadTex();
 
-
+void delTex();
