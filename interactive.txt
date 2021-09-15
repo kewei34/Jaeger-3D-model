@@ -13,7 +13,7 @@ Press O to zoom out
 Press P to change viewport
 
 **Hand**
-Press H to move the hands
+Press 7 to move the left arm up or down
 
 **Leg**
 Press L to move the legs

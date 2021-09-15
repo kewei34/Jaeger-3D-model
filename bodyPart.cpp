@@ -10,11 +10,13 @@
 
 #include "base.h"
 #include "interactive.h"
+#include "bodyPart.h"
 
 GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
 
+float lForeArmRtAngle = 0, lForeArmRt = 0;
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -474,25 +476,55 @@ void rightHand() {
 }
 
 void leftHand() {
-	glPushMatrix();
-	glTranslatef(0.5, 0, 0);
-	glRotatef(180, 0, 1, 0);
-	shoulder();
-	glPopMatrix();
-	glPushMatrix();
-	glRotatef(-30, 0, 1, 0);
-	glTranslatef(-0.28, 0, 0);
-	upperArm();
-	upForeArm();
-	foreArm();
-	palm();
-	allFingers();
-	glPushMatrix();
-	glTranslatef(1.0, 0.1, -0.2);
-	lThumb();
-	glPopMatrix();
-	glPopMatrix();
 
+		glPushMatrix();
+		glTranslatef(0.5, 0, 0);
+		glRotatef(180, 0, 1, 0);
+		shoulder();
+		glPopMatrix();
+
+		glPushMatrix();
+		glRotatef(-30, 0, 1, 0);
+		glTranslatef(-0.28, 0, 0);
+		upperArm();
+			glPushMatrix();
+			glTranslatef(0.56, 0, 0);
+			glRotatef(-lForeArmRtAngle, lForeArmRt, 0, 0);
+			glTranslatef(-0.56, 0, 0);
+			upForeArm();
+			foreArm();
+			palm();
+			allFingers();
+				glPushMatrix();
+				glTranslatef(1.0, 0.1, -0.2);
+				lThumb();
+				glPopMatrix();
+			glPopMatrix();
+			glPopMatrix();
+}
+
+bool moveLforeArmUp() {
+
+	lForeArmRt = 1;
+	while (lForeArmRtAngle < 30) {
+		lForeArmRtAngle += 0.1;
+	}
+	if (lForeArmRtAngle == 30) {
+		return false;
+	}
+	return true;
+}
+
+bool moveLforeArmDown() {
+	lForeArmRt = 1;
+	while (lForeArmRtAngle > 0) {
+		lForeArmRtAngle -= 0.1;
+	}
+	if (lForeArmRtAngle == 0) {
+		lForeArmRt = 0;
+		return false;
+	}
+	return true;
 }
 
 
