@@ -2,6 +2,8 @@
 
 GLuint LoadBMP(const char* fileName);
 
+void restore();
+
 void bone(float boneLength);
 
 void joint(float boneLength,float boneWidth);
@@ -27,9 +29,9 @@ void leftHand();
 void rightHand();
 
 
-bool moveLforeArmUp();
+bool moveLArmUp();
 
-bool moveLforeArmDown();
+bool moveLArmDown();
 
 void body();
 

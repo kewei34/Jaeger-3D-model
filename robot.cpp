@@ -36,7 +36,7 @@ float x = 5.0f, y = 10.0f, z = 10.0f;
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
 
 bool textureOn = 1,perspec = 1;
-bool LforeArmUp = 0,LforeArmDown = 1;
+bool LArmUp = 0,LArmDown = 1;
 
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -72,6 +72,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if(wParam == VK_SPACE) {
 			xRotated = 0.0f; yRotated = 0.0f; zRotated = 0.0f;
 			zoomLevel = -7.0f;
+			restore();
 		}
 		else if (wParam == 'T') {
 			if (textureOn) {
@@ -107,17 +108,17 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 
 		else if (wParam == '7') {
-			if (LforeArmUp) {
-				LforeArmUp = moveLforeArmDown();
-				if (!LforeArmUp) {
-					LforeArmDown = 1;
+			if (LArmUp) {
+				LArmUp = moveLArmDown();
+				if (!LArmUp) {
+					LArmDown = 1;
 				}
 				break;
 			}
-			else if (LforeArmDown) {
-				LforeArmDown = moveLforeArmUp();
-				if (!LforeArmDown) {
-					LforeArmUp = 1;
+			else if (LArmDown) {
+				LArmDown = moveLArmUp();
+				if (!LArmDown) {
+					LArmUp = 1;
 				}
 				break;
 			}
@@ -229,11 +230,11 @@ void display()
 	glEnd();
 
 	glPushMatrix();
-	glTranslatef(-2,0,0);
+	glTranslatef(-2,0,0.1);
 	leftHand();
 	glPopMatrix();
 	glPushMatrix();
-	glTranslatef(2.14, 0, 0);
+	glTranslatef(2.14, 0, 0.1);
 	rightHand();
 	glPopMatrix();
 	
