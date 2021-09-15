@@ -3,6 +3,7 @@
 #include <math.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include <gl/GLUT.h>
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
@@ -13,7 +14,6 @@
 GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
-
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -35,56 +35,52 @@ GLuint LoadBMP(const char* fileName) {
 	return texture;
 }
 
+GLuint robotTex,jointTex;
+
 void bone(float boneLength) {
 
 	cylinder(boneLength, 0.2, 0.2, 1, 1, 1);
 }
 
 void joint(float boneLength,float boneWidth) {
-	GLuint robotTex = LoadBMP("texture/stone.bmp");
+	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
-
+	glBindTexture(GL_TEXTURE_2D, jointTex);
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
 	glRotatef(90, 1, 0, 0);
-	cylinder(boneLength, boneWidth, boneWidth, 1, 1, 1);
+	cylinder(boneLength, boneWidth, boneWidth, 0.804, 0.522, 0.247);
 	glPopMatrix();
-	DeleteObject(hBMP);
-	glDeleteTextures(1, &robotTex);
 }
 
 void finger(float length) {
-	GLuint robotTex = LoadBMP("texture/metal.bmp");
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glPushMatrix();
 	glScalef(0.06, length, 0.06);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
-	DeleteObject(hBMP);
-	glDeleteTextures(1, &robotTex);
 }
 
 void upperFingers(float length) {
 
 	glPushMatrix();
-	glTranslatef(0.15, 0, 0);
+	glTranslatef(0.13, 0, 0);
 	finger(length);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.3, 0, 0);
+	glTranslatef(0.28, 0, 0);
 	finger(length);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.45, 0, 0);
+	glTranslatef(0.43, 0, 0);
 	finger(length);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.6, 0, 0);
+	glTranslatef(0.58, 0, 0);
 	finger(length);
 	glPopMatrix();
 }
@@ -98,29 +94,24 @@ void lowerFingers() {
 }
 
 void fingerJoint() {
-	
-	/*glPushMatrix();
-	glTranslatef(-0.05, 0.22, 0);
-	joint(0.1, 0.06);
-	glPopMatrix();*/
 
 	glPushMatrix();
-	glTranslatef(0.1, 0.22, 0);
+	glTranslatef(0.08, 0.22, 0);
 	joint(0.1, 0.06);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.25, 0.22, 0);
+	glTranslatef(0.23, 0.22, 0);
 	joint(0.1, 0.06);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.4, 0.22, 0);
+	glTranslatef(0.38, 0.22, 0);
 	joint(0.1, 0.06);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.55, 0.22, 0);
+	glTranslatef(0.53, 0.22, 0);
 	joint(0.1, 0.06);
 	glPopMatrix();
 
@@ -130,14 +121,14 @@ void thumb(float length) {
 
 	glPushMatrix();
 	//rotate to put thumb outside
-		glTranslatef(-0.18, 0.8, 0);
-		glRotatef(-50, 0, 0, 1);
-		glTranslatef(0, -0.35, 0);
+		glTranslatef(-0.1, 0.7, 0);
+		glRotatef(-60, 0, 1, 1);
+		glTranslatef(-0.12, -0.35, 0);
 				glPushMatrix();
 				glTranslatef(-0.05, 0.19, 0);
 				joint(0.1, 0.06);
 				glPopMatrix();
-
+				//upper thumb
 				glPushMatrix();
 				glTranslatef(0, 0.16, 0);
 				glRotatef(30, 1, 0, 0);
@@ -159,9 +150,38 @@ void thumb(float length) {
 
 }
 
+void lThumb() {
+	glPushMatrix();
+	//rotate to put thumb outside
+	glTranslatef(-0.1, 0.7, 0);
+	glRotatef(60, 0, 1, 1);
+	glTranslatef(-0.12, -0.35, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+	//upper thumb
+	glPushMatrix();
+	glTranslatef(0, 0.16, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.16, 0);
+	finger(0.16);
+	glPopMatrix();
+	//lower thumb
+	glPushMatrix();
+	glTranslatef(0, 0.38, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+
+	finger(0.16);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
 void allFingers() {
-	
-	thumb(0.2);
 
 	glPushMatrix();
 	glTranslatef(0, 0.2, 0);
@@ -184,13 +204,163 @@ void allFingers() {
 
 void palm() {
 	
-	allFingers();
 	glPushMatrix();	
-	
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glTranslatef(0.35,1.0,0);
-	glScalef(0.35, 0.3, 0.1);
+	glScalef(0.35, 0.3, 0.15);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
-	
 }
 
+void foreArm() {
+
+	glPushMatrix();
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glTranslatef(0.1, 1.6, 0);
+	glScalef(0.15, 0.3, 0.3);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.3, 1.623, 0);
+	glScalef(0.1, 0.32, 0.35);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.55, 1.6, 0);
+	glScalef(0.18, 0.3, 0.3);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+}
+
+void upForeArm() {
+	glPushMatrix();
+	glTranslatef(0, 0.7, 0);
+	foreArm();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.32, 1.95, 0);
+	glScalef(0.35, 0.08, 0.2);
+	cuboid(0.627, 0.322, 0.176);
+	glPopMatrix();
+}
+
+void upperArm() {
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glPushMatrix();
+	glTranslatef(0.34, 3.15, 0);
+		glPushMatrix();
+		glTranslatef(0, -0.4, 0);
+		glRotatef(-90, 1, 0, 0);
+		cylinder(0.8, 0.4, 0.4, 0.545, 0.271, 0.075);
+		glPopMatrix();
+	glScalef(0.3, 0.4, 0.3);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.05, 2.7, 0);
+	joint(0.6, 0.2);
+	glPopMatrix();
+}
+
+void shoulder() {
+	
+	glPushMatrix();
+	glTranslatef(1.0, 0.05, 0.55);
+	glTranslatef(0, 4.2, 0);
+	glRotatef(15, 0, 0, 1);
+	glTranslatef(-1.0, -0.05, -0.55);
+	glTranslatef(0, -4.0, 0);
+	//up
+	glPushMatrix();
+	glTranslatef(0,4.0, 0);
+	glScalef(0.8, 0.05, 0.55);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+	//left
+	glPushMatrix();
+	glTranslatef(0, 3.7, 0.5);
+	glScalef(0.8, 0.3, 0.05);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+	//right
+	glPushMatrix();
+	glTranslatef(0, 3.7, -0.5);
+	glScalef(0.8, 0.3, 0.05);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex);
+	glPushMatrix();
+	glTranslatef(0.2, 3.7, 0);
+	sphere(0.25);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
+void rightHand() {
+	shoulder();
+	upperArm();
+	glTranslatef(0.28, 0, 0);
+	glPushMatrix();
+	glRotatef(30, 0, 1, 0);
+	glTranslatef(-0.28, 0, 0);
+	upForeArm();
+	foreArm();
+	palm();
+	thumb(0.2);
+	allFingers();
+	glPopMatrix();
+}
+
+void leftHand() {
+	glPushMatrix();
+	glTranslatef(0.5, 0, 0);
+	glRotatef(180, 0, 1, 0);
+	shoulder();
+	glPopMatrix();
+	glPushMatrix();
+	glRotatef(-30, 0, 1, 0);
+	glTranslatef(-0.28, 0, 0);
+	upperArm();
+	upForeArm();
+	foreArm();
+	palm();
+	allFingers();
+	glPushMatrix();
+	glTranslatef(1.0, 0.1, -0.2);
+	lThumb();
+	glPopMatrix();
+	glPopMatrix();
+
+}
+
+void body() {
+
+	glPushMatrix();
+	glTranslatef(0.28, 4.0, 0);
+	glRotatef(90, 1, 0, 0);
+	cylinder(3.0, 1.5, 1.0, 0.627, 0.322, 0.176);
+	glPopMatrix();
+}
+
+void loadTex() {
+	robotTex = LoadBMP("texture/metal.bmp");
+	jointTex = LoadBMP("texture/joint.bmp");
+
+}
+
+void delTex() {
+	DeleteObject(hBMP);
+	glDeleteTextures(1, &robotTex);
+	glDeleteTextures(1, &jointTex);
+}
