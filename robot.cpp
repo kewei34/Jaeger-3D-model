@@ -35,7 +35,7 @@ float zoomLevel = -7.0f;
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
-bool textureOn = 1;
+bool textureOn = 1,perspec = 0;
 
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -83,6 +83,26 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 			
 		}
+		else if (wParam == '3') {
+			if (lightOn) {
+				glDisable(GL_LIGHTING);
+				lightOn = 0;
+			}
+			else {
+				glEnable(GL_LIGHTING);
+				glEnable(GL_LIGHT0);
+				lightOn = 1;
+			}
+		}
+
+		else if (wParam == 'P') {
+			if (perspec) {
+				perspec = 0;
+			}
+			else {
+				perspec = 1;
+			}
+		}
 	default:
 		break;
 	}
@@ -128,9 +148,22 @@ void display()
 {
 	/*glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);*/
+	
+	if (perspec) {
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(70.0, 1.0, 0.6, 21.0);
+	}
+	else {
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(-5.0 + zoomLevel, 5.0 - zoomLevel, -5.0 + zoomLevel, 5.0 - zoomLevel, -7.0 + zoomLevel, 3.0 - zoomLevel);
+	}
+
 	glEnable(GL_NORMALIZE);
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glEnable(GL_COLOR_MATERIAL);
 	
 	GLfloat light_ambient[] = { 1.0, 1.0 ,1.0, 1.0 };
 	GLfloat light_close[] = { 0.0, 0.0 ,0.0, 1.0 };
@@ -171,18 +204,21 @@ void display()
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 	
-
+	glPointSize(10);
+	glBegin(GL_POINTS);
+	glVertex3f(x, y, z);
+	glEnd();
 
 	glPushMatrix();
 	glTranslatef(-2,0,0);
 	leftHand();
 	glPopMatrix();
 	glPushMatrix();
-	glTranslatef(2, 0, 0);
+	glTranslatef(2.14, 0, 0);
 	rightHand();
 	glPopMatrix();
 	
-	body();
+	robot();
 
   
 	glPushMatrix();
@@ -199,6 +235,7 @@ void display()
 	/**/
 	glPopMatrix();
 	glFlush();
+	glutSwapBuffers;
 }
 //--------------------------------------------------------------------
 
@@ -246,15 +283,13 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	//perspective
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70.0, 1.0, 0.6, 21.0);
+	
 	glEnable(GL_DEPTH_TEST);
 	/*glEnable(GL_STENCIL_TEST);*/
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
 
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 	glEnable(GL_TEXTURE_2D);
 
 	loadTex();

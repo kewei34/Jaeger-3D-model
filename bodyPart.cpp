@@ -273,6 +273,8 @@ void upperArm() {
 
 void shoulder() {
 	
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glPushMatrix();
 	glTranslatef(1.0, 0.05, 0.55);
 	glTranslatef(0, 4.2, 0);
@@ -310,6 +312,9 @@ void shoulder() {
 
 
 void shoejointfront() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
+
 	glPushMatrix();
 	glTranslatef(-0.5, 0, 0.1);
 	joint(1, 0.15);
@@ -331,6 +336,9 @@ void rightsidelegpad() {
 }
 
 void leftsidelegpad() {
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	//left side leg design
 	glPushMatrix();
 	glTranslatef(-0.4, 1, -0.3);
@@ -345,6 +353,9 @@ void leftsidelegpad() {
 	glPopMatrix();
 }
 void lowerfirstpartleg() {
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	//lower first part leg
 	glPushMatrix();
 	glTranslatef(0, 1.6, -0.3);
@@ -354,6 +365,9 @@ void lowerfirstpartleg() {
 }
 
 void lowersecondpartleg() {
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	//lower second part leg
 	glPushMatrix();
 	glTranslatef(0, 0.5, -0.3);
@@ -363,6 +377,9 @@ void lowersecondpartleg() {
 }
 
 void lowerleg() {
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	rightsidelegpad();
 	lowerfirstpartleg();
 	leftsidelegpad();
@@ -375,6 +392,10 @@ void lowerleg() {
 	lowersecondpartleg();
 	//shoe part
 	shoejointfront();
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
+
 	glPushMatrix();
 	glScalef(0.450, 0.5, 0.80);
 	shoe();
@@ -396,6 +417,8 @@ void legjointfront() {
 }
 
 void upperlegfirstpart() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glPushMatrix();
 	glScalef(1.6,1.4,1.0);
 	glTranslatef(0, 2.7, -0.25);
@@ -410,6 +433,8 @@ void upperlegfirstpart() {
 }
 
 void upperleg() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex);
 	upperlegfirstpart();
 	//ankle
   
@@ -476,8 +501,37 @@ void body() {
 	glPushMatrix();
 	glTranslatef(0.28, 4.0, 0);
 	glRotatef(90, 1, 0, 0);
-	cylinder(3.0, 1.5, 1.0, 0.627, 0.322, 0.176);
+	glScalef(1, 0.8, 1);
+	cylinder(3.0, 1.7, 1.2, 0.627, 0.322, 0.176);
 	glPopMatrix();
+}
+
+void lowerBody() {
+	glPushMatrix();
+	glTranslatef(0.28, 0.5, 0);
+	glScalef(1.5, 0.75, 1);
+	irregularCuboid(0.627, 0.322, 0.176);
+	glPopMatrix();
+}
+
+void wholeBody() {
+	//lowerBody();
+	body();
+}
+
+void head() {
+	glPushMatrix();
+	glTranslatef(0.28,5.5,0);
+	glRotatef(10, 1, 0, 0);
+	glRotatef(-90, 0, 1, 0);
+	glScalef(1,0.8,0.8);
+	sphere(1.2);
+	glPopMatrix();
+}
+
+void robot() {
+	head();
+	wholeBody();
 }
 
 void loadTex() {

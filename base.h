@@ -15,6 +15,8 @@ void arc(float x, float y, float z, float radiusX, float radiusY, float startAng
 
 void spikeHammer();
 
+void irregularCuboid(float,float,float);
+
 void disk();
 
 void shoe();
