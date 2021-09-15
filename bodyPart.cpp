@@ -323,15 +323,15 @@ void shoejointfront() {
 void rightsidelegpad() {
 	//right side leg design
 	glPushMatrix();
-	glTranslatef(0.4, 2.2, -0.3);
+	glTranslatef(0.35, 3.1, -0.3);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
+	cylinder(0.9, 0.16, 0.37, 0.502, 0.000, 0.0);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.4, 1, -0.3);
+	glTranslatef(0.35, 1.3, -0.3);
 	glRotatef(270, 1, 0, 0);
-	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
+	cylinder(0.9, 0.1, 0.37, 0.502, 0.000, 0.0);
 	glPopMatrix();
 }
 
@@ -341,16 +341,18 @@ void leftsidelegpad() {
 	glBindTexture(GL_TEXTURE_2D, robotTex);
 	//left side leg design
 	glPushMatrix();
-	glTranslatef(-0.4, 1, -0.3);
-	glRotatef(270, 1, 0, 0);
-	cylinder(0.6, 0.1, 0.37, 0.502, 0.000, 0.0);
+	glTranslatef(-0.35, 3.1, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.9, 0.16, 0.37, 0.502, 0.000, 0.0);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-0.4, 2.2, -0.3);
-	glRotatef(90, 1, 0, 0);
-	cylinder(0.6, 0.16, 0.37, 0.502, 0.000, 0.0);
+	glTranslatef(-0.35, 1.3, -0.3);
+	glRotatef(270, 1, 0, 0);
+	cylinder(0.9, 0.1, 0.37, 0.502, 0.000, 0.0);
 	glPopMatrix();
+
+
 }
 void lowerfirstpartleg() {
 
@@ -358,8 +360,8 @@ void lowerfirstpartleg() {
 	glBindTexture(GL_TEXTURE_2D, robotTex);
 	//lower first part leg
 	glPushMatrix();
-	glTranslatef(0, 1.6, -0.3);
-	glScalef(0.4, 0.6, 0.4);
+	glTranslatef(0, 2.2, -0.3);
+	glScalef(0.35, 0.9, 0.4);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 }
@@ -370,8 +372,8 @@ void lowersecondpartleg() {
 	glBindTexture(GL_TEXTURE_2D, robotTex);
 	//lower second part leg
 	glPushMatrix();
-	glTranslatef(0, 0.5, -0.3);
-	glScalef(0.40, 0.4, 0.40);
+	glTranslatef(0, 0.6, -0.3);
+	glScalef(0.35, 0.55, 0.40);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 }
@@ -385,10 +387,14 @@ void lowerleg() {
 	leftsidelegpad();
 	//joint between lowerfirstpartleg and lowersecondpartleg
 	glPushMatrix();
-	glTranslatef(0, 1.1, -0.3);
-	glRotatef(90, 1, 0, 0);
-	cylinder(0.3, 0.35, 0.35, 0.804, 0.522, 0.247);
+	glTranslatef(-0.35, 1.25, -0.35);
+	joint(0.7, 0.2);
 	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(0, 1.1, -0.3);
+	//glRotatef(90, 1, 0, 0);
+	//cylinder(0.3, 0.35, 0.35, 0.804, 0.522, 0.247);
+	//glPopMatrix();
 	lowersecondpartleg();
 	//shoe part
 	shoejointfront();
@@ -402,16 +408,9 @@ void lowerleg() {
 	glPopMatrix();
 }
 
-void legjointbehind() {
+void legjointmiddle() {
 	glPushMatrix();
-	glTranslatef(-0.5, 2.3, -0.7);
-	joint(1, 0.2);
-	glPopMatrix();
-}
-
-void legjointfront() {
-	glPushMatrix();
-	glTranslatef(-0.45, 2.3, -0.35);
+	glTranslatef(-0.45, 3.2, -0.35);
 	joint(0.9, 0.2);
 	glPopMatrix();
 }
@@ -420,14 +419,14 @@ void upperlegfirstpart() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, robotTex);
 	glPushMatrix();
-	glScalef(1.6,1.4,1.0);
-	glTranslatef(0, 2.7, -0.25);
+	glScalef(1.4,1.4,1.0);
+	glTranslatef(0,3.58, -0.25);
 	glRotatef(90, 1, 0, 0);
-	cylinder(1, 0.45, 0.45, 0.502, 0.000, 0.0);
+	cylinder(1.3, 0.45, 0.45, 0.502, 0.000, 0.0);
 	glPopMatrix();
 	glPushMatrix();
-	glTranslatef(0, 3.1, -0.25);
-	glScalef(0.45, 0.7, 0.45);
+	glTranslatef(0, 4.1, -0.25);
+	glScalef(0.30, 0.9, 0.45);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 }
@@ -440,14 +439,8 @@ void upperleg() {
   
 	//add ankle code here
 
-	//legjointbehind();
-	legjointfront();
-	//joint between lowerfirstpartleg and uppersecondpartleg
-	//glPushMatrix();
-	//glTranslatef(0, 2.4, -0.3);
-	//glRotatef(90, 1, 0, 0);
-	//cylinder(0.3, 0.35, 0.35, 0.502, 0.000, 0.0);
-	//glPopMatrix();
+	legjointmiddle();
+
 }
 
 void leg() {
@@ -527,6 +520,41 @@ void head() {
 	glScalef(1,0.8,0.8);
 	sphere(1.2);
 	glPopMatrix();
+	//left anthenna
+	glPushMatrix();
+	glTranslatef(-0.65, 6.2, -0.4);
+	glRotatef(-30, 1, 0, 0);
+	glScalef(0.1, 0.8, 0.1);
+	shoe();
+	glPopMatrix();
+	//right anthenna
+	glPushMatrix();
+	glTranslatef(1.2, 6.2, -0.4);
+	glRotatef(-30, 1, 0, 0);
+	glScalef(0.1, 0.8, 0.1);
+	shoe();
+	glPopMatrix();
+
+	//ear
+	glPushMatrix();
+	{
+		glTranslatef(-0.72, 5.5, 0);
+		joint(2, 0.3);
+	}
+	glPopMatrix();
+	glPushMatrix();
+	{
+		glTranslatef(-0.72, 5.5, 0);
+		joint(2, 0.2);
+	}
+	glPopMatrix();
+	//eye
+	glPushMatrix();
+	glTranslatef(0.3, 5.5, 0.742);
+	glScalef(0.50, 0.3, 0.45);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
 }
 
 void robot() {
