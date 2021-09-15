@@ -30,6 +30,9 @@
     <ClCompile Include="example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="interactive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h">
@@ -41,10 +44,30 @@
     <ClInclude Include="scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="interactive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="interactive.txt">
       <Filter>Source Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="texture\stone.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\metal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\pinkMetal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\redMetal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\joint.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

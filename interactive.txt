@@ -5,10 +5,25 @@ Press D to turn right
 Press W to turn front
 Press S to turn back
 --------------------------
-Press Q to walk
+Press Q to walk front
+
+**Camera**
+Press I to zoom in 
+Press O to zoom out
 
 **Hand**
+Press H to move the hands
 
 **Leg**
+Press L to move the legs
 
 **Scene**
+press 1 or 2 to change to day or night
+
+**Weapon**
+press z to equip a sword on right hand 
+press x to equip a spike hammer on left hand
+
+**Other**
+Press spacebar to back to original view and position
+Press T to toggle texture on or off

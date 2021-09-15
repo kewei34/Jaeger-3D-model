@@ -3,19 +3,17 @@
 #include <math.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
-
-#include "base.h"
-#include "scene.h"
-#include "bodyPart.h"
+#include <gl/GLUT.h>
 
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
 
-#define WINDOW_TITLE "OpenGL Window"
-#define WHALE 3.141324312
+#include "base.h"
+#include "scene.h"
+#include "bodyPart.h"
 
-GLuint LoadBMP(char* fileName);
+#define WINDOW_TITLE "OpenGL Window"
 
 //draw curve line
 GLfloat ctrlpoints[3][3] = {
@@ -29,17 +27,16 @@ GLfloat ctrlpoints2[3][3] = {
 // mouse movement
 float lastX = 0.0f, lastY = 0.0f;
 
-float xRotated = 1.0f, yRotated = 1.0f, zRotated = -30.0f;
+float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
 
-
-float x = 0.0f, y = 0.0f, z = 7.0f;
+float x = 0.0f, y = 10.0f, z = 0.0f;
 float zoomLevel = -7.0f;
 
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 
-GLuint texture = 0;
-BITMAP BMP;
-HBITMAP hBMP = NULL;
+bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
+bool textureOn = 1;
+
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -53,7 +50,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		case MK_LBUTTON:
 			int xPos = GET_X_LPARAM(lParam);
 			int yPos = GET_Y_LPARAM(lParam);
-			zRotated += xPos - lastX;
+			yRotated += xPos - lastX;
 			xRotated += yPos - lastY;
 			lastX = xPos;
 			lastY = yPos;
@@ -65,12 +62,27 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		lastX = GET_X_LPARAM(lParam);
 		lastY = GET_Y_LPARAM(lParam);
 		break;
-	case WM_KEYDOWN:
-		if (wParam == VK_ESCAPE) PostQuitMessage(0);
-		break;
 	case WM_MOUSEWHEEL:
 		zoomLevel += GET_WHEEL_DELTA_WPARAM(wParam) / 120.0f;
 		break;
+	case WM_KEYDOWN:
+		if (wParam == VK_ESCAPE) PostQuitMessage(0);
+
+		else if(wParam == VK_SPACE) {
+			xRotated = 0.0f; yRotated = 0.0f; zRotated = 0.0f;
+			zoomLevel = -7.0f;
+		}
+		else if (wParam == 'T') {
+			if (textureOn) {
+				glDisable(GL_TEXTURE_2D);
+				textureOn = 0;
+			}
+			else{
+				glEnable(GL_TEXTURE_2D);
+				textureOn = 1;
+			}
+			
+		}
 	default:
 		break;
 	}
@@ -111,105 +123,94 @@ bool initPixelFormat(HDC hdc)
 }
 //--------------------------------------------------------------------
 
-GLuint LoadBMP(char* fileName) {
-	//glColor3f(1.0f, 1.0f, 1.0f);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-	GetObject(hBMP, sizeof(BMP), &BMP);
 
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
-
-	DeleteObject(hBMP);
-	return texture;
-}
-
-GLuint LoadBMPForReactor(char* fileName) {
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-	GetObject(hBMP, sizeof(BMP), &BMP);
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
-
-	DeleteObject(hBMP);
-	return texture;
-}
+//GLuint LoadBMPForReactor(char* fileName) {
+//	glColor3f(1.0f, 1.0f, 1.0f);
+//	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+//	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
+//	GetObject(hBMP, sizeof(BMP), &BMP);
+//
+//	GLuint texture;
+//	glGenTextures(1, &texture);
+//	glBindTexture(GL_TEXTURE_2D, texture);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
+//
+//	DeleteObject(hBMP);
+//	return texture;
+//}
 
 void display()
 {
+	/*glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);*/
+
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	glClearColor(0.902, 0.902, 0.980, 1);
+	
+	GLfloat light_ambient[] = { 1.0, 1.0 ,1.0, 1.0 };
+	GLfloat light_close[] = { 0.0, 0.0 ,0.0, 1.0 };
+	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+
+	GLfloat light_position[] = { x,y,z, 0.0 };
+
+	if (ambientOn) {
+		glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	}
+	else {
+		glLightfv(GL_LIGHT0, GL_AMBIENT, light_close);
+	}
+
+	if (diffuseOn) {
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	}
+	else {
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_close);
+	}
+
+	if (specularOn) {
+		glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	}
+	else {
+		glLightfv(GL_LIGHT0, GL_SPECULAR, light_close);
+	}
+
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glClearColor(0.902, 0.902, 0.980, 1.0);
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, zoomLevel);
-	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+	//glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
-	glShadeModel(GL_SMOOTH);
+	
 
-	cuboid(1,1,1,0.0f, 1.0f, 1.0f);
-	////front
-	//glBegin(GL_LINE_LOOP);
-	//glColor3f(1, 1, 1);
-	//glVertex3f(-0.25, -0.25, 0.25);
-	//glColor3f(1, 0, 1);
-	//glVertex3f(0.25, -0.25, 0.25);
-	//glColor3f(1, 1, 0);
-	//glVertex3f(0, 0.25, 0);
-	//glEnd();
 
-	////back
-	//glBegin(GL_LINE_LOOP);
-	//glColor3f(1, 1, 1);
-	//glVertex3f(-0.25, -0.25, -0.25);
-	//glColor3f(1, 1, 0);
-	//glVertex3f(0.25, -0.25, -0.25);
-	//glVertex3f(0, 0.25, 0);
-	//glEnd();
+	glPushMatrix();
+	glTranslatef(-2,0,0);
+	leftHand();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(2, 0, 0);
+	rightHand();
+	glPopMatrix();
+	
+	body();
 
-	////left
-	//glBegin(GL_LINE_LOOP);
-	//glColor3f(1, 1, 1);
-	//glVertex3f(-0.25, -0.25, 0.25);
-	//glColor3f(1, 1, 0);
-	//glVertex3f(-0.25, -0.25, -0.25);
-	//glVertex3f(0, 0.25, 0);
-	//glEnd();
-
-	////right
-	//glBegin(GL_LINE_LOOP);
-	//glColor3f(1, 1, 1);
-	//glVertex3f(0.25, -0.25, 0.25);
-	//glColor3f(1, 1, 0);
-	//glVertex3f(0.25, -0.25, -0.25);
-	//glVertex3f(0, 0.25, 0);
-	//glEnd();
-
-	////down
-	//glBegin(GL_LINE_LOOP);
-	//glColor3f(1, 1, 1);
-	//glVertex3f(-0.25, -0.25, 0.25);
-	//glColor3f(1, 1, 0);
-	//glVertex3f(0.25, -0.25, 0.25);
-	//glVertex3f(0.25, -0.25, -0.25);
-	//glVertex3f(-0.25, -0.25, -0.25);
-	//glEnd();
+  
+	glPushMatrix();
+	glTranslatef(-2,-4,0);
+	leg();
+  glPopMatrix();
+  
+	
+	/**/
 	glPopMatrix();
 	glFlush();
 }
@@ -263,11 +264,12 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glEnable(GL_DEPTH_TEST);
 	/*glEnable(GL_STENCIL_TEST);*/
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	//glStencilFunc(GL_ALWAYS, 0, 1); // these are also the default parameters
-	/*glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
+	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);*/
+	/*glEnable(GL_LIGHTING);*/
+	glEnable(GL_TEXTURE_2D);
+
+	loadTex();
 
 	while (true)
 	{
@@ -283,12 +285,12 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 
 		SwapBuffers(hdc);
 	}
-
-	glDisable(GL_TEXTURE_2D);
-	DeleteObject(hBMP);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_STENCIL_TEST);
-
+	
+	delTex();
+	/*glDisable(GL_TEXTURE_2D);*/
+	//DeleteObject(hBMP);
+	//glDisable(GL_LIGHTING);
+	//glDisable(GL_STENCIL_TEST);
 	UnregisterClass(WINDOW_TITLE, wc.hInstance);
 
 	return true;

@@ -5,9 +5,10 @@
 #include <gl/GLU.h>
 
 #pragma comment (lib, "OpenGL32.lib")
-
+#pragma comment (lib, "GLU32.lib")
 #define WINDOW_TITLE "OpenGL Window"
 
+// action key functions declaration
 // action key functions declaration
 void leftKeyAction();
 void rightKeyAction();
@@ -5942,7 +5943,7 @@ void display()
 
 	GLUquadricObj *var = NULL;
 
-	(GLUquadricObj *)var = gluNewQuadric();
+	var = gluNewQuadric();
 	gluQuadricNormals(var, GLU_SMOOTH);
 	gluQuadricTexture(var, GL_TRUE);
 
@@ -6129,26 +6130,26 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glEnable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
 
-	armorTexture = LoadBMP("textures/armor_texture.bmp");
-	armorTexture1 = LoadBMP("textures/armor_texture_2.bmp");
-	armorTexture2 = LoadBMP("textures/armor_texture_1.bmp");
-	metalTexture = LoadBMP("textures/metal_texture.bmp");
-	glossyMetal = LoadBMP("textures/glossy_metal.bmp");
-	glass = LoadBMP("textures/glass.bmp");
-	camourflage = LoadBMP("textures/camouflage.bmp");
-	flame = LoadBMP("textures/flame.bmp");
-	mechanical = LoadBMP("textures/mechanical.bmp");
+	//armorTexture = LoadBMP("textures/armor_texture.bmp");
+	//armorTexture1 = LoadBMP("textures/armor_texture_2.bmp");
+	//armorTexture2 = LoadBMP("textures/armor_texture_1.bmp");
+	//metalTexture = LoadBMP("textures/metal_texture.bmp");
+	//glossyMetal = LoadBMP("textures/glossy_metal.bmp");
+	//glass = LoadBMP("textures/glass.bmp");
+	//camourflage = LoadBMP("textures/camouflage.bmp");
+	//flame = LoadBMP("textures/flame.bmp");
+	//mechanical = LoadBMP("textures/mechanical.bmp");
 
-	backConnectorTexture = LoadBMP("textures/back_connector.bmp");
-	reactorOutringTexture = LoadBMP("textures/reactor_outring_texture.bmp");
-	reactorTurn1Texture = LoadBMP("textures/reactor_turn1_texture.bmp");
-	eyesTexture = LoadBMP("textures/eyes_texture.bmp");
-	redTexture = LoadBMP("textures/red_texture.bmp");
-	plasmaTexture = LoadBMP("textures/plasma_texture.bmp");
-	plasmaTexture2 = LoadBMP("textures/plasma_texture2.bmp");
-	plasmaTexture3 = LoadBMP("textures/plasma_texture3.bmp");
-	cannonTexture = LoadBMP("textures/cannon_texture.bmp");
-	boostFlame = LoadBMP("textures/boost_flame.bmp");
+	//backConnectorTexture = LoadBMP("textures/back_connector.bmp");
+	//reactorOutringTexture = LoadBMP("textures/reactor_outring_texture.bmp");
+	//reactorTurn1Texture = LoadBMP("textures/reactor_turn1_texture.bmp");
+	//eyesTexture = LoadBMP("textures/eyes_texture.bmp");
+	//redTexture = LoadBMP("textures/red_texture.bmp");
+	//plasmaTexture = LoadBMP("textures/plasma_texture.bmp");
+	//plasmaTexture2 = LoadBMP("textures/plasma_texture2.bmp");
+	//plasmaTexture3 = LoadBMP("textures/plasma_texture3.bmp");
+	//cannonTexture = LoadBMP("textures/cannon_texture.bmp");
+	//boostFlame = LoadBMP("textures/boost_flame.bmp");
 
 	textureArray[0] = armorTexture;
 	textureArray[1] = armorTexture1;
@@ -6161,22 +6162,22 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	textureArray2[1] = glossyMetal;
 	textureArray2[2] = mechanical;
 
-	sunTexture = LoadBMP("textures/sun_texture.bmp");
-	moonTexture = LoadBMP("textures/moon_texture.bmp");
-	nightSea = LoadBMP("textures/night_sea.bmp");
+	//sunTexture = LoadBMP("textures/sun_texture.bmp");
+	//moonTexture = LoadBMP("textures/moon_texture.bmp");
+	//nightSea = LoadBMP("textures/night_sea.bmp");
 
-	roof = LoadBMP("textures/roof.bmp");
-	smallTower = LoadBMP("textures/small_tower.bmp");
-	towerFront = LoadBMP("textures/tower_front.bmp");
-	baseBridgeTexture = LoadBMP("textures/base_bridge_texture.bmp");
-	roadTexture = LoadBMP("textures/road_texture.bmp");
-	sideFenceTexture = LoadBMP("textures/side_fence_texture.bmp");
-	base = LoadBMP("textures/base.bmp");
-	seaTexture = LoadBMP("textures/sea_texture.bmp");
-	
-	sandStoneTexture = LoadBMP("textures/sand_stone_texture.bmp");
-	bridgeTexture = LoadBMP("textures/bridge_texture.bmp");
-	brickRoadTexture = LoadBMP("textures/brick_road_texture.bmp");
+	//roof = LoadBMP("textures/roof.bmp");
+	//smallTower = LoadBMP("textures/small_tower.bmp");
+	//towerFront = LoadBMP("textures/tower_front.bmp");
+	//baseBridgeTexture = LoadBMP("textures/base_bridge_texture.bmp");
+	//roadTexture = LoadBMP("textures/road_texture.bmp");
+	//sideFenceTexture = LoadBMP("textures/side_fence_texture.bmp");
+	//base = LoadBMP("textures/base.bmp");
+	//seaTexture = LoadBMP("textures/sea_texture.bmp");
+	//
+	//sandStoneTexture = LoadBMP("textures/sand_stone_texture.bmp");
+	//bridgeTexture = LoadBMP("textures/bridge_texture.bmp");
+	//brickRoadTexture = LoadBMP("textures/brick_road_texture.bmp");
 
 	while (true)
 	{
