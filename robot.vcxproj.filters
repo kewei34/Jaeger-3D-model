@@ -27,9 +27,6 @@
     <ClCompile Include="bodyPart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="example.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="interactive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

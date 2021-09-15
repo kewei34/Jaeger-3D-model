@@ -311,8 +311,6 @@ void leg() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, shoeTex);
 
-
-
 	glPushMatrix();
 	glTranslatef(0, 2.4, -0.3);
 	glRotatef(90, 1, 0, 0);
@@ -424,7 +422,6 @@ void leftHand() {
 	glPopMatrix();
 
 }
-
 
 void body() {
 
