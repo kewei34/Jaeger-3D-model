@@ -123,39 +123,7 @@ bool initPixelFormat(HDC hdc)
 }
 //--------------------------------------------------------------------
 
-
-//GLuint LoadBMPForReactor(char* fileName) {
-//	glColor3f(1.0f, 1.0f, 1.0f);
-//	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-//	hBMP = (HBITMAP)LoadImage(GetModuleHandle(NULL), fileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-//	GetObject(hBMP, sizeof(BMP), &BMP);
-//
-//	GLuint texture;
-//	glGenTextures(1, &texture);
-//	glBindTexture(GL_TEXTURE_2D, texture);
-//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
-//
-//	DeleteObject(hBMP);
-//	return texture;
-//}
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, BMP.bmWidth, BMP.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, BMP.bmBits);
-
-	DeleteObject(hBMP);
-	return texture;
-}
-
+	
 void display()
 {
 	/*glEnable(GL_TEXTURE_GEN_S);
@@ -218,9 +186,9 @@ void display()
 
   
 	glPushMatrix();
-	glTranslatef(-2,-4,0);
+	glTranslatef(-1,-4,0);
 	leg();
-  glPopMatrix();
+	glPopMatrix();
   
 	
 	/**/
