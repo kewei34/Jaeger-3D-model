@@ -26,6 +26,8 @@ void leftHand();
 
 void rightHand();
 
+void body();
+
 void loadTex();
 
 void delTex();
