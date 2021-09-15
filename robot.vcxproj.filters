@@ -66,5 +66,8 @@
     <Image Include="texture\redMetal.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="texture\joint.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

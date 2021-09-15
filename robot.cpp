@@ -5,13 +5,13 @@
 #include <gl/GLU.h>
 #include <gl/GLUT.h>
 
-#include "base.h"
-#include "scene.h"
-#include "bodyPart.h"
-
 
 #pragma comment (lib, "OpenGL32.lib")
 #pragma comment (lib, "GLU32.lib")
+
+#include "base.h"
+#include "scene.h"
+#include "bodyPart.h"
 
 #define WINDOW_TITLE "OpenGL Window"
 
@@ -188,9 +188,26 @@ void display()
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
-
 	
+
+
+	glPushMatrix();
+	glTranslatef(-2,0,0);
+	leftHand();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(2, 0, 0);
+	rightHand();
+	glPopMatrix();
+	
+	body();
+
+  
+	glPushMatrix();
+	glTranslatef(-2,-4,0);
 	leg();
+  glPopMatrix();
+  
 	
 	/**/
 	glPopMatrix();
@@ -251,6 +268,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	/*glEnable(GL_LIGHTING);*/
 	glEnable(GL_TEXTURE_2D);
 
+	loadTex();
+
 	while (true)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -265,7 +284,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 
 		SwapBuffers(hdc);
 	}
-
+	
+	delTex();
 	/*glDisable(GL_TEXTURE_2D);*/
 	//DeleteObject(hBMP);
 	//glDisable(GL_LIGHTING);
