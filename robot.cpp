@@ -12,6 +12,7 @@
 #include "base.h"
 #include "scene.h"
 #include "bodyPart.h"
+#include "interactive.h"
 
 #define WINDOW_TITLE "OpenGL Window"
 
@@ -26,16 +27,16 @@ GLfloat ctrlpoints2[3][3] = {
 
 // mouse movement
 float lastX = 0.0f, lastY = 0.0f;
-
 float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
-
-float x = 5.0f, y = 10.0f, z = 10.0f;
+float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 float zoomLevel = -7.0f;
 
-float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
-
+//light
+float x = 5.0f, y = 10.0f, z = 10.0f;
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
+
 bool textureOn = 1,perspec = 1;
+bool LforeArmUp = 0,LforeArmDown = 1;
 
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -86,6 +87,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		else if (wParam == '3') {
 			if (lightOn) {
 				glDisable(GL_LIGHTING);
+				glDisable(GL_LIGHT0);
 				lightOn = 0;
 			}
 			else {
@@ -101,6 +103,23 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 			else {
 				perspec = 1;
+			}
+		}
+
+		else if (wParam == '7') {
+			if (LforeArmUp) {
+				LforeArmUp = moveLforeArmDown();
+				if (!LforeArmUp) {
+					LforeArmDown = 1;
+				}
+				break;
+			}
+			else if (LforeArmDown) {
+				LforeArmDown = moveLforeArmUp();
+				if (!LforeArmDown) {
+					LforeArmUp = 1;
+				}
+				break;
 			}
 		}
 	default:
@@ -235,7 +254,7 @@ void display()
 	/**/
 	glPopMatrix();
 	glFlush();
-	glutSwapBuffers;
+	//glutSwapBuffers;
 }
 //--------------------------------------------------------------------
 

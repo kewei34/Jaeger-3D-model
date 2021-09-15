@@ -26,6 +26,11 @@ void leftHand();
 
 void rightHand();
 
+
+bool moveLforeArmUp();
+
+bool moveLforeArmDown();
+
 void body();
 
 void wholeBody();

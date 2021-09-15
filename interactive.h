@@ -1,3 +1,6 @@
 #pragma once
 
-extern float fingerAngle = 0;
+
+//bool moveLforeArmUp();
+//
+//bool moveLforeArmDown();
