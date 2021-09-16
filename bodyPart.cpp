@@ -487,6 +487,92 @@ void head() {
 	glPopMatrix();
 
 }
+void swordhandle() {
+	//swordhandle
+	glPushMatrix();
+	glTranslatef(-4,1.85, -0.3);
+	glScalef(0.15, 0.1, 0.05);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+
+	//swordhandledesign
+	glPushMatrix();
+	glScalef(1, 1, 0.4);
+	glTranslatef(-4, 1.95, -0.75);
+	glRotatef(90, 1, 0, 0);
+	cylinder(0.6,0.23,0.23,1,1,1);
+	glPopMatrix();
+	//sworduppersupport 
+	glPushMatrix();
+	glTranslatef(-4, 1.5, -0.3);
+	glScalef(0.6, 0.1, 0.1);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+	//swordslowersupport
+	glPushMatrix();
+	glTranslatef(-4, 1.3, -0.3);
+	glScalef(0.3, 0.1, 0.05);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+}
+
+void swordbody() {
+	//sword body
+	glPushMatrix();
+	glTranslatef(-4, 0.6, -0.3);
+	glScalef(0.2, 1.2, 0.05);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+	//swordtip
+	glPushMatrix();
+	glTranslatef(-4, -0.6, -0.3);
+	glRotatef(180, 1, 0, 0);
+	glScalef(0.2, 0.9, 0.05);
+	pyramid(1, 1);
+	glPopMatrix();
+}
+
+void sword() {
+	swordhandle();
+	swordbody();
+}
+
+void spikehammertop() {
+	//ball
+	glPushMatrix();
+	glTranslatef(-4, 0.6, -0.3);
+	sphere(0.4);
+	glPopMatrix();
+	//spike
+	glPushMatrix();
+	glTranslatef(-4, 0.6, -0.3);
+	pyramid(0.4,0.5);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-4, 0.6, -0.3);
+	glRotatef(180,1,0,0);
+	pyramid(0.4, 0.5);
+	glPopMatrix();
+}
+void spikehammerhandle() {
+	glPushMatrix();
+	glTranslatef(-4, 2.1, -0.3);
+	glScalef(0.15, 0.1, 0.15);
+	cuboid(0.545, 0.271, 0.075);
+	glPopMatrix();
+	glPushMatrix();
+	//glScalef(1, 1, 0.4);
+	glTranslatef(-4, 2, -0.3);
+	glRotatef(90, 1, 0, 0);
+	cylinder(1.4, 0.1, 0.1, 1, 1, 1);
+	glPopMatrix();
+}
+
+void spikehammer() {
+	spikehammertop();
+	spikehammerhandle();
+}
+
 
 void robot() {
 	head();
@@ -502,6 +588,8 @@ void robot() {
 	rightHand();
 	glPopMatrix();
 
+	//sword();
+	spikehammer();
 	//Lleg
 	glPushMatrix();
 	glTranslatef(-0.72, -4, 0);
@@ -532,3 +620,5 @@ void delTex() {
 	glDeleteTextures(1, &jointTex);
 	glDeleteTextures(1, &shoeTex);
 }
+
+
