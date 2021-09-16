@@ -24,14 +24,10 @@ void upForeArm();
 
 void palm();
 
-void leftHand();
+void shoulder();
 
-void rightHand();
+void upperArm();
 
-
-bool moveLArmUp();
-
-bool moveLArmDown();
 
 void body();
 

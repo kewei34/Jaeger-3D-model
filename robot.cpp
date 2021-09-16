@@ -10,6 +10,7 @@
 #pragma comment (lib, "GLU32.lib")
 
 #include "base.h"
+#include "hand.h"
 #include "scene.h"
 #include "bodyPart.h"
 #include "interactive.h"
@@ -36,8 +37,10 @@ float x = 5.0f, y = 10.0f, z = 10.0f;
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
 
 bool textureOn = 1,perspec = 1;
-bool LArmUp = 0,LArmDown = 1;
+bool LArmUp = 0,LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1;
 
+bool liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
+bool ballAtk = 0;
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -108,21 +111,35 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 
 		else if (wParam == '7') {
-			if (LArmUp) {
-				LArmUp = moveLArmDown();
-				if (!LArmUp) {
-					LArmDown = 1;
-				}
-				break;
+			if (LArmDown) {
+				liftLArm = 1;
 			}
-			else if (LArmDown) {
-				LArmDown = moveLArmUp();
-				if (!LArmDown) {
-					LArmUp = 1;
-				}
-				break;
+			else {
+				downLArm = 1;
 			}
 		}
+		else if (wParam == '9') {
+			if (LArmDown&& LArmnPalmDown) {
+				liftLArmnPalm = 1;
+			}
+			else {
+				downLArmnPalm = 1;
+			}
+		}
+		else if (wParam == 'X') {
+			if (LArmnPalmUp) {
+				ballAtk = 0;
+				moveLArmnPalmUp(1);
+			}
+		}
+		break;
+	case WM_KEYUP:
+		if (wParam == 'X') {
+			if (LArmnPalmUp) {
+				ballAtk = 1;
+			}
+		}
+
 	default:
 		break;
 	}
@@ -184,6 +201,7 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_COLOR_MATERIAL);
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
 	GLfloat light_ambient[] = { 1.0, 1.0 ,1.0, 1.0 };
 	GLfloat light_close[] = { 0.0, 0.0 ,0.0, 1.0 };
@@ -229,33 +247,54 @@ void display()
 	glVertex3f(x, y, z);
 	glEnd();
 
-	glPushMatrix();
-	glTranslatef(-2,0,0.1);
-	leftHand();
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(2.14, 0, 0.1);
-	rightHand();
-	glPopMatrix();
-	
+	//movement
+	if (liftLArm && LArmDown&& LArmnPalmDown) {
+		LArmDown = moveLArmUp();
+		if (!LArmDown) {
+			LArmUp = 1;
+			liftLArm = 0;
+		}
+	}
+
+	if (downLArm && LArmUp && LArmnPalmDown) {
+		LArmUp = moveLArmDown();
+		if (!LArmUp) {
+			LArmDown = 1;
+			downLArm = 0;
+		}
+	}
+
+	if (liftLArmnPalm && LArmDown && LArmnPalmDown) {
+		LArmnPalmDown = moveLArmnPalmUp(0);
+		if (!LArmnPalmDown) {
+			liftLArmnPalm = 0;
+			LArmnPalmDown = 0;
+			LArmnPalmUp = 1;
+		}
+	}
+
+	if (downLArmnPalm && LArmDown && LArmnPalmUp) {
+		LArmnPalmUp = moveLArmnPalmDown();
+		if (!LArmnPalmUp) {
+			downLArmnPalm = 0;
+			LArmnPalmDown = 1;
+			LArmnPalmUp = 0;
+		}
+	}
+
+	//attack
+	if (ballAtk) {
+		if (attackBall()) {
+			ballAtk = 0;
+		}
+	}
+
 	robot();
-
-  
-	glPushMatrix();
-	glTranslatef(-0.72,-4,0);
-	leg();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(1.28, -4, 0);
-	leg();
-	glPopMatrix();
   
 	
-	/**/
+	
 	glPopMatrix();
 	glFlush();
-	//glutSwapBuffers;
 }
 //--------------------------------------------------------------------
 

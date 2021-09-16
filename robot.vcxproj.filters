@@ -33,6 +33,12 @@
     <ClCompile Include="robot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h">
@@ -45,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="interactive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

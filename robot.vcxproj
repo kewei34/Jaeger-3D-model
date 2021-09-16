@@ -148,7 +148,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="hand.cpp" />
     <ClCompile Include="interactive.cpp" />
+    <ClCompile Include="leg.cpp" />
     <ClCompile Include="robot.cpp" />
     <ClCompile Include="scene.cpp" />
   </ItemGroup>
@@ -157,6 +159,7 @@
     <ClInclude Include="bodyPart.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="hand.h" />
     <ClInclude Include="interactive.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>
