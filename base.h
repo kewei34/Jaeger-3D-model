@@ -7,6 +7,8 @@ void unfilledPyramid();
 
 void cylinder(float height, float topR, float bottomR, float r, float g, float b);
 
+void unfilledCylinder(float height, float topR, float bottomR, float r, float g, float b);
+
 void sphere(float radius);
 
 void pyramid(float s, float h);

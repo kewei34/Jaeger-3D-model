@@ -11,6 +11,8 @@
 
 #define PI 3.14159265359
 
+void disk(float,float);
+
 float normalize(float *v) {
 	float length = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
 
@@ -176,6 +178,24 @@ void cylinder(float height, float topR, float bottomR, float r, float g, float b
 	gluQuadricDrawStyle(cylinder, GL_TRIANGLE_FAN);
 	gluCylinder(cylinder, topR, bottomR, height, 20, 20);
 	gluDeleteQuadric(cylinder);
+
+	disk(0, topR);
+	glPushMatrix();
+	glTranslatef(0,0 , height);
+	disk(0, bottomR);
+	glPopMatrix();
+}
+
+void unfilledCylinder(float height, float topR, float bottomR, float r, float g, float b) {
+
+	GLUquadricObj* cylinder = NULL;
+	cylinder = gluNewQuadric();
+	glColor3f(r, g, b);
+	gluQuadricTexture(cylinder, true);
+	gluQuadricNormals(cylinder, GLU_SMOOTH);
+	gluQuadricDrawStyle(cylinder, GL_TRIANGLE_FAN);
+	gluCylinder(cylinder, topR, bottomR, height, 20, 20);
+	gluDeleteQuadric(cylinder);
 }
 
 void sphere(float radius) {
@@ -264,12 +284,12 @@ void energyBall() {
 	glEnable(GL_TEXTURE_2D);
 }
 
-void disk() {
+void disk(float innerR,float outerR) {
 	GLUquadricObj* disk = NULL;
 	disk = gluNewQuadric();
 	gluQuadricTexture(disk, true);
 	gluQuadricDrawStyle(disk, GL_TRIANGLE_FAN);
-	gluDisk(disk, 1, 2, 100, 50);
+	gluDisk(disk, innerR, outerR, 50, 50);
 	gluDeleteQuadric(disk);
 }
 

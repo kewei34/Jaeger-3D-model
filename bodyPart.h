@@ -37,8 +37,6 @@ void robot();
 
 void moveRobot();
 
-void leg();
-
 void upperleg();
 
 void lowerleg();
