@@ -17,7 +17,12 @@ GLuint texture = 0;
 BITMAP BMP;
 HBITMAP hBMP = NULL;
 
+int robotTexNum = 1;
+int jointTexNum = 1;
+bool walk = 0;
 
+GLuint robotTex[7];
+GLuint jointTex[7];
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -39,8 +44,6 @@ GLuint LoadBMP(const char* fileName) {
 	return texture;
 }
 
-GLuint robotTex, jointTex, shoeTex;
-
 void bone(float boneLength) {
 
 	cylinder(boneLength, 0.2, 0.2, 1, 1, 1);
@@ -49,7 +52,7 @@ void bone(float boneLength) {
 void joint(float boneLength,float boneWidth) {
 	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, jointTex);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	glPushMatrix();
 	glRotatef(90, 0, 0, 1);
 	glRotatef(90, 1, 0, 0);
@@ -59,7 +62,7 @@ void joint(float boneLength,float boneWidth) {
 
 void finger(float length) {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glScalef(0.06, length, 0.06);
 	cuboid(0.545, 0.271, 0.075);
@@ -125,7 +128,7 @@ void palm() {
 
 	glPushMatrix();
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glTranslatef(0.35, 1.0, 0);
 	glScalef(0.35, 0.3, 0.15);
 	cuboid(0.545, 0.271, 0.075);
@@ -136,7 +139,7 @@ void foreArm() {
 
 	glPushMatrix();
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glTranslatef(0.1, 1.6, 0);
 	glScalef(0.15, 0.3, 0.3);
 	cuboid(0.545, 0.271, 0.075);
@@ -171,7 +174,7 @@ void upForeArm() {
 void upperArm() {
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glTranslatef(0.34, 3.15, 0);
 	glPushMatrix();
@@ -192,7 +195,7 @@ void upperArm() {
 void shoulder() {
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glTranslatef(1.0, 0.05, 0.55);
 	glTranslatef(0, 4.2, 0);
@@ -219,7 +222,7 @@ void shoulder() {
 	glPopMatrix();
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, jointTex);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	glPushMatrix();
 	glTranslatef(0.2, 3.7, 0);
 	sphere(0.25);
@@ -230,7 +233,7 @@ void shoulder() {
 
 void shoejointfront() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 
 	glPushMatrix();
 	glTranslatef(-0.5, 0, 0.1);
@@ -255,7 +258,7 @@ void rightsidelegpad() {
 void leftsidelegpad() {
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	//left side leg design
 	glPushMatrix();
 	glTranslatef(-0.35, 3.1, -0.3);
@@ -274,7 +277,7 @@ void leftsidelegpad() {
 void lowerfirstpartleg() {
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	//lower first part leg
 	glPushMatrix();
 	glTranslatef(0, 2.2, -0.3);
@@ -286,7 +289,7 @@ void lowerfirstpartleg() {
 void lowersecondpartleg() {
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	//lower second part leg
 	glPushMatrix();
 	glTranslatef(0, 0.6, -0.3);
@@ -298,7 +301,7 @@ void lowersecondpartleg() {
 void lowerleg() {
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	rightsidelegpad();
 	lowerfirstpartleg();
 	leftsidelegpad();
@@ -317,7 +320,7 @@ void lowerleg() {
 	shoejointfront();
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 
 	glPushMatrix();
 	glScalef(0.450, 0.5, 0.80);
@@ -334,7 +337,7 @@ void legjointmiddle() {
 
 void upperlegfirstpart() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glScalef(1.4,1.4,1.0);
 	glTranslatef(0,3.58, -0.25);
@@ -350,7 +353,7 @@ void upperlegfirstpart() {
 
 void upperleg() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	upperlegfirstpart();
 	//ankle
   
@@ -359,16 +362,6 @@ void upperleg() {
 	legjointmiddle();
 
 }
-
-void leg() {
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
-	
-	upperleg();
-	lowerleg();	
-}
-
-
 
 void leftmuscle() {
 	//left muscle
@@ -420,7 +413,7 @@ void bodymuscle() {
 
 void body() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glTranslatef(0.28, 4.0, 0);
 	glRotatef(90, 1, 0, 0);
@@ -489,46 +482,116 @@ void head() {
 }
 
 void robot() {
-	head();
-	wholeBody();
+	
+		head();
+		wholeBody();
 
-	//hand
-	glPushMatrix();
-	glTranslatef(-2, 0, 0.1);
-	leftHand();
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(2.14, 0, 0.1);
-	rightHand();
-	glPopMatrix();
-
-	//Lleg
-	glPushMatrix();
-	glTranslatef(-0.72, -4, 0);
+		//hand
 		glPushMatrix();
-		glTranslatef(0, 5, 0);
-		glRotatef(-30, 1, 0, 0);
-		glTranslatef(0, -5, 0);
+		glTranslatef(-2, 0, 0.1);
+		leftHand();
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(2.14, 0, 0.1);
+		rightHand();
+		glPopMatrix();
+
+		//Lleg
+		glPushMatrix();
+		glTranslatef(-0.72, -4, 0);
+			glPushMatrix();
+			glTranslatef(0, 5, 0);
+			//glRotatef(-30, 1, 0, 0);
+			glTranslatef(0, -5, 0);
+			leg();
+			glPopMatrix();
+		glPopMatrix();
+		//Rleg
+		glPushMatrix();
+		glTranslatef(1.28, -4, 0);
 		leg();
 		glPopMatrix();
-	glPopMatrix();
-	//Rleg
-	glPushMatrix();
-	glTranslatef(1.28, -4, 0);
-	leg();
-	glPopMatrix();
+}
+
+void changeMTex() {
+	
+	if (robotTexNum < 3) {
+		robotTexNum++;
+	}
+	else if(robotTexNum >=3){
+		robotTexNum = 1;
+	}
+}
+
+void changeFTex() {
+	if (robotTexNum <= 3|| robotTexNum>5) {
+		robotTexNum = 4;
+	}
+	else if (robotTexNum > 3&& robotTexNum <5) {
+		robotTexNum++;
+	}
+	else if (robotTexNum == 5) {
+		robotTexNum = 4;
+	}
+}
+
+void changeATex() {
+	if (robotTexNum <= 5) {
+		robotTexNum = 6;
+	}
+	else if (robotTexNum > 5 && robotTexNum < 7) {
+		robotTexNum++;
+	}
+	else if (robotTexNum == 7) {
+		robotTexNum = 6;
+	}
+}
+
+void changeJTex() {
+	if (jointTexNum < 3) {
+		jointTexNum++;
+	}
+	else if (jointTexNum >= 3) {
+		jointTexNum = 1;
+	}
 }
 
 void loadTex() {
-	robotTex = LoadBMP("texture/metal.bmp");
-	jointTex = LoadBMP("texture/joint.bmp");
-	shoeTex = LoadBMP("texture/metal.bmp");
+	GLuint metalTex = LoadBMP("texture/metal.bmp");
+	GLuint pinkMtTex = LoadBMP("texture/pinkMetal.bmp");
+	GLuint redMtTex = LoadBMP("texture/redMetal.bmp");
+
+	GLuint redFlameTex = LoadBMP("texture/flame.bmp");
+	GLuint blueFlameTex = LoadBMP("texture/blueFlame.bmp");
+
+	GLuint armyTex = LoadBMP("texture/army.bmp");
+	GLuint blueArmyTex = LoadBMP("texture/blueArmy.bmp");
+
+	GLuint silverTex = LoadBMP("texture/silver.bmp");
+	GLuint blackTex = LoadBMP("texture/joint.bmp");
+	GLuint purpleTex = LoadBMP("texture/purple.bmp");
+
+	robotTex[1] = metalTex;
+	robotTex[2] = pinkMtTex;
+	robotTex[3] = redMtTex;
+	robotTex[4] = redFlameTex;
+	robotTex[5] = blueFlameTex;
+	robotTex[6] = armyTex;
+	robotTex[7] = blueArmyTex;
+
+	jointTex[1] = blackTex;
+	jointTex[2] =  silverTex;
+	jointTex[3] = purpleTex;
+
 
 }
 
 void delTex() {
 	DeleteObject(hBMP);
-	glDeleteTextures(1, &robotTex);
-	glDeleteTextures(1, &jointTex);
-	glDeleteTextures(1, &shoeTex);
+	for (int i = 1; i <= 5; i++) {
+		glDeleteTextures(1, &robotTex[i]);
+		glDeleteTextures(1, &jointTex[i]);
+	}
+	
+	
 }

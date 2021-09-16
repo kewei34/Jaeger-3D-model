@@ -11,6 +11,7 @@
 
 #include "base.h"
 #include "hand.h"
+#include "leg.h"
 #include "scene.h"
 #include "bodyPart.h"
 #include "interactive.h"
@@ -40,7 +41,7 @@ bool textureOn = 1,perspec = 1;
 bool LArmUp = 0,LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1;
 
 bool liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
-bool ballAtk = 0;
+bool ballAtk = 0, robotMove = 0;
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -76,6 +77,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			xRotated = 0.0f; yRotated = 0.0f; zRotated = 0.0f;
 			zoomLevel = -7.0f;
 			restore();
+			legRestore();
 		}
 		else if (wParam == 'T') {
 			if (textureOn) {
@@ -131,6 +133,22 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 				ballAtk = 0;
 				moveLArmnPalmUp(1);
 			}
+		}
+		else if (wParam == 'J') {
+			changeMTex();
+		}
+		else if (wParam == 'K') {
+			changeFTex();
+		}
+		else if (wParam == 'L') {
+			changeATex();
+		}
+		else if (wParam == 'M') {
+			changeJTex();
+		}
+		else if (wParam == 'Q') {
+			walk();
+			robotMove = 1;
 		}
 		break;
 	case WM_KEYUP:
@@ -289,9 +307,17 @@ void display()
 		}
 	}
 
-	robot();
-  
 	
+	glPushMatrix();
+		if (robotMove) {
+			if (walk()) {
+				glTranslatef(0, 0, 0.5);
+				robotMove = 0;
+			}
+		}
+		robot();
+	glPopMatrix();
+  
 	
 	glPopMatrix();
 	glFlush();

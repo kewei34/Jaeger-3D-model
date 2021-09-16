@@ -56,6 +56,9 @@
     <ClInclude Include="hand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="leg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="interactive.txt">
@@ -76,6 +79,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="texture\joint.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\flame.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\blueFlame.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
