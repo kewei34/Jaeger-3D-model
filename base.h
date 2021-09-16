@@ -19,7 +19,7 @@ void energyBall();
 
 void irregularCuboid(float,float,float);
 
-void disk();
+void disk(float,float);
 
 void shoe();
 

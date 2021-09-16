@@ -169,7 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="texture\blueFlame.bmp" />
+    <Image Include="texture\energyBall.bmp" />
     <Image Include="texture\flame.bmp" />
+    <Image Include="texture\geb.bmp" />
+    <Image Include="texture\gold.bmp" />
     <Image Include="texture\joint.bmp" />
     <Image Include="texture\metal.bmp" />
     <Image Include="texture\pinkMetal.bmp" />

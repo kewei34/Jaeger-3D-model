@@ -14,14 +14,15 @@
 
 float lArmRtAngle = 0, lArmRt = 0;
 float lPalmRtAngle = 0, lPalmRt = 0;
-float lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtZ = 0;
+float lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0, lWaveAngle = 0, lArmWaveAngle = 0, lArmWave = 0;
 float ebZoom = 0, ebRt = 0, ballAtk = 0;
 bool eb = 0;
+bool right = 0, left = 0;
 
 void restore() {
 	lArmRtAngle = 0, lArmRt = 0;
 	lPalmRtAngle = 0, lPalmRt = 0;
-	lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtZ = 0;
+	lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0;
 	ebZoom = 0, ebRt = 0,ballAtk = 0;;
 	eb = 0;
 }
@@ -171,9 +172,56 @@ bool moveLArmnPalmDown() {
 	return 1;
 }
 
-void moveLForeArmUp() {
+bool moveLForeArmnArmUp() {
 	lForeArmRtX = 1;
+	lArmWave = 1;
 
+	if (lForeArmRtAngle < 90) {
+		lForeArmRtAngle += 0.5;
+		lArmWaveAngle = lForeArmRtAngle;
+	}
+	else if (lForeArmRtAngle == 90) {
+		return true;
+	}
+	return false;
+}
+
+void moveLForeArmnArmDown() {
+
+	if (lForeArmRtAngle >0) {
+		lForeArmRtAngle -= 0.5;
+		lArmWaveAngle = lForeArmRtAngle;
+	}
+	else if (lForeArmRtAngle == 0) {
+		lForeArmRtX = 0;
+		lArmWave = 0;
+	}
+}
+
+void wave() {
+	if (moveLForeArmnArmUp()) {
+		lForeArmRtY = 1;
+		if (left || !left && !right) {
+			lWaveAngle += 0.5;
+			if (lWaveAngle >= 20) {
+				right = 1;
+				left = 0;
+			}
+		}
+		if (right) {
+			lWaveAngle -= 0.5;
+			if (lWaveAngle <= -20) {
+				left = 1;
+				right = 0;
+			}
+		}
+	}
+}
+
+void waveLHandDown() {
+	lWaveAngle = 0;
+	moveLForeArmnArmDown();
+	
 }
 
 bool attackBall() {
@@ -199,6 +247,7 @@ void leftHand() {
 
 	glPushMatrix();
 		glTranslatef(0.56, 3.4, 0);
+		glRotatef(-lArmWaveAngle, lArmWave, 0, 0);
 		glRotatef(-lArmRtAngle, lArmRt, 0, 0);
 		glTranslatef(-0.56, -3.4, 0);
 
@@ -209,7 +258,8 @@ void leftHand() {
 			glPushMatrix();
 				//glTranslatef(-0.28, 0, 0);
 				glTranslatef(0, 2.6, 0);
-				glRotatef(lForeArmRtAngle, lForeArmRtX, 0, lForeArmRtZ);
+				glRotatef(-lWaveAngle, 0, lForeArmRtY, 0);
+				glRotatef(-lForeArmRtAngle, lForeArmRtX, 0, 0);
 				glTranslatef(0, -2.6, 0);
 				upForeArm();
 				foreArm();

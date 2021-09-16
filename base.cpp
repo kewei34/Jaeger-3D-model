@@ -204,7 +204,7 @@ void sphere(float radius) {
 	sphere = gluNewQuadric();
 	gluQuadricTexture(sphere, true);
 	gluQuadricNormals(sphere, GLU_SMOOTH);
-	glColor3f(1, 1, 0);
+	glColor3f(0.824, 0.412, 0.118);
 	gluQuadricNormals(sphere,GL_TRUE);
 	gluQuadricDrawStyle(sphere, GL_TRIANGLE_FAN);
 	gluSphere(sphere, radius, 30, 10);
@@ -276,12 +276,10 @@ void arc(float x, float y, float z, float radiusX, float radiusY, float startAng
 }
 
 void energyBall() {
-	glDisable(GL_TEXTURE_2D);
 	glColor3f(1.000, 0.855, 0.725);
 	glutSolidIcosahedron();
 	glColor3f(0.000, 0.000, 0.545);
 	glutWireIcosahedron();
-	glEnable(GL_TEXTURE_2D);
 }
 
 void disk(float innerR,float outerR) {

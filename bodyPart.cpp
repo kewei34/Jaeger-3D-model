@@ -23,6 +23,13 @@ int jointTexNum = 1;
 
 GLuint robotTex[10];
 GLuint jointTex[10];
+GLuint goldTex, ebTex;
+
+int rt = 0;
+
+void goldRT() {
+	rt++;
+}
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -415,6 +422,8 @@ void sword() {
 }
 
 void leftmuscle() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	//left muscle
 	glPushMatrix();
 	glTranslatef(-0.01, 2.34, 0.85);
@@ -422,6 +431,7 @@ void leftmuscle() {
 	glRotatef(-120,1, 0, 0);
 	glRotatef(-40,0,0,1);
 	glScalef(0.4, 0.8, 0.15);
+	glColor3f(0.502, 0.000, 0.0);
 	shoe();
 	glPopMatrix();
 
@@ -429,6 +439,8 @@ void leftmuscle() {
 
 void rightmuscle() {
 	//right muscle
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glTranslatef(0.55, 2.3, 0.85);
 	glRotatef(-270, 0, 1, 0);
@@ -447,7 +459,7 @@ void upperchest() {
 	glRotatef(85, 0, 1, 0);
 	//glRotatef(40, 1, 0, 0);
 	glScalef(0.1, 1.3, 0.85);
-	cuboid(1, 1, 1);
+	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 
 	//upper right chest
@@ -457,7 +469,7 @@ void upperchest() {
 	glRotatef(95, 0, 1, 0);
 	//glRotatef(40, 1, 0, 0);
 	glScalef(0.1, 1.3, 0.85);
-	cuboid(1, 1, 1);
+	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 }
 
@@ -468,7 +480,7 @@ void chest() {
 	glRotatef(90, 0, 1, 0);
 	glRotatef(110, 1, 0, 0);
 	glScalef(0.1, 0.6, 0.4);
-	cuboid(1, 1, 1);
+	cuboid(0.502, 0.000, 0.0);
 	glPopMatrix();
 	//right chest
 	glPushMatrix();
@@ -476,7 +488,19 @@ void chest() {
 	glRotatef(270, 0, 1, 0);
 	glRotatef(465, 1, 0, 0);
 	glScalef(0.1, 0.6, 0.4);
-	cuboid(1,1,1);
+	cuboid(0.502, 0.000, 0.0);
+	glPopMatrix();
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
+	glPushMatrix();
+	glTranslatef(0.28, 3.1, 1.3);
+	cylinder(0.1, 0.4,0.4,1,1,1);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, ebTex);
+	glRotatef(rt, 0, 0, 1);
+	glRotatef(-90, 1, 0, 0);
+	sphere(0.25);
 	glPopMatrix();
 }
 
@@ -525,7 +549,7 @@ void lowerBody() {
 
 void wholeBody() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	body();
 	bodymuscle();
 	glPushMatrix();
@@ -555,6 +579,7 @@ void head() {
 	glTranslatef(-0.65, 5.7, -0.4);
 	glRotatef(-30, 1, 0, 0);
 	glScalef(0.1, 0.8, 0.1);
+	glColor3f(0.502, 0.000, 0.0);
 	shoe();
 	glPopMatrix();
 	//right anthenna
@@ -562,27 +587,29 @@ void head() {
 	glTranslatef(1.2, 5.7, -0.4);
 	glRotatef(-30, 1, 0, 0);
 	glScalef(0.1, 0.8, 0.1);
+	glColor3f(0.502, 0.000, 0.0);
 	shoe();
 	glPopMatrix();
 
 	//ear
 	glPushMatrix();
 	{
-		glTranslatef(-0.72, 5.5, 0);
+		glTranslatef(-0.72, 5.0, 0);
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 			glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 			glPushMatrix();
 			glRotatef(90, 0, 0, 1);
 			glRotatef(90, 1, 0, 0);
-			unfilledCylinder(2, 0.3, 0.3, 1, 1, 1);
+			unfilledCylinder(2, 0.3, 0.3, 0.502, 0.000, 0.0);
 			glPopMatrix();
-		//joint(2, 0.3);
 	}
 	glPopMatrix();
 	glPushMatrix();
 	{
+		
 		glTranslatef(-0.72, 5.0, 0);
 		joint(2, 0.2);
+		glColor3f(0.502, 0.000, 0.0);
 	}
 	glPopMatrix();
 	//eye
@@ -726,6 +753,9 @@ void loadTex() {
 	GLuint silverTex = LoadBMP("texture/silver.bmp");
 	GLuint blackTex = LoadBMP("texture/joint.bmp");
 	GLuint purpleTex = LoadBMP("texture/purple.bmp");
+
+	goldTex = LoadBMP("texture/gold.bmp");
+	ebTex = LoadBMP("texture/geb.bmp");
 
 	robotTex[1] = metalTex;
 	robotTex[2] = pinkMtTex;

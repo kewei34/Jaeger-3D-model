@@ -87,5 +87,14 @@
     <Image Include="texture\blueFlame.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="texture\gold.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\energyBall.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="texture\geb.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

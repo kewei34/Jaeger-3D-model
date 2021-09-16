@@ -38,7 +38,7 @@ float x = 5.0f, y = 10.0f, z = 10.0f;
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
 
 bool textureOn = 1,perspec = 1;
-bool LArmUp = 0,LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1;
+bool LArmUp = 0, LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1, waveLHand = 0, waveDown = 1;
 
 bool liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
 bool ballAtk = 0, robotMove = 0;
@@ -117,18 +117,18 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 
 		else if (wParam == '7') {
-			if (LArmDown && LArmnPalmDown) {
+			if (LArmDown && LArmnPalmDown && waveDown) {
 				liftLArm = 1;
 			}
-			else if(LArmUp && LArmnPalmDown){
+			else if(LArmUp && LArmnPalmDown && waveDown){
 				downLArm = 1;
 			}
 		}
 		else if (wParam == '9') {
-			if (LArmDown&& LArmnPalmDown) {
+			if (LArmDown&& LArmnPalmDown&&waveDown) {
 				liftLArmnPalm = 1;
 			}
-			else if(LArmDown && LArmnPalmUp) {
+			else if(LArmDown && LArmnPalmUp && waveDown) {
 				downLArmnPalm = 1;
 			}
 		}
@@ -152,6 +152,16 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (wParam == 'Q') {
 			robotMove = 1;
+		}
+		else if (wParam == '5') {
+			if (LArmDown && LArmnPalmDown&&!waveLHand) {
+				waveLHand = 1;
+				waveDown = 0;
+			}
+			else if(waveLHand){
+				waveLHand = 0;
+				waveDown = 1;
+			}
 		}
 		break;
 	case WM_KEYUP:
@@ -268,6 +278,8 @@ void display()
 	glVertex3f(x, y, z);
 	glEnd();
 
+	goldRT();
+
 	//movement
 	if (liftLArm && LArmDown&& LArmnPalmDown) {
 		LArmDown = moveLArmUp();
@@ -301,6 +313,13 @@ void display()
 			LArmnPalmDown = 1;
 			LArmnPalmUp = 0;
 		}
+	}
+
+	if (waveLHand) {
+		wave();
+	}
+	if (waveDown) {
+		waveLHandDown();
 	}
 
 	//attack
