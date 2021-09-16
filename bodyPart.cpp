@@ -10,6 +10,7 @@
 
 #include "base.h"
 #include "hand.h"
+#include "leg.h"
 #include "interactive.h"
 #include "bodyPart.h"
 
@@ -19,10 +20,9 @@ HBITMAP hBMP = NULL;
 
 int robotTexNum = 1;
 int jointTexNum = 1;
-bool walk = 0;
 
-GLuint robotTex[7];
-GLuint jointTex[7];
+GLuint robotTex[10];
+GLuint jointTex[10];
 
 GLuint LoadBMP(const char* fileName) {
 
@@ -568,8 +568,15 @@ void head() {
 	//ear
 	glPushMatrix();
 	{
-		glTranslatef(-0.72, 5.0, 0);
-		joint(2, 0.3);
+		glTranslatef(-0.72, 5.5, 0);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
+			glPushMatrix();
+			glRotatef(90, 0, 0, 1);
+			glRotatef(90, 1, 0, 0);
+			unfilledCylinder(2, 0.3, 0.3, 1, 1, 1);
+			glPopMatrix();
+		//joint(2, 0.3);
 	}
 	glPopMatrix();
 	glPushMatrix();
@@ -648,17 +655,18 @@ void robot() {
 			glTranslatef(0, 5, 0);
 			//glRotatef(-30, 1, 0, 0);
 			glTranslatef(0, -5, 0);
-			leg();
+			rLeg();
 			glPopMatrix();
 		glPopMatrix();
+		
 		//Rleg
-	//sword();
-	spikehammer();
-
 		glPushMatrix();
 		glTranslatef(1.28, -4, 0);
 		leg();
 		glPopMatrix();
+		
+		sword();
+	//spikehammer();
 }
 
 void changeMTex() {
@@ -736,7 +744,7 @@ void loadTex() {
 
 void delTex() {
 	DeleteObject(hBMP);
-	for (int i = 1; i <= 5; i++) {
+	for (int i = 1; i <= 10; i++) {
 		glDeleteTextures(1, &robotTex[i]);
 		glDeleteTextures(1, &jointTex[i]);
 	}

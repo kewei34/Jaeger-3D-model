@@ -43,6 +43,8 @@ bool LArmUp = 0,LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1;
 bool liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
 bool ballAtk = 0, robotMove = 0;
 
+float moveDis = 0;
+
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -78,6 +80,8 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			zoomLevel = -7.0f;
 			restore();
 			legRestore();
+			robotMove = 0;
+			moveDis = 0;
 		}
 		else if (wParam == 'T') {
 			if (textureOn) {
@@ -113,10 +117,10 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 
 		else if (wParam == '7') {
-			if (LArmDown) {
+			if (LArmDown && LArmnPalmDown) {
 				liftLArm = 1;
 			}
-			else {
+			else if(LArmUp && LArmnPalmDown){
 				downLArm = 1;
 			}
 		}
@@ -124,7 +128,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			if (LArmDown&& LArmnPalmDown) {
 				liftLArmnPalm = 1;
 			}
-			else {
+			else if(LArmDown && LArmnPalmUp) {
 				downLArmnPalm = 1;
 			}
 		}
@@ -147,7 +151,6 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			changeJTex();
 		}
 		else if (wParam == 'Q') {
-			walk();
 			robotMove = 1;
 		}
 		break;
@@ -309,18 +312,22 @@ void display()
 
 	
 	glPushMatrix();
-		if (robotMove) {
-			if (walk()) {
-				glTranslatef(0, 0, 0.5);
-				robotMove = 0;
-			}
+	if (robotMove) {
+		walk();
+		if (moveRobotFront()) {
+			moveDis += 0.5;
+			robotMove = 0;
+			
 		}
-		robot();
+	}
+	glTranslatef(0, 0, moveDis);
+	moveLegBack();
+	robot();
 	glPopMatrix();
   
 	
 	glPopMatrix();
-	glFlush();
+	//glFlush();
 }
 //--------------------------------------------------------------------
 

@@ -14,13 +14,15 @@
 
 float lArmRtAngle = 0, lArmRt = 0;
 float lPalmRtAngle = 0, lPalmRt = 0;
+float lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtZ = 0;
 float ebZoom = 0, ebRt = 0, ballAtk = 0;
 bool eb = 0;
 
 void restore() {
 	lArmRtAngle = 0, lArmRt = 0;
 	lPalmRtAngle = 0, lPalmRt = 0;
-	ebZoom = 0, ebRt = 0;
+	lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtZ = 0;
+	ebZoom = 0, ebRt = 0,ballAtk = 0;;
 	eb = 0;
 }
 
@@ -169,7 +171,9 @@ bool moveLArmnPalmDown() {
 	return 1;
 }
 
-void cancelBall() {
+void moveLForeArmUp() {
+	lForeArmRtX = 1;
+
 }
 
 bool attackBall() {
@@ -199,32 +203,37 @@ void leftHand() {
 		glTranslatef(-0.56, -3.4, 0);
 
 		glPushMatrix();
-			//glRotatef(-30, 0, 1, 0);
 			glTranslatef(-0.28, 0, 0);
 			upperArm();
 
-			upForeArm();
-			foreArm();
-				glPushMatrix();
-					glTranslatef(0.7, 1.3, 0);
-					glRotatef(-lPalmRtAngle, lPalmRt, 0, 0);
-					glTranslatef(-0.7, -1.3, 0);
-					palm();
-					if (eb) {
-						glPushMatrix();
-						glTranslatef(0.35, 1.0, -0.8 + ballAtk);
-						glRotatef(ebRt, 1, 1, 1);
-						glScalef(0.1 + ebZoom, 0.1 + ebZoom, 0.1 + ebZoom);
-						energyBall();
-						glPopMatrix();
-					}
-					allFingers();
-				
+			glPushMatrix();
+				//glTranslatef(-0.28, 0, 0);
+				glTranslatef(0, 2.6, 0);
+				glRotatef(lForeArmRtAngle, lForeArmRtX, 0, lForeArmRtZ);
+				glTranslatef(0, -2.6, 0);
+				upForeArm();
+				foreArm();
 					glPushMatrix();
-						glTranslatef(1.0, 0.1, -0.2);
-						lThumb();
+						glTranslatef(0.7, 1.3, 0);
+						glRotatef(-lPalmRtAngle, lPalmRt, 0, 0);
+						glTranslatef(-0.7, -1.3, 0);
+						palm();
+						if (eb) {
+							glPushMatrix();
+							glTranslatef(0.35, 1.0, -0.8 + ballAtk);
+							glRotatef(ebRt, 1, 1, 1);
+							glScalef(0.1 + ebZoom, 0.1 + ebZoom, 0.1 + ebZoom);
+							energyBall();
+							glPopMatrix();
+						}
+						allFingers();
+				
+						glPushMatrix();
+							glTranslatef(1.0, 0.1, -0.2);
+							lThumb();
+						glPopMatrix();
 					glPopMatrix();
-				glPopMatrix();
+			glPopMatrix();
 		glPopMatrix();
 	glPopMatrix();
 }
