@@ -14,6 +14,10 @@ Press P to change viewport
 
 **Hand**
 Press 7 to move the left arm up or down
+Press 9 to move the left arm up or down(with palm up) --> ready to attack with spike hammer
+
+Press 8 to move the right arm up or down
+Press 0 to move the right arm up or down(with palm up) --> ready to attack with spike hammer
 
 **Leg**
 Press L to move the legs
