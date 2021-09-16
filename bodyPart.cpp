@@ -370,6 +370,54 @@ void leg() {
 
 
 
+void leftmuscle() {
+	//left muscle
+	glPushMatrix();
+	glTranslatef(-0.01, 2.34, 0.85);
+	glRotatef(-90, 0, 1, 0);
+	glRotatef(-120,1, 0, 0);
+	glRotatef(-40,0,0,1);
+	glScalef(0.4, 0.8, 0.15);
+	shoe();
+	glPopMatrix();
+
+}
+
+void rightmuscle() {
+	//right muscle
+	glPushMatrix();
+	glTranslatef(0.55, 2.3, 0.85);
+	glRotatef(-270, 0, 1, 0);
+	glRotatef(-475, 1, 0, 0);
+	glRotatef(-320, 0, 0, 1);
+	glScalef(0.4, 0.8, 0.15);
+	shoe();
+	glPopMatrix();
+
+}
+
+void bodymuscle() {
+	//top muscle
+	glPushMatrix();
+	glTranslatef(0, 0, 0.2);
+	leftmuscle();
+	rightmuscle();
+	glPopMatrix();
+	//middle muscle
+	glPushMatrix();
+	glTranslatef(0, -0.45,0.1);
+	leftmuscle();
+	rightmuscle();
+	glPopMatrix();
+	//bottom muscle
+	glPushMatrix();
+	glTranslatef(0, -0.9, 0);
+	leftmuscle();
+	rightmuscle();
+	glPopMatrix();
+}
+
+
 void body() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, robotTex);
@@ -392,6 +440,7 @@ void lowerBody() {
 void wholeBody() {
 	//lowerBody();
 	body();
+	bodymuscle();
 }
 
 void head() {
