@@ -54,6 +54,14 @@ bool moveRobotFront() {
 	}
 }
 
+void moveLowerLegUp() {
+
+	if (lowerLLegRtAngle >= 0 && lowerLLegRtAngle < 90) {		
+		lowerLLegRtAngle += 1.0;		
+	}
+
+}
+
 
 void walk2() {
 	if (upperLLegRtAngle>  0) {

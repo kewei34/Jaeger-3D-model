@@ -501,6 +501,56 @@ void bodymuscle() {
 	glPopMatrix();
 }
 
+void bone() {
+	//bone
+	glPushMatrix();
+	glTranslatef(0.2, 3.7, -1.3);
+	glRotatef(354, 1, 0, 0);
+	glScalef(0.4, 0.1, 0.1);
+	cuboid(1, 1, 1);
+	glPopMatrix();
+}
+
+void backbone() {
+	//backbone
+	glPushMatrix();
+	glTranslatef(0.2, 2.65, -1.15);
+	glRotatef(354,1,0,0);
+	glScalef(0.1,1.185,0.1);
+	cuboid(1,1,1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, 0, 0.08);
+	bone();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, -0.4, 0.15);
+	bone();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, -0.8, 0.2);
+	bone();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, -1.2, 0.25);
+	bone();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, -1.6, 0.3);
+	bone();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, -2.0, 0.35);
+	bone();
+	glPopMatrix();
+
+}
 
 void body() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
@@ -513,6 +563,7 @@ void body() {
 	glPopMatrix();
 	upperchest();
 	chest();
+	backbone();
 }
 
 void lowerBody() {
@@ -525,7 +576,7 @@ void lowerBody() {
 
 void wholeBody() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, robotTex);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	body();
 	bodymuscle();
 	glPushMatrix();
@@ -537,7 +588,7 @@ void wholeBody() {
 	glPopMatrix();
 	glPushMatrix();
 	glScalef(1.3,0.6,1.1);
-	glTranslatef(0.20, 2.1, 0);
+	glTranslatef(0.20, 2.0, 0);
 	sphere(1);
 	glPopMatrix();
 }
@@ -568,7 +619,7 @@ void head() {
 	//ear
 	glPushMatrix();
 	{
-		glTranslatef(-0.72, 5.5, 0);
+		glTranslatef(-0.72, 5.0, 0);
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 			glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 			glPushMatrix();
