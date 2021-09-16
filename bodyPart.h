@@ -4,6 +4,8 @@ GLuint LoadBMP(const char* fileName);
 
 void restore();
 
+void goldRT();
+
 void bone(float boneLength);
 
 void joint(float boneLength,float boneWidth);
