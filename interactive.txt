@@ -14,10 +14,10 @@ Press P to change viewport
 
 **Hand**
 Press 7 to move the left arm up or down
-Press 9 to move the left arm up or down(with palm up) --> ready to attack with spike hammer
+Press 9 to move the left arm up or down(with palm up) --> ready to attack with energy ball
 
 Press 8 to move the right arm up or down
-Press 0 to move the right arm up or down(with palm up) --> ready to attack with spike hammer
+Press 0 to move the right arm up or down(with palm up) --> ready to attack with energy ball
 
 **Leg**
 Press L to move the legs
@@ -29,7 +29,15 @@ press 3 to turn light on or off
 **Weapon**
 press z to equip a sword on right hand 
 press x to equip a spike hammer on left hand
+Long press B to charge energy ball and release to shoot(only when arm and palm are lifted-->press 9)
 
 **Other**
 Press spacebar to back to original view and position
+
+**Texture**
+army
+flame red blue
 Press T to toggle texture on or off
+Press J to toggle between metal texture
+Press K to toggle between flame texture
+Press L to toggle between army texture

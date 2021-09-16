@@ -161,12 +161,15 @@
     </ClInclude>
     <ClInclude Include="hand.h" />
     <ClInclude Include="interactive.h" />
+    <ClInclude Include="leg.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="interactive.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="texture\blueFlame.bmp" />
+    <Image Include="texture\flame.bmp" />
     <Image Include="texture\joint.bmp" />
     <Image Include="texture\metal.bmp" />
     <Image Include="texture\pinkMetal.bmp" />

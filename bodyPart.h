@@ -35,7 +35,22 @@ void wholeBody();
 
 void robot();
 
+void moveRobot();
+
 void leg();
+
+void upperleg();
+
+void lowerleg();
+
+
+void changeMTex();
+
+void changeFTex();
+
+void changeATex();
+
+void changeJTex();
 
 void loadTex();
 
