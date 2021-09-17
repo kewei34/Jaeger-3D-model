@@ -27,8 +27,14 @@ GLuint goldTex, ebTex;
 
 int rt = 0;
 
+float headAngle = 0, headRtX = 0, headRtY = 0;
+
 void goldRT() {
 	rt++;
+}
+
+void restoreHead() {
+	headAngle = 0;
 }
 
 GLuint LoadBMP(const char* fileName) {
@@ -229,7 +235,7 @@ void shoulder() {
 	glPopMatrix();
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
+	glBindTexture(GL_TEXTURE_2D, goldTex);
 	glPushMatrix();
 	glTranslatef(0.2, 3.7, 0);
 	sphere(0.25);
@@ -371,6 +377,8 @@ void upperleg() {
 }
 
 void swordhandle() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	//swordhandle
 	glPushMatrix();
 	glTranslatef(-4, 1.85, -0.3);
@@ -383,7 +391,7 @@ void swordhandle() {
 	glScalef(1, 1, 0.4);
 	glTranslatef(-4, 1.95, -0.75);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.6, 0.23, 0.23, 1, 1, 1);
+	cylinder(0.6, 0.23, 0.23, 0.804, 0.522, 0.247);
 	glPopMatrix();
 	//sworduppersupport 
 	glPushMatrix();
@@ -400,6 +408,8 @@ void swordhandle() {
 }
 
 void swordbody() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, goldTex);
 	//sword body
 	glPushMatrix();
 	glTranslatef(-4, 0.6, -0.3);
@@ -528,7 +538,7 @@ void bone() {
 	glTranslatef(0.2, 3.7, -1.3);
 	glRotatef(354, 1, 0, 0);
 	glScalef(0.4, 0.1, 0.1);
-	cuboid(1, 1, 1);
+	cuboid(0.804, 0.522, 0.247);
 	glPopMatrix();
 }
 
@@ -540,7 +550,7 @@ void backbone() {
 	glTranslatef(0.2, 2.65, -1.15);
 	glRotatef(354,1,0,0);
 	glScalef(0.1,1.185,0.1);
-	cuboid(1,1,1);
+	cuboid(0.804, 0.522, 0.247);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -610,6 +620,8 @@ void wholeBody() {
 	sword();
 	glPopMatrix();
 	glPushMatrix();
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glScalef(1.3,0.6,1.1);
 	glTranslatef(0.20, 2.0, 0);
 	sphere(1);
@@ -624,6 +636,8 @@ void head() {
 	glScalef(1,0.8,0.8);
 	sphere(1.2);
 	glPopMatrix();
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, goldTex);
 	//left anthenna
 	glPushMatrix();
 	glTranslatef(-0.65, 5.7, -0.4);
@@ -673,31 +687,36 @@ void head() {
 
 
 void spikehammertop() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, goldTex);
+	
 	//ball
 	glPushMatrix();
-	glTranslatef(-4, 0.6, -0.3);
+	glTranslatef(0, 0.6, -0.3);
 	sphere(0.4);
 	glPopMatrix();
 	//spike
 	glPushMatrix();
-	glTranslatef(-4, 0.6, -0.3);
+	glTranslatef(0, 0.6, -0.3);
 	pyramid(0.4,0.5);
 	glPopMatrix();
 	glPushMatrix();
-	glTranslatef(-4, 0.6, -0.3);
+	glTranslatef(0, 0.6, -0.3);
 	glRotatef(180,1,0,0);
 	pyramid(0.4, 0.5);
 	glPopMatrix();
 }
 void spikehammerhandle() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	glPushMatrix();
-	glTranslatef(-4, 2.1, -0.3);
+	glTranslatef(0, 2.1, -0.3);
 	glScalef(0.15, 0.1, 0.15);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 	glPushMatrix();
 	//glScalef(1, 1, 0.4);
-	glTranslatef(-4, 2, -0.3);
+	glTranslatef(0, 2, -0.3);
 	glRotatef(90, 1, 0, 0);
 	cylinder(1.4, 0.1, 0.1, 1, 1, 1);
 	glPopMatrix();
@@ -715,9 +734,30 @@ void energyBall() {
 	glPopMatrix();
 }
 
+void turnLeft() {
+	headRtY = 1;
+	if (headAngle <= 50) {
+		headAngle += 2.0;
+	}
+}
+
+void turnRight() {
+	headRtY = 1;
+	if (headAngle >= -50) {
+		headAngle -= 2.0;
+	}
+}
+
 void robot() {
 	
-		head();
+		glPushMatrix();
+			glTranslatef(0, 5.0, 0);
+			//glRotatef(headAngle, headRtX, 0, 0);
+			glRotatef(headAngle, 0, headRtY, 0);
+			glTranslatef(0, -5.0, 0);
+			head();
+		glPopMatrix();
+
 		wholeBody();
 
 		//hand
@@ -738,14 +778,14 @@ void robot() {
 			glTranslatef(0, 5, 0);
 			//glRotatef(-30, 1, 0, 0);
 			glTranslatef(0, -5, 0);
-			rLeg();
+			leg();
 			glPopMatrix();
 		glPopMatrix();
 		
 		//Rleg
 		glPushMatrix();
 		glTranslatef(1.28, -4, 0);
-		leg();
+		rLeg();
 		glPopMatrix();
 		
 }

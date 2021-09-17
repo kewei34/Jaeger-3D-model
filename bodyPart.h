@@ -2,7 +2,7 @@
 
 GLuint LoadBMP(const char* fileName);
 
-void restore();
+void restoreHead();
 
 void goldRT();
 
@@ -17,8 +17,6 @@ void lowerFingers();
 void upperFingers(float length);
 
 void fingerJoint();
-
-void allFingers();
 
 void foreArm();
 
@@ -42,9 +40,11 @@ void body();
 
 void wholeBody();
 
-void robot();
+void turnLeft();
 
-void moveRobot();
+void turnRight();
+
+void robot();
 
 void upperleg();
 

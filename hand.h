@@ -1,5 +1,8 @@
 #pragma once
 
+
+void restore();
+
 bool moveLArmUp();
 
 bool moveLArmDown();
@@ -35,6 +38,8 @@ bool attackBall();
 
 
 void RtakeSH();
+
+void downSH();
 
 void leftHand();
 

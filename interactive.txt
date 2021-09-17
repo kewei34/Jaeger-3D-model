@@ -8,8 +8,12 @@ Press S to turn back
 Press Q to walk front
 
 **Camera**
-Press I to zoom in 
-Press O to zoom out
+Press scroll up to zoom in 
+Press scroll down to zoom out
+Left click and move left to rotate left
+Left click and move right to rotate right
+Left click and move up to rotate upward
+Left click and move down to rotate downward
 Press P to change viewport
 
 **Hand**
@@ -22,17 +26,20 @@ Press 8 to move the right arm up or down
 Press 9 to move the left arm up or down(with palm up) --> ready to attack with energy ball--> press or long press X and release
 Press 0 to move the right arm up or down(with palm up) --> ready to attack with energy ball--> press or long press X and release
 
+**Head**
+Press < to turn head left
+Press > to turn head right
+
 **Leg**
 Press Y to move the left fore legs up or down(only one leg can up at one time)
 Press U to move the right fore legs up or down(only one leg can up at one time)
 
 **Scene**
-//press 1 or 2 to change to day or night
 press 2 to turn light on or off
 
 **Weapon**
-press z to equip a sword on right hand 
-press x to equip a spike hammer on left hand
+press 3 to equip a sword on right hand 
+press 4 to equip a spike hammer on left hand
 Long press B to charge energy ball and release to shoot(only when arm and palm are lifted-->press 9)
 
 **Other**
