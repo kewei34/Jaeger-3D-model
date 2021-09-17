@@ -231,21 +231,27 @@ void pyramid(float s,float h) {
 	glVertex3f(-s, 0.0, -s);
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-s, 0.0, s);
+	glEnd();
 
+	glBegin(GL_TRIANGLES);
 	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(0.0, h, 0.0);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-s, 0.0, s);
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(s, 0.0, s);
+	glEnd();
 
+	glBegin(GL_TRIANGLES);
 	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(0.0, h, 0.0);
 	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(s, 0.0, s);
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(s, 0.0, -s);
+	glEnd();
 
+	glBegin(GL_TRIANGLES);
 	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(0.0, h, 0.0);
 	glTexCoord2f(0.0f, 0.0f);
