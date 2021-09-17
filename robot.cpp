@@ -34,7 +34,7 @@ float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
 float zoomLevel = -7.0f;
 
 //light
-float x = 5.0f, y = 10.0f, z = 10.0f;
+float x = 0.0f, y = 10.0f, z = 10.0f;
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
 
 bool textureOn = 1,perspec = 1;
@@ -49,7 +49,7 @@ bool ballAtk = 0, robotMove = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1,
 
 bool LforeLegUp = 0, LforeLegDown = 1, RforeLegUp = 0, RforeLegDown = 1;
 
-float moveDis = 0;
+float moveDis = 0, robotAngle = 0;
 
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -86,8 +86,20 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			zoomLevel = -7.0f;
 			restore();
 			legRestore();
+			restoreHead();
 			robotMove = 0;
 			moveDis = 0;
+			LArmUp = 0, LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1, waveLHand = 0, waveDown = 0;
+
+			liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
+
+			RArmUp = 0, RArmDown = 1, RArmnPalmUp = 0, RArmnPalmDown = 1, waveRHand = 0, waveRDown = 0;
+			liftRArm = 0, downRArm = 0, liftRArmnPalm = 0, downRArmnPalm = 0;
+
+			ballAtk = 0, robotMove = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
+
+			LforeLegUp = 0, LforeLegDown = 1, RforeLegUp = 0, RforeLegDown = 1;
+			robotAngle = 0;
 		}
 		else if (wParam == 'T') {
 			if (textureOn) {
@@ -131,7 +143,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 		}
 		else if (wParam == '8') {
-			if (!liftRArmnPalm &&RArmDown && RArmnPalmDown  && !waveRHand ) {
+			if (!liftRArmnPalm &&RArmDown && RArmnPalmDown  && !waveRHand && downSHWp) {
 				liftRArm = 1;
 			}
 			else if (RArmUp && RArmnPalmDown && !waveRHand) {
@@ -147,7 +159,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 		}
 		else if (wParam == '0') {
-			if (!liftRArm && RArmDown && RArmnPalmDown && !waveRHand ) {
+			if (!liftRArm && RArmDown && RArmnPalmDown && !waveRHand && downSHWp) {
 				liftRArmnPalm = 1;
 			}
 			else if (RArmDown && RArmnPalmUp && !waveRHand) {
@@ -190,7 +202,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 		}
 		else if (wParam == '6') {
-			if (!liftRArm && RArmDown && RArmnPalmDown && !waveRHand) {
+			if (!liftRArm && RArmDown && RArmnPalmDown && !waveRHand && downSHWp) {
 				waveRHand = 1;
 				waveRDown = 0;
 			}
@@ -209,6 +221,16 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 				 downSwordWp = 1;
 			 }
 		}
+		else if (wParam == '4') {
+		if (RArmDown && RArmnPalmDown && !waveRHand && downSHWp) {
+			takeSHWp = 1;
+			downSHWp = 0;
+		}
+		else if (takeSHWp) {
+			takeSHWp = 0;
+			downSHWp = 1;
+		}
+		}
 		else if (wParam == 'Y') {
 			if (LforeLegUp) {
 				LforeLegUp = 0;
@@ -221,15 +243,33 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 
 		}
 		else if (wParam == 'U') {
-		if (RforeLegUp) {
-			RforeLegUp = 0;
-			RforeLegDown = 1;
-		}
-		else if (!RforeLegUp && LforeLegDown) {
-			RforeLegDown = 0;
-			RforeLegUp = 1;
-		}
+			if (RforeLegUp) {
+				RforeLegUp = 0;
+				RforeLegDown = 1;
+			}
+			else if (!RforeLegUp && LforeLegDown) {
+				RforeLegDown = 0;
+				RforeLegUp = 1;
+			}
 
+		}
+		else if (wParam == VK_LEFT) {
+			turnLeft();
+		}
+		else if (wParam == VK_RIGHT) {
+			turnRight();
+		}
+		else if (wParam == 'W') {
+			robotAngle = 0;
+		}
+		else if (wParam == 'S') {
+		robotAngle = 180;
+		}
+		else if (wParam == 'A') {
+		robotAngle = -90;
+		}
+		else if (wParam == 'D') {
+		robotAngle = 90;
 		}
 		break;
 	case WM_KEYUP:
@@ -463,20 +503,34 @@ void display()
 		downSword();
 	}
 
+	if (takeSHWp) {
+		RtakeSH();
+	}
+
+	if (downSHWp) {
+		downSH();
+	}
 	
-	
+	glPushMatrix();
+	glRotatef(robotAngle, 0, 1, 0);
 	glPushMatrix();
 	if (robotMove) {
 		walk();
 		if (moveRobotFront()) {
 			moveDis += 0.5;
 			robotMove = 0;
-			
+			bool moveBack = moveLegBack();
+			while (!moveBack) {
+				moveBack = moveLegBack();
+			}	
 		}
 	}
 	glTranslatef(0, 0, moveDis);
-	moveLegBack();
+	
+	
 	robot();
+	glPopMatrix();
+
 	glPopMatrix();
   
 	

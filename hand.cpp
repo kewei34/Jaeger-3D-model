@@ -16,6 +16,7 @@ float lArmRtAngle = 0, lArmRt = 0, rArmRtAngle = 0, rArmRt = 0;
 float lPalmRtAngle = 0, lPalmRt = 0,rPalmRtAngle = 0, rPalmRt = 0;
 float lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0, lWaveAngle = 0, lArmWaveAngle = 0, lArmWave = 0;
 float rForeArmRtAngle = 0, rForeArmRtX = 0, rForeArmRtY = 0, rWaveAngle = 0, rArmWaveAngle = 0, rArmWave = 0;
+float fingerLRtAngle = 0, fingerLRt = 0, fingerRRtAngle = 0, fingerRRt = 0;
 
 float lPalmWpAngle = 0, lPalmWp = 0, rPalmWpAngle = 0, rPalmWp = 0 ,takeSword = 0, takeSH = 0;
 float ebZoomR = 0, ebRtR = 0, ebZoomL = 0, ebRtL = 0, ballAtk = 0;
@@ -32,91 +33,6 @@ void restore() {
 	ebZoomR = 0, ebRtR = 0, ebZoomL = 0, ebRtL = 0, ballAtk = 0;
 	ebR = 0, ebL = 0;	
 	right = 0, left = 0, rightR = 0, leftR = 0;
-}
-
-void thumb(float length) {
-
-	glPushMatrix();
-	//rotate to put thumb outside
-	glTranslatef(-0.1, 0.7, 0);
-	glRotatef(-60, 0, 1, 1);
-	glTranslatef(-0.12, -0.35, 0);
-	glPushMatrix();
-	glTranslatef(-0.05, 0.19, 0);
-	joint(0.1, 0.06);
-	glPopMatrix();
-	//upper thumb
-	glPushMatrix();
-	glTranslatef(0, 0.16, 0);
-	glRotatef(30, 1, 0, 0);
-	glTranslatef(0, -0.16, 0);
-	finger(0.16);
-	glPopMatrix();
-	//lower thumb
-	glPushMatrix();
-	glTranslatef(0, 0.38, 0);
-	glPushMatrix();
-	glTranslatef(-0.05, 0.19, 0);
-	joint(0.1, 0.06);
-	glPopMatrix();
-
-	finger(0.16);
-	glPopMatrix();
-
-	glPopMatrix();
-
-}
-
-void lThumb() {
-	glPushMatrix();
-	//rotate to put thumb outside
-	glTranslatef(-0.1, 0.7, 0);
-	glRotatef(60, 0, 1, 1);
-	glTranslatef(-0.12, -0.35, 0);
-	glPushMatrix();
-	glTranslatef(-0.05, 0.19, 0);
-	joint(0.1, 0.06);
-	glPopMatrix();
-	//upper thumb
-	glPushMatrix();
-	glTranslatef(0, 0.16, 0);
-	glRotatef(30, 1, 0, 0);
-	glTranslatef(0, -0.16, 0);
-	finger(0.16);
-	glPopMatrix();
-	//lower thumb
-	glPushMatrix();
-	glTranslatef(0, 0.38, 0);
-	glPushMatrix();
-	glTranslatef(-0.05, 0.19, 0);
-	joint(0.1, 0.06);
-	glPopMatrix();
-
-	finger(0.16);
-	glPopMatrix();
-
-	glPopMatrix();
-}
-
-void allFingers() {
-
-	glPushMatrix();
-	glTranslatef(0, 0.2, 0);
-	glRotatef(30, 1, 0, 0);
-	glTranslatef(0, -0.15, 0);
-	upperFingers(0.15);
-	glPopMatrix();
-
-	//middle
-
-	fingerJoint();
-	//with palm
-	glPushMatrix();
-	glTranslatef(0, 0.45, 0);
-	fingerJoint();
-	glPopMatrix();
-
-	lowerFingers();
 }
 
 bool moveLArmUp() {
@@ -345,8 +261,10 @@ void waveRHandDown() {
 
 void LtakeSword() {
 		lPalmWp = 1;
+		fingerLRt = 1;
 		if (lPalmWpAngle < 90) {
 			lPalmWpAngle += 1.0;
+			fingerLRtAngle += 0.5;
 			moveLForeArmnArmUp(50);
 			if (lPalmWpAngle >= 90) {
 				takeSword = 1;
@@ -358,9 +276,10 @@ void downSword() {
 	takeSword = 0;
 	if (lPalmWpAngle > 0) {
 		lPalmWpAngle -= 1.0;
+		fingerLRtAngle -= 0.5;
 		moveLForeArmnArmDown();
 		if (lPalmWpAngle == 0) {
-			
+			fingerLRt = 0;
 		}
 	}
 	
@@ -369,15 +288,30 @@ void downSword() {
 
 void RtakeSH() {
 
-	if (moveLForeArmnArmUp(50)) {
-		lPalmWp = 1;
-		if (lPalmWp < 90) {
-			lPalmWp += 1.0;
-			if (lPalmWp >= 90) {
-				takeSword = 1;
-			}
+	rPalmWp = 1;
+	fingerRRt = 1;
+	if (rPalmWpAngle < 90) {
+		rPalmWpAngle += 1.0;
+		fingerRRtAngle += 0.5;
+		moveRForeArmnArmUp(50);
+		if (rPalmWpAngle >= 90) {
+			takeSH = 1;
 		}
 	}
+}
+
+void downSH() {
+	takeSH = 0;
+	if (rPalmWpAngle > 0) {
+		rPalmWpAngle -= 1.0;
+		fingerRRtAngle -= 0.5;
+		moveRForeArmnArmDown();
+		if (rPalmWpAngle == 0) {
+			fingerRRt = 0;
+		}
+	}
+
+
 }
 
 bool attackBall() {
@@ -400,6 +334,121 @@ void sword() {
 	swordbody();
 
 }
+
+void thumb(float length) {
+
+	glPushMatrix();
+	//rotate to put thumb outside
+	glTranslatef(-0.1, 0.7, 0);
+	glRotatef(-60, 0, 1, 1);
+	glTranslatef(-0.12, -0.35, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+	//upper thumb
+	glPushMatrix();
+	glTranslatef(0, 0.16, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.16, 0);
+	finger(0.16);
+	glPopMatrix();
+	//lower thumb
+	glPushMatrix();
+	glTranslatef(0, 0.38, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+
+	finger(0.16);
+	glPopMatrix();
+
+	glPopMatrix();
+
+}
+
+void lThumb() {
+	glPushMatrix();
+	//rotate to put thumb outside
+	glTranslatef(-0.1, 0.7, 0);
+	glRotatef(60, 0, 1, 1);
+	glTranslatef(-0.12, -0.35, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+	//upper thumb
+	glPushMatrix();
+	glTranslatef(0, 0.16, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.16, 0);
+	finger(0.16);
+	glPopMatrix();
+	//lower thumb
+	glPushMatrix();
+	glTranslatef(0, 0.38, 0);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.19, 0);
+	joint(0.1, 0.06);
+	glPopMatrix();
+
+	finger(0.16);
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
+void allFingersL() {
+
+	glPushMatrix();
+	glTranslatef(0, 0.2, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.15, 0);
+
+	glTranslatef(0, 0.2, 0.0);
+	glRotatef(fingerLRtAngle, fingerLRt, 0, 0);
+	glTranslatef(0, -0.2, 0.0);
+	upperFingers(0.15);
+	glPopMatrix();
+
+	//middle
+
+	fingerJoint();
+	//with palm
+	glPushMatrix();
+	glTranslatef(0, 0.45, 0);
+	fingerJoint();
+	glPopMatrix();
+
+	lowerFingers();
+}
+
+void allFingersR() {
+
+	glPushMatrix();
+	glTranslatef(0, 0.2, 0);
+	glRotatef(30, 1, 0, 0);
+	glTranslatef(0, -0.15, 0);
+
+	glTranslatef(0, 0.2, 0.0);
+	glRotatef(fingerRRtAngle, fingerRRt, 0, 0);
+	glTranslatef(0, -0.2, 0.0);
+	upperFingers(0.15);
+	glPopMatrix();
+
+	//middle
+
+	fingerJoint();
+	//with palm
+	glPushMatrix();
+	glTranslatef(0, 0.45, 0);
+	fingerJoint();
+	glPopMatrix();
+
+	lowerFingers();
+}
+
 
 void leftHand() {
 
@@ -441,9 +490,20 @@ void leftHand() {
 							energyBall();
 							glPopMatrix();
 						}
-						allFingers();
+
+						glPushMatrix();
+							glTranslatef(0, 0.65, 0.0);
+							glRotatef(fingerLRtAngle, fingerLRt, 0, 0);
+							glTranslatef(0, -0.65, 0.0);
+							allFingersL();
+						glPopMatrix();
 						if (takeSword) {
-							sword();
+							glPushMatrix();
+								glTranslatef(0.3, 1.5, 0);
+								glRotatef(90, 0, 0, 1);
+								glTranslatef(3.305, -1.95, 0.0);
+								sword();
+							glPopMatrix();
 						}
 				
 						glPushMatrix();
@@ -478,10 +538,10 @@ void rightHand() {
 				upForeArm();
 				foreArm();
 				glPushMatrix();
-					glTranslatef(0.7, 1.3, 0);
+					glTranslatef(0.42, 1.3, 0);
 					glRotatef(-rPalmRtAngle, rPalmRt, 0, 0);
-					glRotatef(-rPalmWpAngle, 0, 0, rPalmWp);
-					glTranslatef(-0.7, -1.3, 0);
+					glRotatef(rPalmWpAngle, 0, rPalmWp, 0);
+					glTranslatef(-0.42, -1.3, 0);
 					palm();
 					if (ebR) {
 						glPushMatrix();
@@ -492,14 +552,27 @@ void rightHand() {
 						glPopMatrix();
 					}
 					thumb(0.2);
-					allFingers();
+					glPushMatrix();
+						glTranslatef(0, 0.65, 0.0);
+						glRotatef(fingerRRtAngle, fingerRRt, 0, 0);
+						glTranslatef(0, -0.65, 0.0);
+						allFingersR();
+					glPopMatrix();
+					
 					if (takeSH) {
-						spikehammer();
+						glPushMatrix();
+							glTranslatef(0, 0.7, 0);
+							glRotatef(-90, 0, 0, 1);
+							glTranslatef(0, -1.95, 0.0);
+							spikehammer();
+						glPopMatrix();
+						
 					}
 				glPopMatrix();
 			glPopMatrix();
 
 	glPopMatrix();
 }
+
 
 

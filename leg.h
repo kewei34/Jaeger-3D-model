@@ -1,14 +1,18 @@
 #pragma once
 
-void walk();
+bool walk();
 
-void walk2();
+bool walk2();
+
+bool walkRight();
+
+bool walkLeft();
 
 void legRestore();
 
 bool moveRobotFront();
 
-void moveLegBack();
+bool moveLegBack();
 
 void moveLLowerLegUp();
 
