@@ -54,10 +54,38 @@ bool moveRobotFront() {
 	}
 }
 
-void moveLowerLegUp() {
-
-	if (lowerLLegRtAngle >= 0 && lowerLLegRtAngle < 90) {		
+void moveLLowerLegUp() {
+	lowerLLegRt = 1;
+	if (lowerLLegRtAngle < 60) {		
 		lowerLLegRtAngle += 1.0;		
+	}
+
+}
+
+void moveRLowerLegUp() {
+	lowerRLegRt = 1;
+	if (lowerRLegRtAngle < 60) {
+		lowerRLegRtAngle += 1.0;
+	}
+
+}
+
+void moveLLowerLegDown() {
+	
+	if (lowerLLegRtAngle> 0) {
+		lowerLLegRtAngle -= 1.0;
+	}if (lowerLLegRtAngle == 0) {
+		lowerLLegRt = 0;
+	}
+
+}
+
+void moveRLowerLegDown() {
+
+	if (lowerRLegRtAngle > 0) {
+		lowerRLegRtAngle -= 1.0;
+	}if (lowerRLegRtAngle == 0) {
+		lowerRLegRt = 0;
 	}
 
 }
@@ -101,10 +129,10 @@ void leg() {
 			
 
 				glPushMatrix();
-				glTranslatef(0, 4.2, 0);
+				glTranslatef(0, 3.1, -0.3);
 				glRotatef(-lowerLLegRtAngle, lowerLLegRt, 0, 0);
 				glRotatef(upperLLegRtAngle*2, upperLLegRt, 0, 0);
-				glTranslatef(0, -4.2, 0);
+				glTranslatef(0, -3.1, 0.3);
 				lowerleg();
 				glPopMatrix();
 			glPopMatrix();
@@ -124,13 +152,13 @@ void rLeg() {
 	upperleg();
 
 
-	glPushMatrix();
-	glTranslatef(0, 4.2, 0);
-	glRotatef(-lowerRLegRtAngle, lowerRLegRt, 0, 0);
-	glRotatef(upperRLegRtAngle * 2, upperRLegRt, 0, 0);
-	glTranslatef(0, -4.2, 0);
-	lowerleg();
-	glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0, 3.1, 0);
+			glRotatef(-lowerRLegRtAngle, lowerRLegRt, 0, 0);
+			glRotatef(upperRLegRtAngle * 2, upperRLegRt, 0, 0);
+			glTranslatef(0, -3.1, 0);
+			lowerleg();
+		glPopMatrix();
 	glPopMatrix();
 
 

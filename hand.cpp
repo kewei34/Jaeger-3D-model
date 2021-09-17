@@ -12,19 +12,26 @@
 #include "bodyPart.h"
 
 
-float lArmRtAngle = 0, lArmRt = 0;
-float lPalmRtAngle = 0, lPalmRt = 0;
+float lArmRtAngle = 0, lArmRt = 0, rArmRtAngle = 0, rArmRt = 0;
+float lPalmRtAngle = 0, lPalmRt = 0,rPalmRtAngle = 0, rPalmRt = 0;
 float lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0, lWaveAngle = 0, lArmWaveAngle = 0, lArmWave = 0;
-float ebZoom = 0, ebRt = 0, ballAtk = 0;
-bool eb = 0;
-bool right = 0, left = 0;
+float rForeArmRtAngle = 0, rForeArmRtX = 0, rForeArmRtY = 0, rWaveAngle = 0, rArmWaveAngle = 0, rArmWave = 0;
+
+float lPalmWpAngle = 0, lPalmWp = 0, rPalmWpAngle = 0, rPalmWp = 0 ,takeSword = 0, takeSH = 0;
+float ebZoomR = 0, ebRtR = 0, ebZoomL = 0, ebRtL = 0, ballAtk = 0;
+bool ebR = 0, ebL = 0, readyL=0,readyR=0;
+bool right = 0, left = 0, rightR = 0, leftR = 0;
 
 void restore() {
-	lArmRtAngle = 0, lArmRt = 0;
-	lPalmRtAngle = 0, lPalmRt = 0;
-	lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0;
-	ebZoom = 0, ebRt = 0,ballAtk = 0;;
-	eb = 0;
+	lArmRtAngle = 0, lArmRt = 0, rArmRtAngle = 0, rArmRt = 0;
+	lPalmRtAngle = 0, lPalmRt = 0, rPalmRtAngle = 0, rPalmRt = 0;
+	lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0, lWaveAngle = 0, lArmWaveAngle = 0, lArmWave = 0;
+	rForeArmRtAngle = 0, rForeArmRtX = 0, rForeArmRtY = 0, rWaveAngle = 0, rArmWaveAngle = 0, rArmWave = 0;
+
+	lPalmWpAngle = 0, lPalmWp = 0, rPalmWpAngle = 0, rPalmWp = 0, takeSword = 0, takeSH = 0;
+	ebZoomR = 0, ebRtR = 0, ebZoomL = 0, ebRtL = 0, ballAtk = 0;
+	ebR = 0, ebL = 0;	
+	right = 0, left = 0, rightR = 0, leftR = 0;
 }
 
 void thumb(float length) {
@@ -116,9 +123,21 @@ bool moveLArmUp() {
 
 	lArmRt = 1;
 	if (lArmRtAngle < 90) {
-		lArmRtAngle += 0.5;
+		lArmRtAngle += 1.0;
 	}
 	else if (lArmRtAngle == 90) {
+		return 0;
+	}
+	return 1;
+}
+
+bool moveRArmUp() {
+
+	rArmRt = 1;
+	if (rArmRtAngle < 90) {
+		rArmRtAngle += 1.0;
+	}
+	else if (rArmRtAngle == 90) {
 		return 0;
 	}
 	return 1;
@@ -127,10 +146,22 @@ bool moveLArmUp() {
 bool moveLArmDown() {
 	lArmRt = 1;
 	if (lArmRtAngle > 0) {
-		lArmRtAngle -= 0.5;
+		lArmRtAngle -= 1.0;
 	}
 	else if (lArmRtAngle == 0) {
 		lArmRt = 0;
+		return 0;
+	}
+	return 1;
+}
+
+bool moveRArmDown() {
+	rArmRt = 1;
+	if (rArmRtAngle > 0) {
+		rArmRtAngle -= 1.0;
+	}
+	else if (rArmRtAngle == 0) {
+		rArmRt = 0;
 		return 0;
 	}
 	return 1;
@@ -140,16 +171,16 @@ bool moveLArmnPalmUp(bool attack) {
 	lArmRt = 1;
 	lPalmRt = 1;
 	if (lArmRtAngle < 90) {
-		lArmRtAngle += 0.5;
+		lArmRtAngle += 1.0;
 		lPalmRtAngle = lArmRtAngle;
 	}
 	else if (lArmRtAngle == 90) {
 		if (attack) {
-			eb = 1;
-			ebRt += 30;
+			ebL = 1;
+			ebRtL += 30;
 			ballAtk = 0;
-			if (ebZoom < 0.4) {
-				ebZoom += 0.02;
+			if (ebZoomL < 0.4) {
+				ebZoomL += 0.02;
 			}
 		}
 		return 0;
@@ -161,7 +192,7 @@ bool moveLArmnPalmDown() {
 	lArmRt = 1;
 	lPalmRt = 1;
 	if (lArmRtAngle > 0) {
-		lArmRtAngle -= 0.5;
+		lArmRtAngle -= 1.0;
 		lPalmRtAngle = lArmRtAngle;
 	}
 	else if (lArmRtAngle == 0) {
@@ -172,15 +203,51 @@ bool moveLArmnPalmDown() {
 	return 1;
 }
 
-bool moveLForeArmnArmUp() {
+bool moveRArmnPalmUp(bool attack) {
+	rArmRt = 1;
+	rPalmRt = 1;
+	if (rArmRtAngle < 90) {
+		rArmRtAngle += 1.0;
+		rPalmRtAngle = rArmRtAngle;
+	}
+	else if (rArmRtAngle == 90) {
+		if (attack) {
+			ebR = 1;
+			ebRtR += 30;
+			ballAtk = 0;
+			if (ebZoomR < 0.4) {
+				ebZoomR += 0.02;
+			}
+		}
+		return 0;
+	}
+	return 1;
+}
+
+bool moveRArmnPalmDown() {
+	rArmRt = 1;
+	rPalmRt = 1;
+	if (rArmRtAngle > 0) {
+		rArmRtAngle -= 1.0;
+		rPalmRtAngle = rArmRtAngle;
+	}
+	else if (rArmRtAngle == 0) {
+		rArmRt = 0;
+		rPalmRt = 0;
+		return 0;
+	}
+	return 1;
+}
+
+bool moveLForeArmnArmUp(float angle) {
 	lForeArmRtX = 1;
 	lArmWave = 1;
 
-	if (lForeArmRtAngle < 90) {
-		lForeArmRtAngle += 0.5;
+	if (lForeArmRtAngle < angle) {
+		lForeArmRtAngle += 1.0;
 		lArmWaveAngle = lForeArmRtAngle;
 	}
-	else if (lForeArmRtAngle == 90) {
+	else if (lForeArmRtAngle >= angle) {
 		return true;
 	}
 	return false;
@@ -189,7 +256,7 @@ bool moveLForeArmnArmUp() {
 void moveLForeArmnArmDown() {
 
 	if (lForeArmRtAngle >0) {
-		lForeArmRtAngle -= 0.5;
+		lForeArmRtAngle -= 1.0;
 		lArmWaveAngle = lForeArmRtAngle;
 	}
 	else if (lForeArmRtAngle == 0) {
@@ -198,18 +265,44 @@ void moveLForeArmnArmDown() {
 	}
 }
 
+bool moveRForeArmnArmUp(float angle) {
+	rForeArmRtX = 1;
+	rArmWave = 1;
+
+	if (rForeArmRtAngle < angle) {
+		rForeArmRtAngle += 1.0;
+		rArmWaveAngle = rForeArmRtAngle;
+	}
+	else if (rForeArmRtAngle >= angle) {
+		return true;
+	}
+	return false;
+}
+
+void moveRForeArmnArmDown() {
+
+	if (rForeArmRtAngle > 0) {
+		rForeArmRtAngle -= 1.0;
+		rArmWaveAngle = rForeArmRtAngle;
+	}
+	else if (rForeArmRtAngle == 0) {
+		rForeArmRtX = 0;
+		rArmWave = 0;
+	}
+}
+
 void wave() {
-	if (moveLForeArmnArmUp()) {
+	if (moveLForeArmnArmUp(90)) {
 		lForeArmRtY = 1;
 		if (left || !left && !right) {
-			lWaveAngle += 0.5;
+			lWaveAngle += 1.0;
 			if (lWaveAngle >= 20) {
 				right = 1;
 				left = 0;
 			}
 		}
 		if (right) {
-			lWaveAngle -= 0.5;
+			lWaveAngle -= 1.0;
 			if (lWaveAngle <= -20) {
 				left = 1;
 				right = 0;
@@ -224,17 +317,88 @@ void waveLHandDown() {
 	
 }
 
+void waveR() {
+	if (moveRForeArmnArmUp(90)) {
+		rForeArmRtY = 1;
+		if (leftR || !leftR && !rightR) {
+			rWaveAngle += 1.0;
+			if (rWaveAngle >= 20) {
+				rightR = 1;
+				leftR = 0;
+			}
+		}
+		if (rightR) {
+			rWaveAngle -= 1.0;
+			if (rWaveAngle <= -20) {
+				leftR = 1;
+				rightR = 0;
+			}
+		}
+	}
+}
+
+void waveRHandDown() {
+	rWaveAngle = 0;
+	moveRForeArmnArmDown();
+
+}
+
+void LtakeSword() {
+		lPalmWp = 1;
+		if (lPalmWpAngle < 90) {
+			lPalmWpAngle += 1.0;
+			moveLForeArmnArmUp(50);
+			if (lPalmWpAngle >= 90) {
+				takeSword = 1;
+			}
+		}
+}
+
+void downSword() {
+	takeSword = 0;
+	if (lPalmWpAngle > 0) {
+		lPalmWpAngle -= 1.0;
+		moveLForeArmnArmDown();
+		if (lPalmWpAngle == 0) {
+			
+		}
+	}
+	
+	
+}
+
+void RtakeSH() {
+
+	if (moveLForeArmnArmUp(50)) {
+		lPalmWp = 1;
+		if (lPalmWp < 90) {
+			lPalmWp += 1.0;
+			if (lPalmWp >= 90) {
+				takeSword = 1;
+			}
+		}
+	}
+}
+
 bool attackBall() {
 	if (ballAtk > -10) {
-		ballAtk -= 0.3;
-		if (ballAtk <= -5) {
-			eb = 0;
-			ebZoom = 0;
+		ballAtk -= 1.0;
+		if (ballAtk <= -8) {
+			ebR = 0;
+			ebZoomR = 0;
+			ebL = 0;
+			ebZoomL = 0;
 			return 1;
 		}
 	}
 	
 	return 0;
+}
+
+void sword() {
+	swordhandle();
+	swordbody();
+
 }
 
 void leftHand() {
@@ -264,19 +428,23 @@ void leftHand() {
 				upForeArm();
 				foreArm();
 					glPushMatrix();
-						glTranslatef(0.7, 1.3, 0);
+						glTranslatef(0.34, 1.3, 0);
 						glRotatef(-lPalmRtAngle, lPalmRt, 0, 0);
-						glTranslatef(-0.7, -1.3, 0);
+						glRotatef(-lPalmWpAngle, 0, lPalmWp, 0);
+						glTranslatef(-0.34, -1.3, 0);
 						palm();
-						if (eb) {
+						if (ebL) {
 							glPushMatrix();
 							glTranslatef(0.35, 1.0, -0.8 + ballAtk);
-							glRotatef(ebRt, 1, 1, 1);
-							glScalef(0.1 + ebZoom, 0.1 + ebZoom, 0.1 + ebZoom);
+							glRotatef(ebRtL, 1, 1, 1);
+							glScalef(0.1 + ebZoomL, 0.1 + ebZoomL, 0.1 + ebZoomL);
 							energyBall();
 							glPopMatrix();
 						}
 						allFingers();
+						if (takeSword) {
+							sword();
+						}
 				
 						glPushMatrix();
 							glTranslatef(1.0, 0.1, -0.2);
@@ -288,37 +456,50 @@ void leftHand() {
 	glPopMatrix();
 }
 
+void spikehammer() {
+	spikehammertop();
+	spikehammerhandle();
+}
+
 void rightHand() {
 	shoulder();
 	glPushMatrix();
 		glTranslatef(0.56, 3.4, 0);
-		glRotatef(-lArmRtAngle, lArmRt, 0, 0);
+		glRotatef(-rArmWaveAngle, rArmWave, 0, 0);
+		glRotatef(-rArmRtAngle, rArmRt, 0, 0);
 		glTranslatef(-0.56, -3.4, 0);
 		upperArm();
 	
 			glPushMatrix();
-				glTranslatef(0.28, 0, 0);
-				//glRotatef(30, 0, 1, 0);
-				glTranslatef(-0.28, 0, 0);
+				glTranslatef(0, 2.6, 0);
+				glRotatef(-rWaveAngle, 0, rForeArmRtY, 0);
+				glRotatef(-rForeArmRtAngle, rForeArmRtX, 0, 0);
+				glTranslatef(0, -2.6, 0);
 				upForeArm();
 				foreArm();
 				glPushMatrix();
 					glTranslatef(0.7, 1.3, 0);
-					glRotatef(-lPalmRtAngle, lPalmRt, 0, 0);
+					glRotatef(-rPalmRtAngle, rPalmRt, 0, 0);
+					glRotatef(-rPalmWpAngle, 0, 0, rPalmWp);
 					glTranslatef(-0.7, -1.3, 0);
 					palm();
-					if (eb) {
+					if (ebR) {
 						glPushMatrix();
 						glTranslatef(0.35, 1.0, -0.8 + ballAtk);
-						glRotatef(ebRt, 1, 1, 1);
-						glScalef(0.1 + ebZoom, 0.1 + ebZoom, 0.1 + ebZoom);
+						glRotatef(ebRtR, 1, 1, 1);
+						glScalef(0.1 + ebZoomR, 0.1 + ebZoomR, 0.1 + ebZoomR);
 						energyBall();
 						glPopMatrix();
 					}
 					thumb(0.2);
 					allFingers();
+					if (takeSH) {
+						spikehammer();
+					}
 				glPopMatrix();
 			glPopMatrix();
 
 	glPopMatrix();
 }
+
+

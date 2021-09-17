@@ -275,13 +275,6 @@ void arc(float x, float y, float z, float radiusX, float radiusY, float startAng
 	glEnd();
 }
 
-void energyBall() {
-	glColor3f(1.000, 0.855, 0.725);
-	glutSolidIcosahedron();
-	glColor3f(0.000, 0.000, 0.545);
-	glutWireIcosahedron();
-}
-
 void disk(float innerR,float outerR) {
 	GLUquadricObj* disk = NULL;
 	disk = gluNewQuadric();

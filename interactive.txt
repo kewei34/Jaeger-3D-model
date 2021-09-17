@@ -13,18 +13,22 @@ Press O to zoom out
 Press P to change viewport
 
 **Hand**
-Press 7 to move the left arm up or down
-Press 9 to move the left arm up or down(with palm up) --> ready to attack with energy ball
+Press 5 to wave left hand
+Press 6 to wave right hand
 
+Press 7 to move the left arm up or down
 Press 8 to move the right arm up or down
-Press 0 to move the right arm up or down(with palm up) --> ready to attack with energy ball
+
+Press 9 to move the left arm up or down(with palm up) --> ready to attack with energy ball--> press or long press X and release
+Press 0 to move the right arm up or down(with palm up) --> ready to attack with energy ball--> press or long press X and release
 
 **Leg**
-Press n to move the left legs
+Press Y to move the left fore legs up or down(only one leg can up at one time)
+Press U to move the right fore legs up or down(only one leg can up at one time)
 
 **Scene**
-press 1 or 2 to change to day or night
-press 3 to turn light on or off
+//press 1 or 2 to change to day or night
+press 2 to turn light on or off
 
 **Weapon**
 press z to equip a sword on right hand 
@@ -35,8 +39,6 @@ Long press B to charge energy ball and release to shoot(only when arm and palm a
 Press spacebar to back to original view and position
 
 **Texture**
-army
-flame red blue
 Press T to toggle texture on or off
 Press J to toggle between metal texture
 Press K to toggle between flame texture

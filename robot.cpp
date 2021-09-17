@@ -38,10 +38,16 @@ float x = 5.0f, y = 10.0f, z = 10.0f;
 bool lightOn = 1, ambientOn = 1, diffuseOn = 1, specularOn = 1;
 
 bool textureOn = 1,perspec = 1;
-bool LArmUp = 0, LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1, waveLHand = 0, waveDown = 1;
+bool LArmUp = 0, LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1, waveLHand = 0, waveDown = 0;
 
 bool liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
-bool ballAtk = 0, robotMove = 0;
+
+bool RArmUp = 0, RArmDown = 1, RArmnPalmUp = 0, RArmnPalmDown = 1,waveRHand = 0, waveRDown = 0;
+bool liftRArm = 0, downRArm = 0, liftRArmnPalm = 0, downRArmnPalm = 0;
+
+bool ballAtk = 0, robotMove = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
+
+bool LforeLegUp = 0, LforeLegDown = 1, RforeLegUp = 0, RforeLegDown = 1;
 
 float moveDis = 0;
 
@@ -94,7 +100,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 			
 		}
-		else if (wParam == '3') {
+		else if (wParam == '2') {
 			if (lightOn) {
 				glDisable(GL_LIGHTING);
 				glDisable(GL_LIGHT0);
@@ -117,25 +123,45 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 
 		else if (wParam == '7') {
-			if (LArmDown && LArmnPalmDown && waveDown) {
+			if (!liftLArmnPalm &&LArmDown && LArmnPalmDown && !waveLHand && downSwordWp) {
 				liftLArm = 1;
 			}
-			else if(LArmUp && LArmnPalmDown && waveDown){
+			else if(LArmUp && LArmnPalmDown && !waveLHand && downSwordWp){
 				downLArm = 1;
 			}
 		}
+		else if (wParam == '8') {
+			if (!liftRArmnPalm &&RArmDown && RArmnPalmDown  && !waveRHand ) {
+				liftRArm = 1;
+			}
+			else if (RArmUp && RArmnPalmDown && !waveRHand) {
+				downRArm = 1;
+			}
+		}
 		else if (wParam == '9') {
-			if (LArmDown&& LArmnPalmDown&&waveDown) {
+			if (!liftLArm && LArmDown&& LArmnPalmDown&&!waveLHand  && downSwordWp) {
 				liftLArmnPalm = 1;
 			}
-			else if(LArmDown && LArmnPalmUp && waveDown) {
+			else if(LArmDown && LArmnPalmUp &&!waveLHand&& downSwordWp) {
 				downLArmnPalm = 1;
+			}
+		}
+		else if (wParam == '0') {
+			if (!liftRArm && RArmDown && RArmnPalmDown && !waveRHand ) {
+				liftRArmnPalm = 1;
+			}
+			else if (RArmDown && RArmnPalmUp && !waveRHand) {
+				downRArmnPalm = 1;
 			}
 		}
 		else if (wParam == 'X') {
 			if (LArmnPalmUp) {
 				ballAtk = 0;
 				moveLArmnPalmUp(1);
+			}
+			if (RArmnPalmUp) {
+				ballAtk = 0;
+				moveRArmnPalmUp(1);
 			}
 		}
 		else if (wParam == 'J') {
@@ -154,7 +180,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			robotMove = 1;
 		}
 		else if (wParam == '5') {
-			if (LArmDown && LArmnPalmDown&&!waveLHand) {
+			if (!liftLArm&&LArmDown && LArmnPalmDown&&!waveLHand && downSwordWp) {
 				waveLHand = 1;
 				waveDown = 0;
 			}
@@ -163,10 +189,55 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 				waveDown = 1;
 			}
 		}
+		else if (wParam == '6') {
+			if (!liftRArm && RArmDown && RArmnPalmDown && !waveRHand) {
+				waveRHand = 1;
+				waveRDown = 0;
+			}
+			else if (waveRHand) {
+				waveRHand = 0;
+				waveRDown = 1;
+			}
+		}
+		else if (wParam == '3') {
+			 if(LArmDown && LArmnPalmDown &&!waveLHand&&downSwordWp) {
+				takeSwordWp = 1;
+				downSwordWp = 0;
+			 }
+			 else if(takeSwordWp) {
+				 takeSwordWp = 0;
+				 downSwordWp = 1;
+			 }
+		}
+		else if (wParam == 'Y') {
+			if (LforeLegUp) {
+				LforeLegUp = 0;
+				LforeLegDown = 1;
+			}
+			else if(!LforeLegUp&& RforeLegDown) {
+				LforeLegDown = 0;
+				LforeLegUp = 1;
+			}
+
+		}
+		else if (wParam == 'U') {
+		if (RforeLegUp) {
+			RforeLegUp = 0;
+			RforeLegDown = 1;
+		}
+		else if (!RforeLegUp && LforeLegDown) {
+			RforeLegDown = 0;
+			RforeLegUp = 1;
+		}
+
+		}
 		break;
 	case WM_KEYUP:
 		if (wParam == 'X') {
 			if (LArmnPalmUp) {
+				ballAtk = 1;
+			}
+			if (RArmnPalmUp) {
 				ballAtk = 1;
 			}
 		}
@@ -289,11 +360,26 @@ void display()
 		}
 	}
 
+	if (liftRArm && RArmDown && RArmnPalmDown) {
+		RArmDown = moveRArmUp();
+		if (!RArmDown) {
+			RArmUp = 1;
+			liftRArm = 0;
+		}
+	}
+
 	if (downLArm && LArmUp && LArmnPalmDown) {
 		LArmUp = moveLArmDown();
 		if (!LArmUp) {
 			LArmDown = 1;
 			downLArm = 0;
+		}
+	}
+	if (downRArm && RArmUp && RArmnPalmDown) {
+		RArmUp = moveRArmDown();
+		if (!RArmUp) {
+			RArmDown = 1;
+			downRArm = 0;
 		}
 	}
 
@@ -315,6 +401,24 @@ void display()
 		}
 	}
 
+	if (liftRArmnPalm && RArmDown && RArmnPalmDown) {
+		RArmnPalmDown = moveRArmnPalmUp(0);
+		if (!RArmnPalmDown) {
+			liftRArmnPalm = 0;
+			RArmnPalmDown = 0;
+			RArmnPalmUp = 1;
+		}
+	}
+
+	if (downRArmnPalm && RArmDown && RArmnPalmUp) {
+		RArmnPalmUp = moveRArmnPalmDown();
+		if (!RArmnPalmUp) {
+			downRArmnPalm = 0;
+			RArmnPalmDown = 1;
+			RArmnPalmUp = 0;
+		}
+	}
+
 	if (waveLHand) {
 		wave();
 	}
@@ -322,13 +426,44 @@ void display()
 		waveLHandDown();
 	}
 
+	if (waveRHand) {
+		waveR();
+	}
+	if (waveRDown) {
+		waveRHandDown();
+	}
+
+	if (LforeLegUp) {
+		moveLLowerLegUp();
+	}
+
+	if (LforeLegDown) {
+		moveLLowerLegDown();
+	}
+	if (RforeLegUp) {
+		moveRLowerLegUp();
+	}
+
+	if (RforeLegDown) {
+		moveRLowerLegDown();
+	}
+
+
 	//attack
 	if (ballAtk) {
 		if (attackBall()) {
 			ballAtk = 0;
 		}
 	}
+	if (takeSwordWp) {
+		LtakeSword();
+	}
 
+	if (downSwordWp) {
+		downSword();
+	}
+
+	
 	
 	glPushMatrix();
 	if (robotMove) {
