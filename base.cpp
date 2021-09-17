@@ -40,6 +40,39 @@ float *calculate_normal(float *a, float *b, float *c) {
 	return result;	
 }
 
+void circle(float x, float y, float radiusX, float radiusY, float color1, float color2, float color3)
+{
+	glShadeModel(GL_FLAT);
+	glColor3f(color1, color2, color3);
+
+	glBegin(GL_TRIANGLE_FAN);
+	for (int angle = 0; angle < 360; angle++) {
+		float x2 = radiusX * cos(angle) + x;
+		float y2 = radiusY * sin(angle) + y;
+
+		glVertex2f(x2, y2);
+	}
+	glEnd();
+
+}
+
+void circleLine(float x, float y, float radiusX, float radiusY, float color1, float color2, float color3)
+{
+	glShadeModel(GL_FLAT);
+	glColor3f(color1, color2, color3);
+
+	glLineWidth(3);
+	glBegin(GL_LINE_STRIP);
+	for (int angle = 0; angle < 360; angle++) {
+		float x2 = radiusX * cos(angle) + x;
+		float y2 = radiusY * sin(angle) + y;
+
+		glVertex2f(x2, y2);
+	}
+	glEnd();
+
+}
+
 void cuboid(float r, float g, float b) {
 
 	float f1[] = { -1.0, 1.0, 1.0 };

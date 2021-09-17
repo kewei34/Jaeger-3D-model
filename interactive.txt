@@ -38,8 +38,8 @@ Press U to move the right fore legs up or down(only one leg can up at one time)
 press 2 to turn light on or off
 
 **Weapon**
-press 3 to equip a sword on right hand 
-press 4 to equip a spike hammer on left hand
+press 3 to equip a sword on left hand 
+press 4 to equip a spike hammer on right hand
 Long press B to charge energy ball and release to shoot(only when arm and palm are lifted-->press 9)
 
 **Other**
