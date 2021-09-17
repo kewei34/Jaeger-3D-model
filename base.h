@@ -1,5 +1,8 @@
 #pragma once
 
+void circle(float x, float y, float radiusX, float radiusY, float color1, float color2, float color3);
+
+void circleLine(float x, float y, float radiusX, float radiusY, float color1, float color2, float color3);
 
 void cuboid(float r, float g, float b);
 

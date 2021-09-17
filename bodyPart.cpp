@@ -23,7 +23,7 @@ int jointTexNum = 1;
 
 GLuint robotTex[10];
 GLuint jointTex[10];
-GLuint goldTex, ebTex;
+GLuint goldTex, ebTex,skyTex;
 
 int rt = 0;
 
@@ -391,7 +391,7 @@ void swordhandle() {
 	glScalef(1, 1, 0.4);
 	glTranslatef(-4, 1.95, -0.75);
 	glRotatef(90, 1, 0, 0);
-	cylinder(0.6, 0.23, 0.23, 0.804, 0.522, 0.247);
+	cylinder(0.6, 0.25, 0.25, 0.804, 0.522, 0.247);
 	glPopMatrix();
 	//sworduppersupport 
 	glPushMatrix();
@@ -402,7 +402,7 @@ void swordhandle() {
 	//swordslowersupport
 	glPushMatrix();
 	glTranslatef(-4, 1.3, -0.3);
-	glScalef(0.3, 0.1, 0.05);
+	glScalef(0.3, 0.1, 0.1);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 }
@@ -629,6 +629,8 @@ void wholeBody() {
 }
 
 void head() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, robotTex[robotTexNum]);
 	glPushMatrix();
 	glTranslatef(0.28,5.0,0);
 	glRotatef(10, 1, 0, 0);
@@ -679,7 +681,28 @@ void head() {
 	//eye
 	glPushMatrix();
 	glTranslatef(0.3, 5.0, 0.742);
+		glPushMatrix();
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, goldTex);
+		glTranslatef(-0.2,0, 0.46);
+		circle(0, 0, 0.1, 0.15, 1, 1, 1);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
+		circleLine(0, 0, 0.05, 0.05, 0, 0, 0);
+		glPopMatrix();
+		glPushMatrix();
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, goldTex);
+		glTranslatef(0.2, 0, 0.46);
+		circle(0, 0, 0.1, 0.15, 1, 1, 1);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
+		circleLine(0, 0, 0.05, 0.05, 0, 0, 0);
+		
+		glPopMatrix();
 	glScalef(0.50, 0.3, 0.45);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	cuboid(0.545, 0.271, 0.075);
 	glPopMatrix();
 
@@ -833,6 +856,26 @@ void changeJTex() {
 	}
 }
 
+void bg() {
+	
+	glPushMatrix();
+	glTranslatef(2, 3, -20);
+	glScalef(20,20, 0);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, skyTex);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);
+	glEnd();
+	glPopMatrix();
+}
+
 void loadTex() {
 	GLuint metalTex = LoadBMP("texture/metal.bmp");
 	GLuint pinkMtTex = LoadBMP("texture/pinkMetal.bmp");
@@ -850,6 +893,8 @@ void loadTex() {
 
 	goldTex = LoadBMP("texture/gold.bmp");
 	ebTex = LoadBMP("texture/geb.bmp");
+
+	skyTex = LoadBMP("texture/sky.bmp");
 
 	robotTex[1] = metalTex;
 	robotTex[2] = pinkMtTex;

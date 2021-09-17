@@ -59,6 +59,8 @@ void changeATex();
 
 void changeJTex();
 
+void bg();
+
 void loadTex();
 
 void delTex();

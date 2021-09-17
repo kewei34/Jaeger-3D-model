@@ -189,7 +189,9 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			changeJTex();
 		}
 		else if (wParam == 'Q') {
-			robotMove = 1;
+			if (!LforeLegUp && !RforeLegUp) {
+				robotMove = 1;
+			}
 		}
 		else if (wParam == '5') {
 			if (!liftLArm&&LArmDown && LArmnPalmDown&&!waveLHand && downSwordWp) {
@@ -232,24 +234,28 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		}
 		else if (wParam == 'Y') {
-			if (LforeLegUp) {
-				LforeLegUp = 0;
-				LforeLegDown = 1;
-			}
-			else if(!LforeLegUp&& RforeLegDown) {
-				LforeLegDown = 0;
-				LforeLegUp = 1;
+			if (!robotMove) {
+				if (LforeLegUp) {
+					LforeLegUp = 0;
+					LforeLegDown = 1;
+				}
+				else if (!LforeLegUp && RforeLegDown) {
+					LforeLegDown = 0;
+					LforeLegUp = 1;
+				}
 			}
 
 		}
 		else if (wParam == 'U') {
-			if (RforeLegUp) {
-				RforeLegUp = 0;
-				RforeLegDown = 1;
-			}
-			else if (!RforeLegUp && LforeLegDown) {
-				RforeLegDown = 0;
-				RforeLegUp = 1;
+			if (!robotMove) {
+				if (RforeLegUp) {
+					RforeLegUp = 0;
+					RforeLegDown = 1;
+				}
+				else if (!RforeLegUp && LforeLegDown) {
+					RforeLegDown = 0;
+					RforeLegUp = 1;
+				}
 			}
 
 		}
@@ -375,7 +381,16 @@ void display()
 
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glClearColor(0.902, 0.902, 0.980, 1.0);
+	glClearColor(1.000, 0.627, 0.478, 1.0);
+
+	glPushMatrix();
+	if (!perspec) {
+		glTranslatef(0, 0, 17);
+	}
+	bg();
+	glPopMatrix();
+	
+
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, zoomLevel);
 	//glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
@@ -383,11 +398,6 @@ void display()
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
 	glRotatef(yRotated, 0.0, 1.0, 0.0);
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
-	
-	glPointSize(10);
-	glBegin(GL_POINTS);
-	glVertex3f(x, y, z);
-	glEnd();
 
 	goldRT();
 
