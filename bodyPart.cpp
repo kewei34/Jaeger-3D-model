@@ -415,11 +415,6 @@ void swordbody() {
 	glPopMatrix();
 }
 
-void sword() {
-	swordhandle();
-	swordbody();
-
-}
 
 void leftmuscle() {
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
@@ -526,6 +521,8 @@ void bodymuscle() {
 }
 
 void bone() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	//bone
 	glPushMatrix();
 	glTranslatef(0.2, 3.7, -1.3);
@@ -536,6 +533,8 @@ void bone() {
 }
 
 void backbone() {
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
 	//backbone
 	glPushMatrix();
 	glTranslatef(0.2, 2.65, -1.15);
@@ -704,11 +703,17 @@ void spikehammerhandle() {
 	glPopMatrix();
 }
 
-void spikehammer() {
-	spikehammertop();
-	spikehammerhandle();
+void energyBall() {
+	glColor3f(1.000, 0.855, 0.725);
+	glutSolidIcosahedron();
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, jointTex[jointTexNum]);
+	glPushMatrix();
+	glScalef(1.35, 1.35, 1.35);
+	glColor3f(1.000, 0.627, 0.478);
+	glutWireIcosahedron();
+	glPopMatrix();
 }
-
 
 void robot() {
 	
@@ -743,8 +748,6 @@ void robot() {
 		leg();
 		glPopMatrix();
 		
-		sword();
-	//spikehammer();
 }
 
 void changeMTex() {

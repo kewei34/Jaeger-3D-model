@@ -30,6 +30,13 @@ void shoulder();
 
 void upperArm();
 
+void swordhandle();
+
+void swordbody();
+
+void spikehammertop();
+
+void spikehammerhandle();
 
 void body();
 

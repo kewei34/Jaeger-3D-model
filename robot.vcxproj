@@ -149,7 +149,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="hand.cpp" />
-    <ClCompile Include="interactive.cpp" />
     <ClCompile Include="leg.cpp" />
     <ClCompile Include="robot.cpp" />
     <ClCompile Include="scene.cpp" />
