@@ -32,7 +32,7 @@ void restore() {
 
 	lPalmWpAngle = 0, lPalmWp = 0, rPalmWpAngle = 0, rPalmWp = 0, takeSword = 0, takeSH = 0;
 	ebZoomR = 0, ebRtR = 0, ebZoomL = 0, ebRtL = 0, ballAtk = 0;
-	ebR = 0, ebL = 0;	readyL = 0, readyR = 0;
+	ebR = 0, ebL = 0, readyL = 0, readyR = 0;
 	right = 0, left = 0, rightR = 0, leftR = 0;
 }
 

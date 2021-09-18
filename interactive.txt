@@ -6,6 +6,8 @@ Press W to turn front
 Press S to turn back
 --------------------------
 Press Q to walk front
+Press E to walk backward
+
 
 **Camera**
 Press scroll up to zoom in 
@@ -45,6 +47,7 @@ Long press X to charge energy ball and release to shoot(only when arm and palm a
 
 **Other**
 Press spacebar to back to original view and position
+Press 1 to change day or night
 
 **Texture**
 Press T to toggle texture on or off

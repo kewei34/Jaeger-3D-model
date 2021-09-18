@@ -76,7 +76,12 @@ void bg() {
 	glPushMatrix();
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, skyT[skyNum]);
-	glColor3f(0.529, 0.808, 0.980);
+	if (skyNum == 0) {
+		glColor3f(0.529, 0.808, 0.980);
+	}
+	else if (skyNum == 1) {
+		glColor3f(0.098, 0.098, 0.439);
+	}
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, 1.0f);
@@ -99,7 +104,12 @@ void land() {
 	glTranslatef(0, -2, 0);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, landT[landNum]);
-	cuboid(0.196, 0.804, 0.196);
+	if (skyNum == 0) {
+		cuboid(0.196, 0.804, 0.196);
+	}
+	else if (skyNum == 1) {
+	cuboid(0.000, 0.392, 0.000);
+	}
 	glPopMatrix();
 }
 

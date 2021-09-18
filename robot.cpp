@@ -78,8 +78,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			restore();
 			legRestore();
 			restoreHead();
-			robotMove = 0;
-			moveDis = 0;
+			moveDis = 0; robotAngle = 0;
 			LArmUp = 0, LArmDown = 1, LArmnPalmUp = 0, LArmnPalmDown = 1, waveLHand = 0, waveDown = 0;
 
 			liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
@@ -90,7 +89,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			ballAtk = 0, robotMove = 0, robotMoveBack = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
 
 			LforeLegUp = 0, LforeLegDown = 1, RforeLegUp = 0, RforeLegDown = 1;
-			robotAngle = 0;
+			
 		}
 		else if (wParam == 'T') {
 			if (textureOn) {
