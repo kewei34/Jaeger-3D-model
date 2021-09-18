@@ -230,6 +230,7 @@ void wave() {
 
 void waveLHandDown() {
 	lWaveAngle = 0;
+	lForeArmRtY = 0;
 	moveLForeArmnArmDown();
 	
 }
@@ -270,6 +271,7 @@ void LtakeSword() {
 			if (lPalmWpAngle >= 90) {
 				takeSword = 1;
 			}
+			moveLForeArmnArmUp(50);
 		}
 }
 
@@ -281,6 +283,7 @@ void downSword() {
 		moveLForeArmnArmDown();
 		if (lPalmWpAngle == 0) {
 			fingerLRt = 0;
+			lPalmWp = 0;
 		}
 	}
 	
@@ -298,6 +301,7 @@ void RtakeSH() {
 		if (rPalmWpAngle >= 90) {
 			takeSH = 1;
 		}
+		moveRForeArmnArmUp(50);
 	}
 }
 

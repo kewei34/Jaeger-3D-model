@@ -90,5 +90,8 @@
     <Image Include="texture\sky.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="texture\land.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

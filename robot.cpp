@@ -22,7 +22,7 @@
 float lastX = 0.0f, lastY = 0.0f;
 float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
 float xPosition = 0.0f, yPosition = 0.0f, zPosition = 0.05f;
-float zoomLevel = -7.0f;
+float zoomLevel = -10.0f;
 
 //light
 float x = 0.0f, y = 10.0f, z = 10.0f;
@@ -36,7 +36,7 @@ bool liftLArm = 0, downLArm = 0, liftLArmnPalm = 0, downLArmnPalm = 0;
 bool RArmUp = 0, RArmDown = 1, RArmnPalmUp = 0, RArmnPalmDown = 1,waveRHand = 0, waveRDown = 0;
 bool liftRArm = 0, downRArm = 0, liftRArmnPalm = 0, downRArmnPalm = 0;
 
-bool ballAtk = 0, robotMove = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
+bool ballAtk = 0, robotMove = 0, robotMoveBack = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
 
 bool LforeLegUp = 0, LforeLegDown = 1, RforeLegUp = 0, RforeLegDown = 1;
 
@@ -74,7 +74,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 
 		else if(wParam == VK_SPACE) {
 			xRotated = 0.0f; yRotated = 0.0f; zRotated = 0.0f;
-			zoomLevel = -7.0f;
+			zoomLevel = -10.0f;
 			restore();
 			legRestore();
 			restoreHead();
@@ -87,7 +87,7 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			RArmUp = 0, RArmDown = 1, RArmnPalmUp = 0, RArmnPalmDown = 1, waveRHand = 0, waveRDown = 0;
 			liftRArm = 0, downRArm = 0, liftRArmnPalm = 0, downRArmnPalm = 0;
 
-			ballAtk = 0, robotMove = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
+			ballAtk = 0, robotMove = 0, robotMoveBack = 0, takeSwordWp = 0, takeSHWp = 0, downSwordWp = 1, downSHWp = 1;
 
 			LforeLegUp = 0, LforeLegDown = 1, RforeLegUp = 0, RforeLegDown = 1;
 			robotAngle = 0;
@@ -103,6 +103,10 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 			
 		}
+		else if (wParam == '1') {
+			changeBg();
+		}
+
 		else if (wParam == '2') {
 			if (lightOn) {
 				glDisable(GL_LIGHTING);
@@ -183,6 +187,11 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			if (!LforeLegUp && !RforeLegUp) {
 				robotMove = 1;
 			}
+		}
+		else if (wParam == 'E') {
+		if (!LforeLegUp && !RforeLegUp) {
+			robotMoveBack = 1;
+		}
 		}
 		else if (wParam == '5') {
 			if (!liftLArm&&LArmDown && LArmnPalmDown&&!waveLHand && downSwordWp) {
@@ -333,7 +342,7 @@ void display()
 	else {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(-5.0 + zoomLevel, 5.0 - zoomLevel, -5.0 + zoomLevel, 5.0 - zoomLevel, -7.0 + zoomLevel, 3.0 - zoomLevel);
+		glOrtho(-10.0 + zoomLevel, 10.0 - zoomLevel, -10.0 + zoomLevel, 10.0 - zoomLevel, -15.0 + zoomLevel, 5.0 - zoomLevel);
 	}
 
 	glEnable(GL_NORMALIZE);
@@ -372,11 +381,29 @@ void display()
 
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glClearColor(1.000, 0.627, 0.478, 1.0);
+	glClearColor(0.529, 0.808, 0.980, 1.0);
 	
+	glPushMatrix();
+	if (!perspec) {
+		glTranslatef(0, 0, 0.5+zoomLevel);
+		glScalef(30, 30, 0);
+	}
+	else {
+		glTranslatef(0, 0, -20);
+		glScalef(20,20, 0);
+	}
+	bg();
+	glPopMatrix();
+
+
 
 	glPushMatrix();
-	glTranslatef(0.0, 0.0, zoomLevel);
+	if (perspec) {
+		glTranslatef(0.0, 0.0, zoomLevel);
+	}
+	else {
+		glTranslatef(0.0, 0.0, 5+zoomLevel);
+	}
 	//glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
 	glRotatef(xRotated, 1.0, 0.0, 0.0);
@@ -384,6 +411,10 @@ void display()
 	glRotatef(zRotated, 0.0, 0.0, 1.0);
 
 	goldRT();
+	glPushMatrix();
+	glScalef(30, 13, 10);
+	land();
+	glPopMatrix();
 
 	//movement
 	if (liftLArm && LArmDown&& LArmnPalmDown) {
@@ -508,11 +539,17 @@ void display()
 	glPushMatrix();
 	glRotatef(robotAngle, 0, 1, 0);
 	glPushMatrix();
-	if (robotMove) {
+	if (robotMove|| robotMoveBack) {
 		walk();
 		if (moveRobotFront()) {
-			moveDis += 0.5;
-			robotMove = 0;
+			if (robotMoveBack) {
+				moveDis -= 0.5;
+				robotMoveBack = 0;
+			}
+			else {
+				moveDis += 0.5;
+				robotMove = 0;
+			}
 			bool moveBack = moveLegBack();
 			while (!moveBack) {
 				moveBack = moveLegBack();

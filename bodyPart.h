@@ -59,7 +59,11 @@ void changeATex();
 
 void changeJTex();
 
+void changeBg();
+
 void bg();
+
+void land();
 
 void loadTex();
 

@@ -23,11 +23,14 @@ int jointTexNum = 1;
 
 GLuint robotTex[10];
 GLuint jointTex[10];
-GLuint goldTex, ebTex,skyTex;
+GLuint skyT[2];
+GLuint landT[2];
+GLuint goldTex, ebTex,skyTex,skyTex2,landTex2,landTex;
 
 int rt = 0;
 
 float headAngle = 0, headRtX = 0, headRtY = 0;
+int skyNum = 0, landNum = 0;
 
 void goldRT() {
 	rt++;
@@ -56,6 +59,50 @@ GLuint LoadBMP(const char* fileName) {
 	DeleteObject(hBMP);
 	return texture;
 }
+
+void changeBg() {
+	if (skyNum == 0) {
+		skyNum = 1;
+		landNum = 1;
+	}
+	else if (skyNum == 1) {
+		skyNum = 0;
+		landNum = 0;
+	}
+}
+
+void bg() {
+
+	glPushMatrix();
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, skyT[skyNum]);
+	glColor3f(0.529, 0.808, 0.980);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);
+	glEnd();
+	glPopMatrix();
+}
+
+void land() {
+
+	glPushMatrix();
+	glTranslatef(0, 2, 0);
+	glTranslatef(0, -1.35,0);
+	glRotatef(1, 1, 0, 0);
+	glTranslatef(0, -2, 0);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, landT[landNum]);
+	cuboid(0.196, 0.804, 0.196);
+	glPopMatrix();
+}
+
 
 void bone(float boneLength) {
 
@@ -873,6 +920,16 @@ void loadTex() {
 
 	goldTex = LoadBMP("texture/gold.bmp");
 	ebTex = LoadBMP("texture/geb.bmp");
+	skyTex = LoadBMP("texture/sky.bmp");
+	skyTex2 = LoadBMP("texture/sky2.bmp");
+	landTex = LoadBMP("texture/land.bmp");
+	landTex2 = LoadBMP("texture/land2.bmp");
+
+	skyT[0] = skyTex;
+	skyT[1] = skyTex2;
+
+	landT[0] = landTex;
+	landT[1] = landTex2;
 
 	robotTex[1] = metalTex;
 	robotTex[2] = pinkMtTex;
@@ -894,6 +951,11 @@ void delTex() {
 	for (int i = 1; i <= 10; i++) {
 		glDeleteTextures(1, &robotTex[i]);
 		glDeleteTextures(1, &jointTex[i]);
+	}
+
+	for (int i = 0; i <= 1; i++) {
+		glDeleteTextures(1, &skyT[i]);
+		glDeleteTextures(1, &landT[i]);
 	}
 	glDeleteTextures(1, &goldTex);
 	glDeleteTextures(1, &ebTex);

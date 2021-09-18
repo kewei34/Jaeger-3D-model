@@ -168,6 +168,7 @@
     <Image Include="texture\geb.bmp" />
     <Image Include="texture\gold.bmp" />
     <Image Include="texture\joint.bmp" />
+    <Image Include="texture\land.bmp" />
     <Image Include="texture\metal.bmp" />
     <Image Include="texture\pinkMetal.bmp" />
     <Image Include="texture\redMetal.bmp" />
