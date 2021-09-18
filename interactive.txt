@@ -34,13 +34,14 @@ Press > to turn head right
 Press Y to move the left fore legs up or down(only one leg can up at one time)
 Press U to move the right fore legs up or down(only one leg can up at one time)
 
-**Scene**
+**Light**
 press 2 to turn light on or off
+##Light is on top
 
 **Weapon**
 press 3 to equip a sword on left hand 
 press 4 to equip a spike hammer on right hand
-Long press B to charge energy ball and release to shoot(only when arm and palm are lifted-->press 9)
+Long press X to charge energy ball and release to shoot(only when arm and palm are lifted-->press 9)
 
 **Other**
 Press spacebar to back to original view and position
@@ -50,3 +51,4 @@ Press T to toggle texture on or off
 Press J to toggle between metal texture
 Press K to toggle between flame texture
 Press L to toggle between army texture
+Press M to toggle betwenenx joint texture

@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="base.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="bodyPart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="robot.cpp">

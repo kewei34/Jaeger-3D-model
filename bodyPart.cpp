@@ -856,26 +856,6 @@ void changeJTex() {
 	}
 }
 
-void bg() {
-	
-	glPushMatrix();
-	glTranslatef(2, 3, -20);
-	glScalef(20,20, 0);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, skyTex);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(1.0f, 1.0f, 1.0f);
-	glEnd();
-	glPopMatrix();
-}
-
 void loadTex() {
 	GLuint metalTex = LoadBMP("texture/metal.bmp");
 	GLuint pinkMtTex = LoadBMP("texture/pinkMetal.bmp");
@@ -893,8 +873,6 @@ void loadTex() {
 
 	goldTex = LoadBMP("texture/gold.bmp");
 	ebTex = LoadBMP("texture/geb.bmp");
-
-	skyTex = LoadBMP("texture/sky.bmp");
 
 	robotTex[1] = metalTex;
 	robotTex[2] = pinkMtTex;
@@ -917,6 +895,8 @@ void delTex() {
 		glDeleteTextures(1, &robotTex[i]);
 		glDeleteTextures(1, &jointTex[i]);
 	}
+	glDeleteTextures(1, &goldTex);
+	glDeleteTextures(1, &ebTex);
 	
 	
 }

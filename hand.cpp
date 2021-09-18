@@ -28,10 +28,11 @@ void restore() {
 	lPalmRtAngle = 0, lPalmRt = 0, rPalmRtAngle = 0, rPalmRt = 0;
 	lForeArmRtAngle = 0, lForeArmRtX = 0, lForeArmRtY = 0, lWaveAngle = 0, lArmWaveAngle = 0, lArmWave = 0;
 	rForeArmRtAngle = 0, rForeArmRtX = 0, rForeArmRtY = 0, rWaveAngle = 0, rArmWaveAngle = 0, rArmWave = 0;
+	fingerLRtAngle = 0, fingerLRt = 0, fingerRRtAngle = 0, fingerRRt = 0;
 
 	lPalmWpAngle = 0, lPalmWp = 0, rPalmWpAngle = 0, rPalmWp = 0, takeSword = 0, takeSH = 0;
 	ebZoomR = 0, ebRtR = 0, ebZoomL = 0, ebRtL = 0, ballAtk = 0;
-	ebR = 0, ebL = 0;	
+	ebR = 0, ebL = 0;	readyL = 0, readyR = 0;
 	right = 0, left = 0, rightR = 0, leftR = 0;
 }
 
