@@ -150,57 +150,6 @@ void cuboid(float r, float g, float b) {
 	glEnd();
 }
 
-void unfilledPyramid() {
-
-
-	//front
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
-	glColor3f(1, 0, 1);
-	glVertex3f(1.0f, -1.0f, 1.0f);
-	glColor3f(1, 1, 0);
-	glVertex3f(0, 1.0f, 0);
-	glEnd();
-
-	//back
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1.0f, -1.0f, -1.0f);
-	glColor3f(1, 1, 0);
-	glVertex3f(1.0f, -1.0f, -1.0f);
-	glVertex3f(0, 1.0f, 0);
-	glEnd();
-
-	//left
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
-	glColor3f(1, 1, 0);
-	glVertex3f(-1.0f, -1.0f, -1.0f);
-	glVertex3f(0, 1.0f, 0);
-	glEnd();
-
-	//right
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(1.0f, -1.0f, 1.0f);
-	glColor3f(1, 1, 0);
-	glVertex3f(1.0f, -1.0f, -1.0f);
-	glVertex3f(0, 1.0f, 0);
-	glEnd();
-
-	//down
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1, 1, 1);
-	glVertex3f(-1.0f, -1.0f, 1.0f);
-	glColor3f(1, 1, 0);
-	glVertex3f(1.0f, -1.0f, 1.0f);
-	glVertex3f(1.0f, -1.0f, -1.0f);
-	glVertex3f(-1.0f, -1.0f, -1.0f);
-	glEnd();
-}
-
 void cylinder(float height, float topR, float bottomR, float r, float g, float b) {
 
 	GLUquadricObj* cylinder = NULL;
@@ -337,6 +286,7 @@ void shoe() {
 	float b5[] = { 1.28f, 0.2f, -1.0f };
 	float b6[] = { 1.2f, 0.5f, -1.0f };
 
+	glColor3f(0.502, 0.000, 0.0);
 	glBegin(GL_POLYGON);
 	//front
 	glNormal3fv(calculate_normal(f1, f2, f3));

@@ -18,15 +18,6 @@
 
 #define WINDOW_TITLE "OpenGL Window"
 
-//draw curve line
-GLfloat ctrlpoints[3][3] = {
-	{ 6, 4, 0 },{ 4, -2, 0 },{ 0, 1.5, 0 }
-};
-
-GLfloat ctrlpoints2[3][3] = {
-	{ 6, 4, 0 },{ 4, -2, 0 },{ 0, 1.5, 0 }
-};
-
 // mouse movement
 float lastX = 0.0f, lastY = 0.0f;
 float xRotated = 0.0f, yRotated = 0.0f, zRotated = 0.0f;
@@ -259,10 +250,10 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			}
 
 		}
-		else if (wParam == VK_LEFT) {
+		else if (wParam == VK_RIGHT) {
 			turnLeft();
 		}
-		else if (wParam == VK_RIGHT) {
+		else if (wParam == VK_LEFT) {
 			turnRight();
 		}
 		else if (wParam == 'W') {
@@ -382,13 +373,6 @@ void display()
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glClearColor(1.000, 0.627, 0.478, 1.0);
-
-	glPushMatrix();
-	if (!perspec) {
-		glTranslatef(0, 0, 17);
-	}
-	bg();
-	glPopMatrix();
 	
 
 	glPushMatrix();
@@ -597,8 +581,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmdShow)
 	glEnable(GL_DEPTH_TEST);
 	/*glEnable(GL_STENCIL_TEST);*/
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 3, &ctrlpoints[0][0]);
-	glEnable(GL_MAP1_VERTEX_3);
+
 
 	glEnable(GL_TEXTURE_2D);
 
